@@ -1,4 +1,4 @@
-import hamidPhoto from '../assets/hamid.png'
+import hamidPhoto from '../assets/hamid.jpg'
 
 const credentials = [
   { label: 'Pengalaman', value: '8+ tahun' },
