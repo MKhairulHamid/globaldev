@@ -27,17 +27,19 @@ export default function RegisterPage() {
     setError(null)
 
     // Save lead before auth — ensures data is captured even if signup fails
-    const { data, error: err } = await supabase
-      .from('leads')
-      .insert({ full_name: fullName.trim(), phone: phone.trim(), background: background!, occupation: occupation.trim() || null, goals: goals.trim() })
-      .select('id')
-      .single()
+    const { data, error: err } = await supabase.rpc('save_lead', {
+      p_full_name: fullName.trim(),
+      p_phone: phone.trim(),
+      p_background: background!,
+      p_occupation: occupation.trim() || null,
+      p_goals: goals.trim(),
+    })
 
     if (err) {
       // Don't block — just log and continue
       console.warn('Lead save failed:', err.message)
     } else {
-      setLeadId(data.id)
+      setLeadId(data as string)
     }
 
     setLoading(false)
@@ -51,13 +53,13 @@ export default function RegisterPage() {
 
     // Update lead with email first (before auth attempt)
     if (leadId) {
-      await supabase.from('leads').update({ email: email.trim() }).eq('id', leadId)
+      await supabase.rpc('link_lead', { p_lead_id: leadId, p_email: email.trim() })
     }
 
     const { data: authData, error: authErr } = await supabase.auth.signUp({
       email: email.trim(),
       password,
-      options: { emailRedirectTo: window.location.origin },
+      options: { emailRedirectTo: `${window.location.origin}/dashboard` },
     })
 
     if (authErr) {
@@ -79,7 +81,7 @@ export default function RegisterPage() {
 
       // Link lead to user
       if (leadId) {
-        await supabase.from('leads').update({ user_id: authData.user.id }).eq('id', leadId)
+        await supabase.rpc('link_lead', { p_lead_id: leadId, p_user_id: authData.user.id })
       }
     }
 
@@ -88,18 +90,22 @@ export default function RegisterPage() {
   }
 
   async function handleGoogle() {
-    // Save partial lead before OAuth (no email yet)
-    if (step === 1 && fullName && phone && background && goals) {
-      const { data } = await supabase
-        .from('leads')
-        .insert({ full_name: fullName.trim(), phone: phone.trim(), background, occupation: occupation.trim() || null, goals: goals.trim() })
-        .select('id')
-        .single()
-      if (data) sessionStorage.setItem('lead_id', data.id)
+    // Save lead before OAuth (no email yet) — reuse leadId from step 1 if present
+    let id = leadId
+    if (!id && fullName && phone && background && goals) {
+      const { data } = await supabase.rpc('save_lead', {
+        p_full_name: fullName.trim(),
+        p_phone: phone.trim(),
+        p_background: background,
+        p_occupation: occupation.trim() || null,
+        p_goals: goals.trim(),
+      })
+      if (data) id = data as string
     }
+    if (id) sessionStorage.setItem('lead_id', id)
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin },
+      options: { redirectTo: `${window.location.origin}/dashboard` },
     })
   }
 

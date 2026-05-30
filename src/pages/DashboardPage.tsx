@@ -28,13 +28,14 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function load() {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { session } } = await supabase.auth.getSession()
+      const user = session?.user
       if (!user) { navigate('/auth'); return }
 
       // Link lead saved before Google OAuth
       const storedLeadId = sessionStorage.getItem('lead_id')
       if (storedLeadId) {
-        await supabase.from('leads').update({ user_id: user.id }).eq('id', storedLeadId)
+        await supabase.rpc('link_lead', { p_lead_id: storedLeadId, p_user_id: user.id })
         sessionStorage.removeItem('lead_id')
       }
 
