@@ -171,16 +171,16 @@ function Ad1() {
         Global Developer Academy
       </div>
       <div style={{ animation: a('a1-h1'), color: '#fff', fontSize: 34, fontWeight: 900, textAlign: 'center', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 2 }}>
-        Dari Nol ke
+        Skill Tech-mu,
       </div>
       <div style={{ animation: a('a1-h2'), color: '#f97316', fontSize: 44, fontWeight: 900, textAlign: 'center', lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 32 }}>
-        Developer
+        Nilai Jualmu.
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32, width: '100%' }}>
         {[
-          { an: a('a1-b1'), text: 'Full Stack Web Development' },
-          { an: a('a1-b2'), text: 'Proyek nyata & mentorship langsung' },
-          { an: a('a1-b3'), text: 'Siap kerja dalam 6 minggu' },
+          { an: a('a1-b1'), text: 'Full Stack Web — dari nol sampai deploy' },
+          { an: a('a1-b2'), text: 'Mentorship 1-on-1 dari engineer aktif' },
+          { an: a('a1-b3'), text: 'Portofolio nyata, langsung siap apply' },
         ].map(({ an, text }) => (
           <div key={text} style={{ animation: an, display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f97316', flexShrink: 0, display: 'inline-block' }} />
@@ -194,7 +194,7 @@ function Ad1() {
         borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 800, cursor: 'default',
         pointerEvents: 'none',
       }}>
-        Daftar Sekarang →
+        Daftar Cohort Juni →
       </button>
       <div style={{ animation: a('a1-cta'), color: '#555', fontSize: 11, marginTop: 14 }}>
         globaldev.id
@@ -235,10 +235,10 @@ function Ad2() {
       </pre>
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
         <div style={{ animation: a('a2-label'), color: '#fbbf24', fontSize: 10, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 14 }}>
-          Kuasai Tech Stack
+          Masuk Industri Tech
         </div>
-        <div style={{ animation: a('a2-h'), color: '#fff', fontSize: 26, fontWeight: 900, textAlign: 'center', lineHeight: 1.2, marginBottom: 28 }}>
-          Dari Kode Pertama{'\n'}ke Karir Nyata
+        <div style={{ animation: a('a2-h'), color: '#fff', fontSize: 24, fontWeight: 900, textAlign: 'center', lineHeight: 1.2, marginBottom: 28 }}>
+          Bukan Kursus Biasa.{'\n'}Ini Akselerator Karir.
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 24 }}>
           {badge('HTML & CSS', '#fbbf24', a('a2-b1'))}
@@ -247,7 +247,7 @@ function Ad2() {
           {badge('TypeScript', '#a78bfa', a('a2-b4'))}
         </div>
         <div style={{ animation: a('a2-sub'), color: '#9ca3af', fontSize: 13, textAlign: 'center', lineHeight: 1.65, marginBottom: 28 }}>
-          Mentorship intensif 6 minggu{'\n'}untuk karir barumu di tech
+          Diajar langsung engineer aktif di industri.{'\n'}6 minggu serius, langsung bisa ngelamar.
         </div>
         <div style={{ animation: a('a2-cta'), color: '#fbbf24', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center' }}>
           → globaldev.id
@@ -278,13 +278,13 @@ function Ad3() {
         borderRadius: 99, padding: '5px 16px', marginBottom: 24,
         color: '#f97316', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase',
       }}>
-        Pendaftaran Dibuka
-      </div>
-      <div style={{ animation: a('a3-heading'), color: '#fff', fontSize: 32, fontWeight: 900, textAlign: 'center', lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: 6 }}>
         Cohort Juni 2026
       </div>
+      <div style={{ animation: a('a3-heading'), color: '#fff', fontSize: 36, fontWeight: 900, textAlign: 'center', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 6 }}>
+        Hampir Penuh.
+      </div>
       <div style={{ animation: a('a3-heading'), color: '#f97316', fontSize: 20, fontWeight: 800, textAlign: 'center', marginBottom: 32 }}>
-        Kursi Terbatas!
+        Daftar Sekarang.
       </div>
       <div style={{
         animation: a('a3-seats'),
@@ -298,11 +298,11 @@ function Ad3() {
         }} />
       </div>
       <div style={{ animation: a('a3-seats'), width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
-        <span style={{ color: '#6b7280', fontSize: 12 }}>Kursi tersisa</span>
-        <span style={{ color: '#f87171', fontSize: 12, fontWeight: 700 }}>22 / 30 terisi</span>
+        <span style={{ color: '#f87171', fontSize: 12, fontWeight: 700 }}>8 kursi tersisa</span>
+        <span style={{ color: '#6b7280', fontSize: 12 }}>22 / 30 terisi</span>
       </div>
       <div style={{ animation: a('a3-urgency'), color: '#fef3c7', fontSize: 14, textAlign: 'center', lineHeight: 1.7, marginBottom: 28 }}>
-        Jangan lewatkan kesempatan{'\n'}memulai karir IT-mu sekarang.
+        Yang duluan daftar,{'\n'}yang dapat tempatnya.{'\n'}Setelah penuh, kami tutup.
       </div>
       <button style={{
         animation: `${a('a3-cta')}, ${a('a3-flash')}`,
@@ -310,7 +310,7 @@ function Ad3() {
         padding: '15px', fontSize: 16, fontWeight: 900, cursor: 'default',
         background: '#f97316', color: '#fff', pointerEvents: 'none',
       }}>
-        Daftar Sekarang →
+        Amankan Kursimu →
       </button>
     </div>
   )
