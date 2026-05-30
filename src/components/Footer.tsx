@@ -5,7 +5,10 @@ export default function Footer() {
     <footer style={{ padding: '80px 0 48px', borderTop: '1px solid #252525' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'end', marginBottom: '64px' }}>
         <div>
-          <p style={{ color: '#555', fontSize: '13px', marginBottom: '16px' }}>Global Developer Academy</p>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <img src="/logo.svg" alt="Global Developer Academy" width={28} height={28} />
+            <p style={{ color: '#888', fontSize: '13px', margin: 0 }}>Global Developer Academy</p>
+          </span>
           <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '24px', lineHeight: 1.2 }}>
             Masih ada tempat.<br />Mulai 10 Juni.
           </h2>
