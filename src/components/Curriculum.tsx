@@ -30,7 +30,7 @@ const sessions = [
   {
     week: 'Minggu 5 — Deploy dan polish',
     items: [
-      { n: '09', date: 'Kamis, 9 Juli 2026', title: 'Polish UI dan problem solving dengan AI', desc: 'Perbaiki tampilan, tangani edge case, dan pelajari cara pakai AI untuk problem solving bukan cuma generate kode.' },
+      { n: '09', date: 'Jumat, 10 Juli 2026', title: 'Polish UI dan problem solving dengan AI', desc: 'Perbaiki tampilan, tangani edge case, dan pelajari cara pakai AI untuk problem solving bukan cuma generate kode.' },
       { n: '10', date: 'Selasa, 14 Juli 2026', title: 'Deploy, custom domain, dan review', desc: 'Aplikasi live. Setting custom domain sendiri. Review proyek bersama dan roadmap belajar selanjutnya sebagai developer di era AI.' },
     ],
   },

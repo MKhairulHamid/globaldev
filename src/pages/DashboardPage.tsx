@@ -16,7 +16,7 @@ const SCHEDULE = [
   { n: '06', date: 'Selasa, 30 Juni 2026' },
   { n: '07', date: 'Kamis, 2 Juli 2026' },
   { n: '08', date: 'Selasa, 7 Juli 2026' },
-  { n: '09', date: 'Kamis, 9 Juli 2026' },
+  { n: '09', date: 'Jumat, 10 Juli 2026' },
   { n: '10', date: 'Selasa, 14 Juli 2026' },
 ]
 
