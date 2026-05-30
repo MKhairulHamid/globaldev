@@ -264,12 +264,18 @@ export default function DashboardPage() {
         {registration?.payment_status === 'waiting_confirmation' && (
           <div style={{ textAlign: 'center', paddingTop: '40px' }}>
             <div style={{ fontSize: '48px', marginBottom: '24px' }}>⏳</div>
-            <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>Transfer diterima, menunggu konfirmasi</h1>
-            <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '8px' }}>
-              Kami akan konfirmasi pembayaran kamu dalam 1×24 jam kerja.
+            <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>Menunggu kami cek pembayaranmu</h1>
+            <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '20px' }}>
+              Terima kasih sudah konfirmasi. Kami akan cek mutasi rekening dan memverifikasi pembayaranmu dalam 1×24 jam kerja.
             </p>
+            <div style={{ background: 'rgba(249,115,22,0.08)', border: '1px solid rgba(249,115,22,0.25)', borderRadius: '12px', padding: '16px 20px', marginBottom: '20px', textAlign: 'left' }}>
+              <p style={{ color: '#f97316', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>⚠️ Simpan bukti transfermu</p>
+              <p style={{ color: '#a3a3a3', fontSize: '13px', lineHeight: 1.6 }}>
+                Jangan hapus dulu bukti transfernya sampai pembayaranmu kami konfirmasi. Kalau ada yang perlu dicek, kami mungkin meminta buktinya lewat WhatsApp.
+              </p>
+            </div>
             <p style={{ color: '#666', fontSize: '14px', marginBottom: '32px' }}>
-              Jumlah transfer: <strong style={{ color: '#f97316' }}>{registration?.unique_amount ? formatAmount(registration.unique_amount) : ''}</strong>
+              Jumlah yang kamu transfer: <strong style={{ color: '#f97316' }}>{registration?.unique_amount ? formatAmount(registration.unique_amount) : ''}</strong>
             </p>
             <a
               href={WA_URL}
