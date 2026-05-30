@@ -5,7 +5,7 @@ const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 export default function Footer() {
   return (
     <footer style={{ padding: '80px 0 48px', borderTop: '1px solid #252525' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'end', marginBottom: '64px' }}>
+      <div className="g2" style={{ gap: '48px', alignItems: 'end', marginBottom: '64px' }}>
         <div>
           <div style={{ marginBottom: '16px' }}>
             <Logo height={22} />

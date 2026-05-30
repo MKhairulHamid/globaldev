@@ -7,7 +7,10 @@ export default function Hero() {
     <section style={{ paddingTop: '48px', paddingBottom: '80px' }}>
       {/* Nav */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '72px' }}>
-        <Logo height={26} />
+        <span className="logo-full"><Logo height={26} /></span>
+        <span className="logo-short" style={{ display: 'none', alignItems: 'center', gap: '8px' }}>
+          <Logo height={26} />
+        </span>
         <a
           href={REGISTER_URL}
           target="_blank"

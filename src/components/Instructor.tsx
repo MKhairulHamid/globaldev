@@ -9,27 +9,31 @@ const credentials = [
 
 export default function Instructor() {
   return (
-    <section style={{ padding: '80px 0', borderTop: '1px solid #252525' }}>
+    <section className="section">
       <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '40px' }}>Instruktur</p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px' }}>
+      <div className="g2" style={{ gap: '48px' }}>
         {/* Left */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
             <img
               src={hamidPhoto}
               alt="M. Khairul Hamid"
-              style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2a2a2a' }}
+              loading="lazy"
+              decoding="async"
+              width={72}
+              height={72}
+              style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2a2a2a', flexShrink: 0 }}
             />
             <div>
-              <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '4px' }}>
+              <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '4px' }}>
                 M. Khairul Hamid
               </h2>
               <a
                 href="https://www.linkedin.com/in/mkhairulhamid/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: '#666', fontSize: '13px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                style={{ color: '#666', fontSize: '13px', textDecoration: 'none' }}
               >
                 LinkedIn ↗
               </a>
@@ -49,11 +53,11 @@ export default function Instructor() {
             , platform e-learning live pakai React dan Supabase yang sekarang sudah ada penggunanya.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div className="g2-fixed" style={{ gap: '10px' }}>
             {credentials.map((c) => (
-              <div key={c.label} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '16px' }}>
-                <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>{c.label}</p>
-                <p style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '14px' }}>{c.value}</p>
+              <div key={c.label} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '14px 16px' }}>
+                <p style={{ color: '#666', fontSize: '11px', marginBottom: '4px' }}>{c.label}</p>
+                <p style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '13px' }}>{c.value}</p>
               </div>
             ))}
           </div>
@@ -68,9 +72,9 @@ export default function Instructor() {
               { label: 'Enterprise HR SaaS', note: '150+ negara' },
               { label: 'Telekomunikasi Fortune 500', note: 'Indonesia' },
             ].map((c) => (
-              <div key={c.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '16px 20px' }}>
+              <div key={c.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '14px 18px', gap: '12px' }}>
                 <span style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '14px' }}>{c.label}</span>
-                <span style={{ color: '#666', fontSize: '13px' }}>{c.note}</span>
+                <span style={{ color: '#666', fontSize: '12px', flexShrink: 0 }}>{c.note}</span>
               </div>
             ))}
           </div>
@@ -84,7 +88,7 @@ export default function Instructor() {
               </div>
               <span style={{ color: '#666', fontSize: '18px' }}>↗</span>
             </a>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {['React', 'TypeScript', 'Supabase'].map((t) => (
                 <span key={t} style={{ fontSize: '12px', background: 'rgba(249,115,22,0.12)', color: '#f97316', padding: '4px 10px', borderRadius: '6px' }}>{t}</span>
               ))}

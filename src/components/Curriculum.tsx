@@ -38,7 +38,7 @@ const sessions = [
 
 export default function Curriculum() {
   return (
-    <section id="kurikulum" style={{ padding: '80px 0', borderTop: '1px solid #252525' }}>
+    <section id="kurikulum" className="section">
       <div style={{ marginBottom: '56px' }}>
         <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Kurikulum</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '12px' }}>
@@ -53,7 +53,7 @@ export default function Curriculum() {
         {sessions.map((week) => (
           <div key={week.week}>
             <p style={{ color: '#555', fontSize: '13px', fontWeight: 500, marginBottom: '16px' }}>{week.week}</p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div className="g2" style={{ gap: '12px' }}>
               {week.items.map((item) => (
                 <div key={item.n} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '14px', padding: '24px' }}>
                   <p style={{ color: '#555', fontSize: '12px', fontFamily: 'monospace', marginBottom: '12px' }}>Sesi {item.n}</p>

@@ -1,10 +1,6 @@
 @import "tailwindcss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -12,3 +8,53 @@ body {
   color: #e5e5e5;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ── Responsive grid utilities ───────────────────────────── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; }
+.g3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+.g2-fixed { display: grid; grid-template-columns: 1fr 1fr; } /* stays 2-col */
+
+@media (max-width: 768px) {
+  .g2 { grid-template-columns: 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .g2, .g3 { grid-template-columns: 1fr; }
+  .g2-fixed { grid-template-columns: 1fr 1fr; }
+  .logo-full { display: none; }
+  .logo-short { display: flex !important; }
+}
+
+@media (min-width: 481px) {
+  .logo-short { display: none !important; }
+}
+
+/* ── Section spacing ─────────────────────────────────────── */
+.section {
+  padding: 80px 0;
+  border-top: 1px solid #252525;
+}
+
+@media (max-width: 768px) {
+  .section { padding: 56px 0; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 40px 0; }
+}
+
+/* ── Typography scale ────────────────────────────────────── */
+.h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 480px) {
+  .h2 { font-size: 26px; }
+}
+
+/* ── Prose max-width ─────────────────────────────────────── */
+.prose { max-width: 600px; }

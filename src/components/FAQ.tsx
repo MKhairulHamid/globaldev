@@ -31,7 +31,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section style={{ padding: '80px 0', borderTop: '1px solid #252525' }}>
+    <section className="section">
       <div style={{ maxWidth: '680px' }}>
         <div style={{ marginBottom: '56px' }}>
           <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>FAQ</p>

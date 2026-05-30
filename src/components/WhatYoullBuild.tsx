@@ -11,7 +11,7 @@ const features = [
 
 export default function WhatYoullBuild() {
   return (
-    <section style={{ padding: '80px 0', borderTop: '1px solid #252525' }}>
+    <section className="section">
       <div style={{ marginBottom: '48px' }}>
         <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Yang akan kamu bangun</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: '16px' }}>
@@ -24,7 +24,7 @@ export default function WhatYoullBuild() {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
+      <div className="g2" style={{ gap: '12px', marginBottom: '32px' }}>
         {features.map((f) => (
           <div key={f.title} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '14px', padding: '22px 24px', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
             <span style={{ fontSize: '22px', flexShrink: 0, marginTop: '2px' }}>{f.icon}</span>

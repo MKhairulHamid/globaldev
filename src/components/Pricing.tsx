@@ -11,7 +11,7 @@ const includes = [
 
 export default function Pricing() {
   return (
-    <section style={{ padding: '80px 0', borderTop: '1px solid #252525' }}>
+    <section className="section">
       <div style={{ marginBottom: '56px' }}>
         <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Harga</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>
@@ -19,7 +19,7 @@ export default function Pricing() {
         </h2>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
+      <div className="g2" style={{ gap: '40px', alignItems: 'start' }}>
         <div>
           <div style={{ marginBottom: '32px' }}>
             <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>Biaya ikut bootcamp</p>
