@@ -2,10 +2,10 @@ const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 
 export default function Footer() {
   return (
-    <footer style={{ padding: '80px 0 48px', borderTop: '1px solid #1f1f1f' }}>
+    <footer style={{ padding: '80px 0 48px', borderTop: '1px solid #252525' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'end', marginBottom: '64px' }}>
         <div>
-          <p style={{ color: '#444', fontSize: '13px', marginBottom: '16px' }}>Global Developer Academy</p>
+          <p style={{ color: '#555', fontSize: '13px', marginBottom: '16px' }}>Global Developer Academy</p>
           <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '24px', lineHeight: 1.2 }}>
             Masih ada tempat.<br />Mulai 10 Juni.
           </h2>
@@ -20,14 +20,14 @@ export default function Footer() {
         </div>
 
         <div style={{ textAlign: 'right' }}>
-          <div style={{ color: '#444', fontSize: '14px', lineHeight: 2 }}>
-            <p>8 sesi live · 4 minggu · React + Supabase</p>
+          <div style={{ color: '#555', fontSize: '14px', lineHeight: 2.2 }}>
+            <p>8 sesi live · 4 minggu · React dan Supabase</p>
             <p>Rp 699.000 · Hanya 20 kursi</p>
           </div>
         </div>
       </div>
 
-      <p style={{ color: '#2a2a2a', fontSize: '13px' }}>© 2026 Global Developer Academy</p>
+      <p style={{ color: '#333', fontSize: '13px' }}>© 2026 Global Developer Academy</p>
     </footer>
   )
 }

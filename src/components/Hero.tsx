@@ -18,20 +18,21 @@ export default function Hero() {
 
       {/* Badge */}
       <div style={{ marginBottom: '32px' }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', fontSize: '13px', color: '#a3a3a3', padding: '6px 16px', borderRadius: '999px' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f97316' }} />
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)', fontSize: '13px', color: '#b3b3b3', padding: '6px 16px', borderRadius: '999px' }}>
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f97316', flexShrink: 0 }} />
           Mulai 10 Juni 2026 · Hanya 20 kursi
         </span>
       </div>
 
       {/* Headline */}
       <h1 style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '24px', maxWidth: '800px' }}>
-        Dari fresh graduate ke full stack developer, dalam 4 minggu.
+        Mulai dari nol. Selesai dengan aplikasi live yang siap masuk CV.
       </h1>
 
-      <p style={{ color: '#737373', fontSize: '18px', maxWidth: '560px', lineHeight: 1.7, marginBottom: '40px' }}>
-        Belajar langsung dari engineer yang kerja remote di Australia. 8 sesi live,
-        project nyata, dan kamu pulang dengan aplikasi yang bisa langsung ditunjukkan ke rekruiter.
+      <p style={{ color: '#a3a3a3', fontSize: '18px', maxWidth: '560px', lineHeight: 1.75, marginBottom: '40px' }}>
+        8 sesi live bareng engineer yang kerja remote di Australia.
+        Kita bangun platform lowongan kerja dari nol sampai deploy,
+        pakai React, TypeScript, dan Supabase.
       </p>
 
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -45,14 +46,14 @@ export default function Hero() {
         </a>
         <a
           href="#kurikulum"
-          style={{ color: '#737373', fontSize: '16px', textDecoration: 'none' }}
+          style={{ color: '#a3a3a3', fontSize: '16px', textDecoration: 'none' }}
         >
           Lihat kurikulum →
         </a>
       </div>
 
       {/* Trust bar */}
-      <div style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexWrap: 'wrap', gap: '24px', color: '#525252', fontSize: '14px' }}>
+      <div style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid #252525', display: 'flex', flexWrap: 'wrap', gap: '24px', color: '#666', fontSize: '14px' }}>
         <span>8 sesi live via Google Meet</span>
         <span>·</span>
         <span>Komunitas Discord</span>
