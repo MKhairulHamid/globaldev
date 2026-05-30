@@ -1,6 +1,6 @@
 import Logo from './Logo'
 
-const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
+const REGISTER_URL = '/#/auth'
 
 export default function Hero() {
   return (
