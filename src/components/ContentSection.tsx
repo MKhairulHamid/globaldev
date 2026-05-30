@@ -197,7 +197,7 @@ function Ad1() {
         Daftar Cohort Juni →
       </button>
       <div style={{ animation: a('a1-cta'), color: '#555', fontSize: 11, marginTop: 14 }}>
-        globaldev.id
+        globaldev.sbs
       </div>
     </div>
   )
@@ -250,7 +250,7 @@ function Ad2() {
           Diajar langsung engineer aktif di industri.{'\n'}6 minggu serius, langsung bisa ngelamar.
         </div>
         <div style={{ animation: a('a2-cta'), color: '#fbbf24', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center' }}>
-          → globaldev.id
+          → globaldev.sbs
           <span style={{
             animation: a('a2-cursor'),
             display: 'inline-block', width: 2, height: 16,
