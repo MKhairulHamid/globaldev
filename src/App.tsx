@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { supabase } from './lib/supabase'
+import Loader from './components/Loader'
 import Hero from './components/Hero'
 import Instructor from './components/Instructor'
 import WhatYoullBuild from './components/WhatYoullBuild'
@@ -17,17 +18,24 @@ import AdminPage from './pages/AdminPage'
 
 function LandingPage() {
   const navigate = useNavigate()
+  const [checking, setChecking] = useState(true)
 
   // Any logged-in visitor (or auth callback) is forwarded to the dashboard.
+  // Show the loader until we know there is no session (then reveal landing).
   useEffect(() => {
     let done = false
     const go = (session: unknown) => {
       if (session && !done) { done = true; navigate('/dashboard', { replace: true }) }
     }
-    supabase.auth.getSession().then(({ data: { session } }) => go(session))
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) go(session)
+      else setChecking(false)
+    })
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => go(session))
     return () => subscription.unsubscribe()
   }, [navigate])
+
+  if (checking) return <Loader />
 
   return (
     <div className="min-h-screen text-white" style={{ background: '#0a0a0a' }}>

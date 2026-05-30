@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { Profile, Registration } from '../types'
 import Logo from '../components/Logo'
+import Loader from '../components/Loader'
 import WhatsAppButton from '../components/WhatsAppButton'
 
 const WA_URL = 'https://wa.me/628111330130'
@@ -145,11 +146,7 @@ export default function DashboardPage() {
     outline: 'none',
   }
 
-  if (loading) return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <span style={{ color: '#555', fontSize: '14px' }}>Memuat...</span>
-    </div>
-  )
+  if (loading) return <Loader />
 
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#e5e5e5' }}>
