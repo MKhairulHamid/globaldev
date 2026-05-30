@@ -18,15 +18,8 @@ import AdminPage from './pages/AdminPage'
 function LandingPage() {
   const navigate = useNavigate()
 
-  // If we arrived here from an auth callback (OAuth or email confirm),
-  // Supabase puts a token in the URL. Forward to the dashboard once the
-  // session is established. Normal logged-in visits are NOT redirected.
+  // Any logged-in visitor (or auth callback) is forwarded to the dashboard.
   useEffect(() => {
-    const hasOAuthMarker =
-      window.location.hash.includes('access_token') ||
-      new URLSearchParams(window.location.search).has('code')
-    if (!hasOAuthMarker) return
-
     let done = false
     const go = (session: unknown) => {
       if (session && !done) { done = true; navigate('/dashboard', { replace: true }) }
