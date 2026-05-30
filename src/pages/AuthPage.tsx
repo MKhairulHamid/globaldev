@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import Logo from '../components/Logo'
@@ -14,6 +14,17 @@ export default function AuthPage() {
   const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null)
   const navigate = useNavigate()
 
+  // Redirect to dashboard if session already exists (handles OAuth callback)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) navigate('/dashboard')
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) navigate('/dashboard')
+    })
+    return () => subscription.unsubscribe()
+  }, [navigate])
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
@@ -23,7 +34,7 @@ export default function AuthPage() {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/#/dashboard` },
+        options: { emailRedirectTo: window.location.origin },
       })
       if (error) {
         setMessage({ type: 'error', text: error.message })
@@ -48,7 +59,7 @@ export default function AuthPage() {
     setGoogleLoading(true)
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/#/dashboard` },
+      options: { redirectTo: window.location.origin },
     })
     if (error) {
       setMessage({ type: 'error', text: error.message })
