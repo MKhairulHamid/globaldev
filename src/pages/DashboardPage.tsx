@@ -31,6 +31,16 @@ export default function DashboardPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { navigate('/auth'); return }
 
+      // Link lead saved before Google OAuth
+      const storedLeadId = sessionStorage.getItem('lead_id')
+      if (storedLeadId) {
+        await supabase.from('leads').update({ user_id: user.id }).eq('id', storedLeadId)
+        sessionStorage.removeItem('lead_id')
+      }
+
+      // Ensure profile row exists (fallback if trigger failed)
+      await supabase.from('profiles').upsert({ id: user.id }, { onConflict: 'id', ignoreDuplicates: true })
+
       const { data: p } = await supabase.from('profiles').select('*').eq('id', user.id).single()
       if (p) {
         setProfile(p)

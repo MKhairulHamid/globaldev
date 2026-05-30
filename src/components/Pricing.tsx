@@ -1,4 +1,4 @@
-const REGISTER_URL = '/auth'
+const REGISTER_URL = '/register'
 
 const includes = [
   '10 sesi live via Google Meet, total sekitar 20 jam',

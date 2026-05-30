@@ -1,6 +1,6 @@
 import Logo from './Logo'
 
-const REGISTER_URL = '/auth'
+const REGISTER_URL = '/register'
 
 export default function Footer() {
   return (
