@@ -56,10 +56,11 @@ export default function AdminPage() {
   }, [navigate])
 
   async function fetchRows() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('registrations')
-      .select('*, profiles(*)')
+      .select('*, profiles!registrations_user_id_fkey(*)')
       .order('created_at', { ascending: false })
+    if (error) { console.error('Admin fetch error:', error.message); return }
     if (data) setRows(data as Row[])
   }
 
