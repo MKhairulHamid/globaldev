@@ -1,8 +1,4 @@
-const companies = [
-  { name: 'Liven Group', note: 'Australia · 35.000+ venues' },
-  { name: 'Bipo Service', note: '150+ negara · HR SaaS' },
-  { name: 'Telkom Indonesia', note: 'Fortune Global 500' },
-]
+import hamidPhoto from '../assets/hamid.png'
 
 const credentials = [
   { label: 'Pengalaman', value: '8+ tahun' },
@@ -19,12 +15,30 @@ export default function Instructor() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px' }}>
         {/* Left */}
         <div>
-          <h2 style={{ fontSize: '36px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '16px' }}>
-            M. Khairul Hamid
-          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
+            <img
+              src={hamidPhoto}
+              alt="M. Khairul Hamid"
+              style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2a2a2a' }}
+            />
+            <div>
+              <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '4px' }}>
+                M. Khairul Hamid
+              </h2>
+              <a
+                href="https://www.linkedin.com/in/mkhairulhamid/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#666', fontSize: '13px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                LinkedIn ↗
+              </a>
+            </div>
+          </div>
+
           <p style={{ color: '#a3a3a3', fontSize: '16px', lineHeight: 1.75, marginBottom: '16px' }}>
-            Saya Hamid, engineer yang kerja remote dari Indonesia buat perusahaan di Australia.
-            Delapan tahun nulis kode, dari startup lokal sampai sistem yang dipakai di 150 negara lebih.
+            Saya Hamid, engineer yang kerja remote dari Indonesia buat perusahaan teknologi di Australia.
+            Delapan tahun nulis kode, dari startup lokal sampai sistem enterprise yang dipakai jutaan pengguna di puluhan negara.
           </p>
           <p style={{ color: '#a3a3a3', fontSize: '16px', lineHeight: 1.75, marginBottom: '32px' }}>
             Stack yang kita pakai di bootcamp ini persis sama dengan yang saya pakai setiap hari di kerjaan.
@@ -47,11 +61,15 @@ export default function Instructor() {
 
         {/* Right */}
         <div>
-          <p style={{ color: '#666', fontSize: '13px', marginBottom: '12px' }}>Pernah bekerja di</p>
+          <p style={{ color: '#666', fontSize: '13px', marginBottom: '12px' }}>Pengalaman industri</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
-            {companies.map((c) => (
-              <div key={c.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '16px 20px' }}>
-                <span style={{ color: '#e5e5e5', fontWeight: 600 }}>{c.name}</span>
+            {[
+              { label: 'Hospitality tech global', note: 'Australia · 3 benua' },
+              { label: 'Enterprise HR SaaS', note: '150+ negara' },
+              { label: 'Telekomunikasi Fortune 500', note: 'Indonesia' },
+            ].map((c) => (
+              <div key={c.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '16px 20px' }}>
+                <span style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '14px' }}>{c.label}</span>
                 <span style={{ color: '#666', fontSize: '13px' }}>{c.note}</span>
               </div>
             ))}

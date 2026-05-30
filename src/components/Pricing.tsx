@@ -3,7 +3,7 @@ const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 const includes = [
   '10 sesi live via Google Meet, sekitar 20 jam total',
   'Akses komunitas Discord khusus peserta',
-  'Source code lengkap proyek Job Listing App',
+  'Source code lengkap proyek yang kamu bangun',
   'Rekaman sesi untuk yang tidak bisa hadir',
   'Code review dan feedback langsung dari instruktur',
   'Sertifikat penyelesaian bootcamp',

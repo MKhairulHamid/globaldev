@@ -9,7 +9,7 @@ const sessions = [
   {
     week: 'Minggu 2 — Backend dengan Supabase',
     items: [
-      { n: '03', title: 'Setup Supabase dan rancang database', desc: 'Buat project Supabase, rancang tabel jobs dan employers dari kebutuhan nyata aplikasi.' },
+      { n: '03', title: 'Setup Supabase dan rancang database', desc: 'Buat project Supabase, rancang schema tabel sesuai kebutuhan proyek yang kamu pilih.' },
       { n: '04', title: 'Sambungkan React ke database', desc: 'Fetch, insert, update, delete. Kamu kontrol semua data dari React langsung ke Supabase.' },
     ],
   },
