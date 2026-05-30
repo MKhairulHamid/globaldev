@@ -29,8 +29,6 @@ export default function Pricing() {
 
           <a
             href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             style={{ display: 'block', background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '16px 32px', borderRadius: '12px', textAlign: 'center', textDecoration: 'none', marginBottom: '12px' }}
           >
             Daftar Sekarang

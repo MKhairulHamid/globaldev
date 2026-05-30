@@ -15,8 +15,6 @@ export default function Footer() {
           </h2>
           <a
             href={REGISTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             style={{ display: 'inline-block', background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
           >
             Daftar Sekarang
