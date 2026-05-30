@@ -1,7 +1,8 @@
 const forYou = [
   'Fresh graduate IT yang mau mulai karier sebagai web developer',
+  'Profesional non-IT yang ingin bangun web untuk bisnis atau bidang kerjanya sendiri',
   'Sudah paham dasar HTML, CSS, dan JavaScript, tapi belum pernah bikin aplikasi utuh',
-  'Mau punya satu proyek nyata buat mengisi portofolio',
+  'Mau punya satu proyek nyata buat portofolio atau langsung dipakai',
   'Bisa ikut sesi live dua kali seminggu selama lima minggu',
 ]
 
@@ -10,14 +11,39 @@ const notForYou = [
   'Belum pernah coding sama sekali. Di sini kamu perlu dasar HTML dan CSS dulu.',
 ]
 
+const profiles = [
+  { icon: '🎓', label: 'Fresh grad IT', desc: 'Portofolio siap kerja' },
+  { icon: '📸', label: 'Fotografer', desc: 'Booking sesi foto online' },
+  { icon: '📚', label: 'Tutor privat', desc: 'Platform jadwal & bayar' },
+  { icon: '🛍️', label: 'UMKM / Home baker', desc: 'Katalog & form order' },
+  { icon: '🩺', label: 'Tenaga medis / klinik', desc: 'Sistem reservasi pasien' },
+  { icon: '🎪', label: 'Event organizer', desc: 'Pendaftaran & tiket' },
+]
+
 export default function WhoIsThis() {
   return (
     <section style={{ padding: '80px 0', borderTop: '1px solid #252525' }}>
       <div style={{ marginBottom: '56px' }}>
         <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Untuk siapa</p>
-        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>
+        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '12px' }}>
           Pas buat kamu yang...
         </h2>
+        <p style={{ color: '#a3a3a3', fontSize: '16px', maxWidth: '540px', lineHeight: 1.7 }}>
+          Tidak harus dari IT. Kalau kamu punya kebutuhan nyata untuk dibuatkan web, justru lebih baik — kamu tahu persis apa yang mau dibangun.
+        </p>
+      </div>
+
+      {/* Profile chips */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '40px' }}>
+        {profiles.map((p) => (
+          <div key={p.label} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '22px' }}>{p.icon}</span>
+            <div>
+              <p style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '13px', marginBottom: '2px' }}>{p.label}</p>
+              <p style={{ color: '#666', fontSize: '12px' }}>{p.desc}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>

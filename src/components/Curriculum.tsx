@@ -23,7 +23,7 @@ const sessions = [
   {
     week: 'Minggu 4 — Fitur lengkap',
     items: [
-      { n: '07', title: 'Form, validasi, dan konten pengguna', desc: 'Tangani input dari user, validasi pakai TypeScript, dan biarkan employer posting lowongan sendiri. Dipercepat dengan bantuan AI.' },
+      { n: '07', title: 'Form, booking, dan alur pembayaran', desc: 'Tangani form booking, validasi TypeScript, dan alur pembayaran transfer dengan halaman konfirmasi untuk owner.' },
       { n: '08', title: 'Keamanan di level database', desc: 'Row Level Security di Supabase. Kita tulis dulu secara manual, lalu lihat bagaimana AI bisa bantu debug dan iterasi lebih cepat.' },
     ],
   },
@@ -31,7 +31,7 @@ const sessions = [
     week: 'Minggu 5 — Deploy dan polish',
     items: [
       { n: '09', title: 'Polish UI dan problem solving dengan AI', desc: 'Perbaiki tampilan, tangani edge case, dan pelajari cara pakai AI untuk problem solving bukan cuma generate kode.' },
-      { n: '10', title: 'Deploy dan review portfolio', desc: 'Aplikasi live di internet. Review proyek bersama, roadmap belajar selanjutnya, dan cara terus berkembang sebagai developer di era AI.' },
+      { n: '10', title: 'Deploy, custom domain, dan review', desc: 'Aplikasi live. Setting custom domain sendiri. Review proyek bersama dan roadmap belajar selanjutnya sebagai developer di era AI.' },
     ],
   },
 ]

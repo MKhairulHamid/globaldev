@@ -22,7 +22,7 @@ export default function Hero() {
       <div style={{ marginBottom: '32px' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)', fontSize: '13px', color: '#b3b3b3', padding: '6px 16px', borderRadius: '999px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f97316', flexShrink: 0 }} />
-          Mulai 10 Juni 2026 · Hanya 20 kursi
+          Mulai 10 Juni 2026 · Hanya 30 kursi
         </span>
       </div>
 
