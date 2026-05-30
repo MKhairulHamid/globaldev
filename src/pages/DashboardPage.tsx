@@ -38,6 +38,34 @@ function ScheduleList() {
   )
 }
 
+function PaymentDetails({ amount }: { amount: number }) {
+  return (
+    <div style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '16px', padding: '28px', marginBottom: '24px', textAlign: 'left' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div>
+          <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Bank</p>
+          <p style={{ color: '#fff', fontWeight: 700, fontSize: '16px' }}>BCA Syariah</p>
+        </div>
+        <div>
+          <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Nomor Rekening</p>
+          <p style={{ color: '#fff', fontWeight: 700, fontSize: '22px', letterSpacing: '0.05em' }}>8880862811</p>
+        </div>
+        <div>
+          <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Atas Nama</p>
+          <p style={{ color: '#fff', fontWeight: 700, fontSize: '16px' }}>M Khairul Hamid</p>
+        </div>
+        <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: '20px' }}>
+          <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Jumlah transfer (unik untuk kamu)</p>
+          <p style={{ color: '#f97316', fontWeight: 800, fontSize: '28px', letterSpacing: '-0.02em' }}>
+            {formatAmount(amount)}
+          </p>
+          <p style={{ color: '#555', fontSize: '12px', marginTop: '6px' }}>Transfer jumlah persis ini agar transaksi kamu bisa dikonfirmasi dengan cepat.</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const formatAmount = (n: number) =>
   n.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })
 
@@ -250,29 +278,7 @@ export default function DashboardPage() {
               <p style={{ color: '#666', fontSize: '14px' }}>Transfer ke rekening berikut, lalu konfirmasi di bawah.</p>
             </div>
 
-            <div style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '16px', padding: '28px', marginBottom: '24px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div>
-                  <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Bank</p>
-                  <p style={{ color: '#fff', fontWeight: 700, fontSize: '16px' }}>BCA Syariah</p>
-                </div>
-                <div>
-                  <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Nomor Rekening</p>
-                  <p style={{ color: '#fff', fontWeight: 700, fontSize: '22px', letterSpacing: '0.05em' }}>8880862811</p>
-                </div>
-                <div>
-                  <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Atas Nama</p>
-                  <p style={{ color: '#fff', fontWeight: 700, fontSize: '16px' }}>M Khairul Hamid</p>
-                </div>
-                <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: '20px' }}>
-                  <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Jumlah transfer (unik untuk kamu)</p>
-                  <p style={{ color: '#f97316', fontWeight: 800, fontSize: '28px', letterSpacing: '-0.02em' }}>
-                    {formatAmount(registration.unique_amount)}
-                  </p>
-                  <p style={{ color: '#555', fontSize: '12px', marginTop: '6px' }}>Transfer jumlah persis ini agar transaksi kamu bisa dikonfirmasi dengan cepat.</p>
-                </div>
-              </div>
-            </div>
+            <PaymentDetails amount={registration.unique_amount} />
 
             {error && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
 
@@ -283,10 +289,12 @@ export default function DashboardPage() {
             >
               {confirming ? 'Memproses...' : '✓ Saya Sudah Transfer'}
             </button>
-            <p style={{ color: '#555', fontSize: '12px', textAlign: 'center' }}>
+            <p style={{ color: '#555', fontSize: '12px', textAlign: 'center', marginBottom: '32px' }}>
               Ada pertanyaan?{' '}
               <a href={WA_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#25d366', textDecoration: 'none' }}>Chat via WhatsApp</a>
             </p>
+
+            <ScheduleList />
           </>
         )}
 
@@ -311,10 +319,11 @@ export default function DashboardPage() {
               href={WA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#25d366', color: '#fff', textDecoration: 'none', fontWeight: 700, padding: '14px 28px', borderRadius: '12px', fontSize: '15px' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#25d366', color: '#fff', textDecoration: 'none', fontWeight: 700, padding: '14px 28px', borderRadius: '12px', fontSize: '15px', marginBottom: '32px' }}
             >
               Chat via WhatsApp
             </a>
+            <ScheduleList />
           </div>
         )}
 
@@ -341,22 +350,37 @@ export default function DashboardPage() {
 
         {/* ── Rejected ── */}
         {registration?.payment_status === 'rejected' && (
-          <div style={{ textAlign: 'center', paddingTop: '40px' }}>
-            <div style={{ fontSize: '48px', marginBottom: '24px' }}>❌</div>
-            <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>Transfer tidak terkonfirmasi</h1>
-            {registration.admin_notes && (
-              <p style={{ color: '#a3a3a3', fontSize: '14px', marginBottom: '16px' }}>Catatan: {registration.admin_notes}</p>
-            )}
-            <p style={{ color: '#666', fontSize: '14px', marginBottom: '32px' }}>Hubungi kami via WhatsApp untuk informasi lebih lanjut.</p>
-            <a
-              href={WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#25d366', color: '#fff', textDecoration: 'none', fontWeight: 700, padding: '14px 28px', borderRadius: '12px', fontSize: '15px' }}
+          <>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{ fontSize: '48px', marginBottom: '24px' }}>❌</div>
+              <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>Transfer belum bisa kami konfirmasi</h1>
+              {registration.admin_notes && (
+                <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '12px', padding: '14px 18px', marginBottom: '16px', textAlign: 'left' }}>
+                  <p style={{ color: '#f87171', fontSize: '13px', fontWeight: 600, marginBottom: '4px' }}>Catatan dari kami</p>
+                  <p style={{ color: '#a3a3a3', fontSize: '14px', lineHeight: 1.6 }}>{registration.admin_notes}</p>
+                </div>
+              )}
+              <p style={{ color: '#a3a3a3', fontSize: '14px', lineHeight: 1.7 }}>
+                Silakan cek kembali, transfer ulang sesuai detail di bawah, lalu konfirmasi lagi. Pastikan jumlahnya persis.
+              </p>
+            </div>
+
+            <PaymentDetails amount={registration.unique_amount} />
+
+            {error && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
+
+            <button
+              onClick={confirmTransfer}
+              disabled={confirming}
+              style={{ width: '100%', background: '#f97316', color: '#fff', border: 'none', borderRadius: '12px', padding: '16px', fontWeight: 700, fontSize: '16px', cursor: 'pointer', marginBottom: '12px', opacity: confirming ? 0.7 : 1 }}
             >
-              Hubungi via WhatsApp
-            </a>
-          </div>
+              {confirming ? 'Memproses...' : '✓ Saya Sudah Transfer Ulang'}
+            </button>
+            <p style={{ color: '#555', fontSize: '12px', textAlign: 'center' }}>
+              Butuh bantuan?{' '}
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#25d366', textDecoration: 'none' }}>Chat via WhatsApp</a>
+            </p>
+          </>
         )}
       </div>
       <WhatsAppButton />
