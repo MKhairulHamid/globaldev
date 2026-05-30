@@ -30,8 +30,8 @@ export default function Instructor() {
             Yang paling relevan buat kamu: saya sudah build{' '}
             <a href="https://cloudexamlab.com" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'underline', textUnderlineOffset: '4px' }}>
               Cloud Exam Lab
-            </a>{' '}
-            — aplikasi e-learning live pakai React + Supabase. Persis stack yang akan kita pakai di bootcamp ini.
+            </a>
+            , aplikasi e-learning live pakai React + Supabase. Persis stack yang akan kita pakai di bootcamp ini.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>

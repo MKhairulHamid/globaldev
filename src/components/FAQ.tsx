@@ -3,11 +3,11 @@ import { useState } from 'react'
 const faqs = [
   {
     q: 'Harus bisa apa sebelum daftar?',
-    a: 'Minimal sudah pernah buat halaman HTML dan tahu sedikit JavaScript — variabel, fungsi, if/else. Tidak harus expert, tapi kalau belum pernah coding sama sekali, bootcamp ini akan terasa berat.',
+    a: 'Minimal sudah pernah buat halaman HTML dan tahu sedikit JavaScript: variabel, fungsi, if/else. Tidak harus expert, tapi kalau belum pernah coding sama sekali, bootcamp ini akan terasa berat.',
   },
   {
     q: 'Berapa lama per sesi dan jam berapa?',
-    a: 'Setiap sesi 90–120 menit live via Google Meet, 2x seminggu. Jadwal pasti dikonfirmasi ke peserta yang sudah daftar — disesuaikan dengan mayoritas.',
+    a: 'Setiap sesi 90–120 menit live via Google Meet, 2x seminggu. Jadwal pasti dikonfirmasi ke peserta yang sudah daftar, disesuaikan dengan mayoritas.',
   },
   {
     q: 'Bagaimana cara bayar?',
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'Kalau tidak bisa hadir live gimana?',
-    a: 'Sesi direkam dan dibagikan ke semua peserta. Tapi sangat disarankan hadir live — satu-satunya yang tidak bisa diganti dari rekaman adalah kesempatan tanya langsung.',
+    a: 'Sesi direkam dan dibagikan ke semua peserta. Tapi sangat disarankan hadir live. Satu-satunya yang tidak bisa diganti dari rekaman adalah kesempatan tanya langsung.',
   },
   {
     q: 'Software apa yang perlu disiapkan?',
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'Apakah ada garansi?',
-    a: 'Tidak ada garansi kerja — tidak ada bootcamp yang jujur yang bisa menjanjikan itu. Yang bisa saya jamin: kamu keluar dengan satu aplikasi full stack yang live dan bisa kamu tunjukkan.',
+    a: 'Tidak ada garansi kerja. Tidak ada bootcamp yang jujur yang bisa menjanjikan itu. Yang bisa saya jamin: kamu keluar dengan satu aplikasi full stack yang live dan bisa kamu tunjukkan.',
   },
 ]
 

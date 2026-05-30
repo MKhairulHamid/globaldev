@@ -14,7 +14,7 @@ export default function WhatYoullBuild() {
         <div>
           <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Yang akan kamu bangun</p>
           <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: '20px' }}>
-            Job Listing App — bukan toy project, tapi aplikasi yang fungsi.
+            Job Listing App: aplikasi full stack yang benar-benar fungsi.
           </h2>
           <p style={{ color: '#737373', fontSize: '16px', lineHeight: 1.7, marginBottom: '32px' }}>
             Di akhir bootcamp, kamu punya satu aplikasi full stack yang live di internet.

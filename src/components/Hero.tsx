@@ -26,7 +26,7 @@ export default function Hero() {
 
       {/* Headline */}
       <h1 style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '24px', maxWidth: '800px' }}>
-        Dari fresh graduate ke full stack developer — dalam 4 minggu.
+        Dari fresh graduate ke full stack developer, dalam 4 minggu.
       </h1>
 
       <p style={{ color: '#737373', fontSize: '18px', maxWidth: '560px', lineHeight: 1.7, marginBottom: '40px' }}>
@@ -41,7 +41,7 @@ export default function Hero() {
           rel="noopener noreferrer"
           style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
         >
-          Daftar — Rp 699.000
+          Daftar · Rp 699.000
         </a>
         <a
           href="#kurikulum"

@@ -7,7 +7,7 @@ const forYou = [
 
 const notForYou = [
   'Sudah bekerja sebagai developer dan familiar dengan React dan TypeScript',
-  'Belum pernah sama sekali coding — bootcamp ini butuh dasar HTML/CSS',
+  'Belum pernah sama sekali coding. Bootcamp ini butuh dasar HTML/CSS.',
 ]
 
 export default function WhoIsThis() {

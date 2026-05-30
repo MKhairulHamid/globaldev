@@ -3,14 +3,14 @@ const sessions = [
     week: 'Minggu 1',
     items: [
       { n: '01', title: 'React + TypeScript dari nol', desc: 'Setup Vite, struktur komponen, props, dan TypeScript basics yang dipakai di dunia kerja.' },
-      { n: '02', title: 'State, hooks, dan UI interaktif', desc: 'useState, useEffect, dan cara berpikir React yang benar — bukan hafalan, tapi nalar.' },
+      { n: '02', title: 'State, hooks, dan UI interaktif', desc: 'useState, useEffect, dan cara berpikir React yang benar. Fokus ke nalar, bukan sekadar hafalan sintaks.' },
     ],
   },
   {
     week: 'Minggu 2',
     items: [
       { n: '03', title: 'Supabase setup dan desain database', desc: 'Buat project Supabase, rancang schema tabel jobs dan employers dari kebutuhan bisnis.' },
-      { n: '04', title: 'CRUD dari frontend ke database', desc: 'Fetch, insert, update, delete — kamu kontrol semua data dari React ke Supabase.' },
+      { n: '04', title: 'CRUD dari frontend ke database', desc: 'Fetch, insert, update, delete. Kamu kontrol semua data langsung dari React ke Supabase.' },
     ],
   },
   {
@@ -23,7 +23,7 @@ const sessions = [
   {
     week: 'Minggu 4',
     items: [
-      { n: '07', title: 'Row Level Security dan polish UI', desc: 'RLS di Supabase — keamanan di level database, bukan cuma di frontend.' },
+      { n: '07', title: 'Row Level Security dan polish UI', desc: 'RLS di Supabase, keamanan di level database yang jarang diajarkan di tutorial biasa.' },
       { n: '08', title: 'Deploy dan review portfolio', desc: 'Aplikasi live di internet. Review project bersama, dan roadmap belajar selanjutnya.' },
     ],
   },
