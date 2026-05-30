@@ -17,7 +17,7 @@ export default function Hero() {
           rel="noopener noreferrer"
           style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '10px 20px', borderRadius: '10px', textDecoration: 'none' }}
         >
-          Daftar Sekarang
+          Daftar
         </a>
       </div>
 
