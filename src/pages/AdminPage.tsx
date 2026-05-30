@@ -96,7 +96,7 @@ export default function AdminPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#e5e5e5' }}>
       <div style={{ borderBottom: '1px solid #1f1f1f', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="/#/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
+        <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
         <span style={{ color: '#f97316', fontSize: '13px', fontWeight: 600 }}>Admin</span>
       </div>
 

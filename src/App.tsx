@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Hero from './components/Hero'
 import Instructor from './components/Instructor'
 import WhatYoullBuild from './components/WhatYoullBuild'
@@ -32,13 +32,13 @@ function LandingPage() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   )
 }

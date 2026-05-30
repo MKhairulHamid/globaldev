@@ -80,7 +80,7 @@ export default function AuthPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
-      <a href="/#/" style={{ marginBottom: '40px', display: 'block' }}>
+      <a href="/" style={{ marginBottom: '40px', display: 'block' }}>
         <Logo height={24} />
       </a>
 
@@ -156,7 +156,7 @@ export default function AuthPage() {
         </form>
       </div>
 
-      <a href="/#/" style={{ marginTop: '24px', color: '#555', fontSize: '13px', textDecoration: 'none' }}>
+      <a href="/" style={{ marginTop: '24px', color: '#555', fontSize: '13px', textDecoration: 'none' }}>
         ← Kembali ke halaman utama
       </a>
     </div>
