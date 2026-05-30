@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: 'Berapa lama per sesi dan jam berapa?',
-    a: 'Setiap sesi 90–120 menit live via Google Meet, 2x seminggu. Jadwal pasti akan dikonfirmasi ke peserta yang sudah daftar — disesuaikan dengan mayoritas peserta.',
+    a: 'Setiap sesi 90–120 menit live via Google Meet, 2x seminggu. Jadwal pasti dikonfirmasi ke peserta yang sudah daftar — disesuaikan dengan mayoritas.',
   },
   {
     q: 'Bagaimana cara bayar?',
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'Kalau tidak bisa hadir live gimana?',
-    a: 'Sesi direkam dan dibagikan ke semua peserta. Tapi sangat disarankan hadir live karena bisa tanya langsung dan satu-satunya yang tidak bisa kamu ganti dari rekaman adalah kesempatan nanya.',
+    a: 'Sesi direkam dan dibagikan ke semua peserta. Tapi sangat disarankan hadir live — satu-satunya yang tidak bisa diganti dari rekaman adalah kesempatan tanya langsung.',
   },
   {
     q: 'Software apa yang perlu disiapkan?',
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: 'Apakah ada garansi?',
-    a: 'Tidak ada garansi kerja — tidak ada bootcamp yang jujur yang bisa menjanjikan itu. Yang bisa saya jamin: kamu akan keluar dengan satu aplikasi full stack yang live dan bisa kamu tunjukkan.',
+    a: 'Tidak ada garansi kerja — tidak ada bootcamp yang jujur yang bisa menjanjikan itu. Yang bisa saya jamin: kamu keluar dengan satu aplikasi full stack yang live dan bisa kamu tunjukkan.',
   },
 ]
 
@@ -31,27 +31,27 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section className="px-6 py-20 border-t border-white/8">
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-14">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">FAQ</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Pertanyaan yang sering muncul.</h2>
+    <section style={{ padding: '80px 0', borderTop: '1px solid #1f1f1f' }}>
+      <div style={{ maxWidth: '680px' }}>
+        <div style={{ marginBottom: '56px' }}>
+          <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>FAQ</p>
+          <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>Pertanyaan yang sering muncul.</h2>
         </div>
 
-        <div className="space-y-2">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {faqs.map((faq, i) => (
-            <div key={i} className="border border-white/8 rounded-xl overflow-hidden">
+            <div key={i} style={{ border: '1px solid #1f1f1f', borderRadius: '12px', overflow: 'hidden' }}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full text-left px-6 py-5 flex justify-between items-center gap-4 hover:bg-white/[0.03] transition-colors cursor-pointer"
+                style={{ width: '100%', textAlign: 'left', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', background: 'transparent', border: 'none', cursor: 'pointer', color: '#fff' }}
               >
-                <span className="text-white font-medium">{faq.q}</span>
-                <span className="text-neutral-500 text-xl shrink-0 leading-none">
+                <span style={{ fontWeight: 500, fontSize: '15px' }}>{faq.q}</span>
+                <span style={{ color: '#525252', fontSize: '20px', lineHeight: 1, flexShrink: 0 }}>
                   {open === i ? '−' : '+'}
                 </span>
               </button>
               {open === i && (
-                <div className="px-6 pb-5 text-neutral-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                <div style={{ padding: '0 24px 20px', color: '#737373', fontSize: '14px', lineHeight: 1.7, borderTop: '1px solid #1a1a1a', paddingTop: '16px' }}>
                   {faq.a}
                 </div>
               )}

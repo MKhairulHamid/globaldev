@@ -31,37 +31,35 @@ const sessions = [
 
 export default function Curriculum() {
   return (
-    <section id="kurikulum" className="px-6 py-20 border-t border-white/8">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">Kurikulum</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
-            8 sesi, 4 minggu, 1 aplikasi yang selesai.
-          </h2>
-          <p className="text-neutral-400 text-lg">
-            Setiap sesi 90–120 menit live via Google Meet, 2x seminggu.
-          </p>
-        </div>
+    <section id="kurikulum" style={{ padding: '80px 0', borderTop: '1px solid #1f1f1f' }}>
+      <div style={{ marginBottom: '56px' }}>
+        <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Kurikulum</p>
+        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '12px' }}>
+          8 sesi, 4 minggu, 1 aplikasi yang selesai.
+        </h2>
+        <p style={{ color: '#737373', fontSize: '16px' }}>
+          Setiap sesi 90–120 menit live via Google Meet, 2x seminggu.
+        </p>
+      </div>
 
-        <div className="space-y-10">
-          {sessions.map((week) => (
-            <div key={week.week}>
-              <p className="text-neutral-600 text-sm font-medium mb-4">{week.week}</p>
-              <div className="grid md:grid-cols-2 gap-3">
-                {week.items.map((item) => (
-                  <div
-                    key={item.n}
-                    className="bg-white/[0.03] border border-white/8 hover:border-white/16 rounded-xl p-6 transition-colors"
-                  >
-                    <p className="text-neutral-600 text-xs font-mono mb-3">Sesi {item.n}</p>
-                    <h3 className="text-white font-semibold mb-2 leading-snug">{item.title}</h3>
-                    <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        {sessions.map((week) => (
+          <div key={week.week}>
+            <p style={{ color: '#444', fontSize: '13px', fontWeight: 500, marginBottom: '16px' }}>{week.week}</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              {week.items.map((item) => (
+                <div
+                  key={item.n}
+                  style={{ background: '#111', border: '1px solid #1f1f1f', borderRadius: '14px', padding: '24px' }}
+                >
+                  <p style={{ color: '#444', fontSize: '12px', fontFamily: 'monospace', marginBottom: '12px' }}>Sesi {item.n}</p>
+                  <h3 style={{ color: '#fff', fontWeight: 700, fontSize: '15px', marginBottom: '8px', lineHeight: 1.4 }}>{item.title}</h3>
+                  <p style={{ color: '#737373', fontSize: '14px', lineHeight: 1.6 }}>{item.desc}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   )

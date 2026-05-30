@@ -9,52 +9,49 @@ const features = [
 
 export default function WhatYoullBuild() {
   return (
-    <section className="px-6 py-20 border-t border-white/8">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-6">Yang akan kamu bangun</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-6">
-              Job Listing App — bukan toy project, tapi aplikasi yang fungsi.
-            </h2>
-            <p className="text-neutral-400 text-lg mb-8 leading-relaxed">
-              Di akhir bootcamp, kamu punya satu aplikasi full stack yang live di internet.
-              Database nyata, autentikasi nyata, bisa kamu tunjukkan ke rekruiter atau
-              masukkan ke CV.
-            </p>
-            <ul className="space-y-3">
-              {features.map((f) => (
-                <li key={f} className="flex items-center gap-3 text-neutral-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
+    <section style={{ padding: '80px 0', borderTop: '1px solid #1f1f1f' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+        <div>
+          <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Yang akan kamu bangun</p>
+          <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: '20px' }}>
+            Job Listing App — bukan toy project, tapi aplikasi yang fungsi.
+          </h2>
+          <p style={{ color: '#737373', fontSize: '16px', lineHeight: 1.7, marginBottom: '32px' }}>
+            Di akhir bootcamp, kamu punya satu aplikasi full stack yang live di internet.
+            Database nyata, autentikasi nyata, bisa kamu tunjukkan ke rekruiter atau masukkan ke CV.
+          </p>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {features.map((f) => (
+              <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#d4d4d4', fontSize: '15px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#f97316', flexShrink: 0 }} />
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          {/* Code block */}
-          <div className="bg-[#111] border border-white/10 rounded-2xl overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8">
-              <span className="w-3 h-3 rounded-full bg-white/20" />
-              <span className="w-3 h-3 rounded-full bg-white/20" />
-              <span className="w-3 h-3 rounded-full bg-white/20" />
-              <span className="ml-2 text-neutral-600 text-xs">JobList.tsx</span>
+        {/* Code block */}
+        <div style={{ background: '#111', border: '1px solid #222', borderRadius: '16px', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 16px', borderBottom: '1px solid #1f1f1f' }}>
+            <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#333' }} />
+            <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#333' }} />
+            <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#333' }} />
+            <span style={{ marginLeft: '8px', color: '#444', fontSize: '12px', fontFamily: 'monospace' }}>JobList.tsx</span>
+          </div>
+          <div style={{ padding: '24px', fontFamily: 'monospace', fontSize: '13px', lineHeight: 1.8 }}>
+            <div style={{ color: '#555' }}>{'// Fetch jobs dari Supabase'}</div>
+            <div style={{ marginTop: '12px' }}>
+              <span style={{ color: '#c084fc' }}>const </span>
+              <span style={{ color: '#e5e5e5' }}>{'{ data: jobs } '}</span>
+              <span style={{ color: '#737373' }}>= </span>
+              <span style={{ color: '#fbbf24' }}>await </span>
+              <span style={{ color: '#e5e5e5' }}>supabase</span>
             </div>
-            <div className="p-6 font-mono text-sm leading-relaxed">
-              <div className="text-neutral-600">{'// Fetch jobs dari Supabase'}</div>
-              <div className="mt-3">
-                <span className="text-purple-400">const</span>
-                <span className="text-white"> {'{ data: jobs }'} </span>
-                <span className="text-neutral-400">= </span>
-                <span className="text-yellow-400">await </span>
-                <span className="text-white">supabase</span>
-              </div>
-              <div className="pl-4 text-cyan-400">.from<span className="text-white">(</span><span className="text-green-400">'jobs'</span><span className="text-white">)</span></div>
-              <div className="pl-4 text-cyan-400">.select<span className="text-white">(</span><span className="text-green-400">'*, company(*)'</span><span className="text-white">)</span></div>
-              <div className="pl-4 text-cyan-400">.eq<span className="text-white">(</span><span className="text-green-400">'status'</span><span className="text-white">, </span><span className="text-green-400">'open'</span><span className="text-white">)</span></div>
-              <div className="pl-4 text-cyan-400">.order<span className="text-white">(</span><span className="text-green-400">'created_at'</span><span className="text-white">, {'{ '}</span><span className="text-orange-400">ascending</span><span className="text-white">{': false })'}</span></div>
-              <div className="mt-4 text-neutral-600">{'// ✓ 12 lowongan ditemukan'}</div>
-            </div>
+            <div style={{ paddingLeft: '16px', color: '#67e8f9' }}>.from<span style={{ color: '#e5e5e5' }}>(</span><span style={{ color: '#86efac' }}>'jobs'</span><span style={{ color: '#e5e5e5' }}>)</span></div>
+            <div style={{ paddingLeft: '16px', color: '#67e8f9' }}>.select<span style={{ color: '#e5e5e5' }}>(</span><span style={{ color: '#86efac' }}>'*, company(*)'</span><span style={{ color: '#e5e5e5' }}>)</span></div>
+            <div style={{ paddingLeft: '16px', color: '#67e8f9' }}>.eq<span style={{ color: '#e5e5e5' }}>(</span><span style={{ color: '#86efac' }}>'status'</span><span style={{ color: '#e5e5e5' }}>, </span><span style={{ color: '#86efac' }}>'open'</span><span style={{ color: '#e5e5e5' }}>)</span></div>
+            <div style={{ paddingLeft: '16px', color: '#67e8f9' }}>.order<span style={{ color: '#e5e5e5' }}>(</span><span style={{ color: '#86efac' }}>'created_at'</span><span style={{ color: '#e5e5e5' }}>)</span></div>
+            <div style={{ marginTop: '16px', color: '#444' }}>{'// ✓ 12 lowongan ditemukan'}</div>
           </div>
         </div>
       </div>

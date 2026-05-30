@@ -11,47 +11,45 @@ const includes = [
 
 export default function Pricing() {
   return (
-    <section className="px-6 py-20 border-t border-white/8">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">Harga</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            Satu harga, semua akses.
-          </h2>
+    <section style={{ padding: '80px 0', borderTop: '1px solid #1f1f1f' }}>
+      <div style={{ marginBottom: '56px' }}>
+        <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Harga</p>
+        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>
+          Satu harga, semua akses.
+        </h2>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
+        <div>
+          <div style={{ marginBottom: '32px' }}>
+            <p style={{ color: '#525252', fontSize: '13px', marginBottom: '8px' }}>Investasi</p>
+            <p style={{ fontSize: '52px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 699.000</p>
+            <p style={{ color: '#525252', fontSize: '13px', marginTop: '8px' }}>Mulai 10 Juni 2026 · Hanya 20 kursi</p>
+          </div>
+
+          <a
+            href={REGISTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'block', background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '16px 32px', borderRadius: '12px', textAlign: 'center', textDecoration: 'none', marginBottom: '12px' }}
+          >
+            Daftar Sekarang
+          </a>
+          <p style={{ color: '#444', fontSize: '13px', textAlign: 'center' }}>
+            Pembayaran via transfer bank · Konfirmasi via WhatsApp
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div>
-            <div className="mb-8">
-              <p className="text-neutral-500 text-sm mb-2">Investasi</p>
-              <p className="text-5xl font-bold text-white tracking-tight">Rp 699.000</p>
-              <p className="text-neutral-500 text-sm mt-2">Mulai 10 Juni 2026 · Hanya 20 kursi</p>
-            </div>
-
-            <a
-              href={REGISTER_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 rounded-xl text-center text-lg transition-colors mb-4"
-            >
-              Daftar Sekarang
-            </a>
-            <p className="text-neutral-600 text-sm text-center">
-              Pembayaran via transfer bank · Konfirmasi via WhatsApp
-            </p>
-          </div>
-
-          <div className="border border-white/10 rounded-2xl p-8">
-            <p className="text-neutral-500 text-sm mb-5">Yang kamu dapat</p>
-            <ul className="space-y-4">
-              {includes.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-neutral-300 text-sm leading-relaxed">
-                  <span className="text-orange-500 mt-0.5 shrink-0">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div style={{ border: '1px solid #1f1f1f', borderRadius: '16px', padding: '32px' }}>
+          <p style={{ color: '#525252', fontSize: '13px', marginBottom: '20px' }}>Yang kamu dapat</p>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {includes.map((item) => (
+              <li key={item} style={{ display: 'flex', gap: '12px', color: '#d4d4d4', fontSize: '14px', lineHeight: 1.5 }}>
+                <span style={{ color: '#f97316', flexShrink: 0, marginTop: '2px' }}>✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

@@ -9,15 +9,17 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <Hero />
-      <Instructor />
-      <WhatYoullBuild />
-      <Curriculum />
-      <WhoIsThis />
-      <Pricing />
-      <FAQ />
-      <Footer />
+    <div className="min-h-screen text-white" style={{ background: '#0a0a0a' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>
+        <Hero />
+        <Instructor />
+        <WhatYoullBuild />
+        <Curriculum />
+        <WhoIsThis />
+        <Pricing />
+        <FAQ />
+        <Footer />
+      </div>
     </div>
   )
 }

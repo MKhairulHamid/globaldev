@@ -2,57 +2,57 @@ const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 
 export default function Hero() {
   return (
-    <section className="px-6 pt-20 pb-16 max-w-5xl mx-auto">
+    <section style={{ paddingTop: '48px', paddingBottom: '80px' }}>
       {/* Nav */}
-      <div className="flex items-center justify-between mb-20">
-        <span className="text-white font-semibold tracking-tight">Global Developer Academy</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '72px' }}>
+        <span style={{ color: '#fff', fontWeight: 600, letterSpacing: '-0.02em' }}>Global Developer Academy</span>
         <a
           href={REGISTER_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-orange-500 hover:bg-orange-400 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
+          style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '10px 20px', borderRadius: '10px', textDecoration: 'none' }}
         >
           Daftar Sekarang
         </a>
       </div>
 
       {/* Badge */}
-      <div className="mb-8">
-        <span className="inline-flex items-center gap-2 border border-white/10 bg-white/5 text-sm text-neutral-400 px-4 py-1.5 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+      <div style={{ marginBottom: '32px' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', fontSize: '13px', color: '#a3a3a3', padding: '6px 16px', borderRadius: '999px' }}>
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f97316' }} />
           Mulai 10 Juni 2026 · Hanya 20 kursi
         </span>
       </div>
 
       {/* Headline */}
-      <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.1] tracking-tight mb-6 max-w-3xl">
+      <h1 style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '24px', maxWidth: '800px' }}>
         Dari fresh graduate ke full stack developer — dalam 4 minggu.
       </h1>
 
-      <p className="text-neutral-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+      <p style={{ color: '#737373', fontSize: '18px', maxWidth: '560px', lineHeight: 1.7, marginBottom: '40px' }}>
         Belajar langsung dari engineer yang kerja remote di Australia. 8 sesi live,
         project nyata, dan kamu pulang dengan aplikasi yang bisa langsung ditunjukkan ke rekruiter.
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-4 items-start">
+      <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
         <a
           href={REGISTER_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
+          style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
         >
           Daftar — Rp 699.000
         </a>
         <a
           href="#kurikulum"
-          className="text-neutral-400 hover:text-white px-8 py-4 rounded-xl text-lg transition-colors flex items-center gap-2"
+          style={{ color: '#737373', fontSize: '16px', textDecoration: 'none' }}
         >
           Lihat kurikulum →
         </a>
       </div>
 
       {/* Trust bar */}
-      <div className="mt-16 pt-10 border-t border-white/8 flex flex-wrap gap-8 text-sm text-neutral-500">
+      <div style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexWrap: 'wrap', gap: '24px', color: '#525252', fontSize: '14px' }}>
         <span>8 sesi live via Google Meet</span>
         <span>·</span>
         <span>Komunitas Discord</span>

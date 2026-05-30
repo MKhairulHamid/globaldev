@@ -12,39 +12,37 @@ const notForYou = [
 
 export default function WhoIsThis() {
   return (
-    <section className="px-6 py-20 border-t border-white/8">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">Untuk siapa</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            Jujur dulu sebelum daftar.
-          </h2>
+    <section style={{ padding: '80px 0', borderTop: '1px solid #1f1f1f' }}>
+      <div style={{ marginBottom: '56px' }}>
+        <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Untuk siapa</p>
+        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>
+          Jujur dulu sebelum daftar.
+        </h2>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div style={{ border: '1px solid #2a2a2a', borderRadius: '16px', padding: '32px' }}>
+          <p style={{ color: '#fff', fontWeight: 600, marginBottom: '24px', fontSize: '15px' }}>Cocok kalau kamu</p>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {forYou.map((item) => (
+              <li key={item} style={{ display: 'flex', gap: '16px', color: '#d4d4d4', fontSize: '14px', lineHeight: 1.6 }}>
+                <span style={{ color: '#f97316', fontWeight: 700, flexShrink: 0 }}>+</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="border border-white/10 rounded-2xl p-8">
-            <p className="text-white font-semibold mb-6">Cocok kalau kamu</p>
-            <ul className="space-y-4">
-              {forYou.map((item) => (
-                <li key={item} className="flex gap-4 text-neutral-300 text-sm leading-relaxed">
-                  <span className="text-orange-500 mt-0.5 shrink-0 font-bold">+</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="border border-white/8 rounded-2xl p-8 bg-white/[0.02]">
-            <p className="text-neutral-500 font-semibold mb-6">Kurang cocok kalau</p>
-            <ul className="space-y-4">
-              {notForYou.map((item) => (
-                <li key={item} className="flex gap-4 text-neutral-500 text-sm leading-relaxed">
-                  <span className="mt-0.5 shrink-0">–</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div style={{ border: '1px solid #1a1a1a', borderRadius: '16px', padding: '32px', background: '#0d0d0d' }}>
+          <p style={{ color: '#525252', fontWeight: 600, marginBottom: '24px', fontSize: '15px' }}>Kurang cocok kalau</p>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {notForYou.map((item) => (
+              <li key={item} style={{ display: 'flex', gap: '16px', color: '#525252', fontSize: '14px', lineHeight: 1.6 }}>
+                <span style={{ flexShrink: 0 }}>–</span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
