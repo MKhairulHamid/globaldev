@@ -11,7 +11,7 @@ export default function Footer() {
             <Logo height={22} />
           </div>
           <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '24px', lineHeight: 1.2 }}>
-            Masih ada tempat.<br />Mulai 10 Juni.
+            Masih ada tempat.<br />Mulai 11 Juni.
           </h2>
           <a
             href={REGISTER_URL}

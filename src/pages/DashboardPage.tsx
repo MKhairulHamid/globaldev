@@ -7,6 +7,36 @@ import WhatsAppButton from '../components/WhatsAppButton'
 
 const WA_URL = 'https://wa.me/628111330130'
 
+const SCHEDULE = [
+  { n: '01', date: 'Kamis, 11 Juni 2026' },
+  { n: '02', date: 'Selasa, 16 Juni 2026' },
+  { n: '03', date: 'Kamis, 18 Juni 2026' },
+  { n: '04', date: 'Selasa, 23 Juni 2026' },
+  { n: '05', date: 'Kamis, 25 Juni 2026' },
+  { n: '06', date: 'Selasa, 30 Juni 2026' },
+  { n: '07', date: 'Kamis, 2 Juli 2026' },
+  { n: '08', date: 'Selasa, 7 Juli 2026' },
+  { n: '09', date: 'Kamis, 9 Juli 2026' },
+  { n: '10', date: 'Selasa, 14 Juli 2026' },
+]
+
+function ScheduleList() {
+  return (
+    <div style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '14px', padding: '20px 24px', textAlign: 'left', marginBottom: '24px' }}>
+      <p style={{ color: '#fff', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>Jadwal 10 sesi</p>
+      <p style={{ color: '#666', fontSize: '12px', marginBottom: '16px' }}>Setiap Selasa & Kamis, 19.30 WIB via Google Meet</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {SCHEDULE.map(s => (
+          <div key={s.n} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1f1f1f', paddingBottom: '8px' }}>
+            <span style={{ color: '#666', fontSize: '12px', fontFamily: 'monospace' }}>Sesi {s.n}</span>
+            <span style={{ color: '#d4d4d4', fontSize: '13px' }}>{s.date} · 19.30</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const formatAmount = (n: number) =>
   n.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })
 
@@ -296,7 +326,8 @@ export default function DashboardPage() {
             <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '8px' }}>
               Selamat, <strong style={{ color: '#fff' }}>{profile?.full_name?.split(' ')[0]}</strong>. Kamu resmi terdaftar di Cohort Juni 2026.
             </p>
-            <p style={{ color: '#666', fontSize: '14px', marginBottom: '32px' }}>Kelas mulai 10 Juni 2026. Kami akan kirim detail via WhatsApp.</p>
+            <p style={{ color: '#666', fontSize: '14px', marginBottom: '32px' }}>Kelas mulai Kamis, 11 Juni 2026. Simpan jadwal di bawah ini.</p>
+            <ScheduleList />
             <a
               href={WA_URL}
               target="_blank"
