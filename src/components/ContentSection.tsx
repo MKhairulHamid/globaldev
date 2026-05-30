@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const W = 270
 const H = 480
 const DUR = '10s'
@@ -47,8 +49,8 @@ const KEYFRAMES = `
 }
 @keyframes a1-pulse {
   0%,88%,100% { box-shadow:0 0 0 0 rgba(249,115,22,0) }
-  92%         { box-shadow:0 0 0 14px rgba(249,115,22,0) }
   90%         { box-shadow:0 0 24px 4px rgba(249,115,22,0.55) }
+  92%         { box-shadow:0 0 0 14px rgba(249,115,22,0) }
 }
 
 /* ── Ad 2 Tech Stack ────────────────────────────────── */
@@ -158,7 +160,6 @@ function Ad1() {
       alignItems: 'center', justifyContent: 'center',
       padding: '32px 24px', boxSizing: 'border-box',
     }}>
-      {/* ambient glow */}
       <div style={{
         position: 'absolute', top: '35%', left: '50%',
         transform: 'translate(-50%,-50%)',
@@ -166,35 +167,32 @@ function Ad1() {
         background: 'radial-gradient(circle,rgba(249,115,22,0.18) 0%,transparent 70%)',
         pointerEvents: 'none',
       }} />
-
       <div style={{ animation: a('a1-brand'), color: '#f97316', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 28 }}>
         Global Developer Academy
       </div>
-
       <div style={{ animation: a('a1-h1'), color: '#fff', fontSize: 34, fontWeight: 900, textAlign: 'center', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 2 }}>
         Dari Nol ke
       </div>
       <div style={{ animation: a('a1-h2'), color: '#f97316', fontSize: 44, fontWeight: 900, textAlign: 'center', lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 32 }}>
         Developer
       </div>
-
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32, width: '100%' }}>
         {[
-          { anim: a('a1-b1'), text: 'Full Stack Web Development' },
-          { anim: a('a1-b2'), text: 'Proyek nyata & mentorship langsung' },
-          { anim: a('a1-b3'), text: 'Siap kerja dalam 6 minggu' },
-        ].map(({ anim: an, text }) => (
+          { an: a('a1-b1'), text: 'Full Stack Web Development' },
+          { an: a('a1-b2'), text: 'Proyek nyata & mentorship langsung' },
+          { an: a('a1-b3'), text: 'Siap kerja dalam 6 minggu' },
+        ].map(({ an, text }) => (
           <div key={text} style={{ animation: an, display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f97316', flexShrink: 0, display: 'inline-block' }} />
             <span style={{ color: '#d1d5db', fontSize: 14, fontWeight: 500 }}>{text}</span>
           </div>
         ))}
       </div>
-
       <button style={{
         animation: `${a('a1-cta')}, ${a('a1-pulse')}`,
         background: '#f97316', color: '#fff', border: 'none',
-        borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 800, cursor: 'pointer',
+        borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 800, cursor: 'default',
+        pointerEvents: 'none',
       }}>
         Daftar Sekarang →
       </button>
@@ -218,7 +216,6 @@ function Ad2() {
       {text}
     </span>
   )
-
   return (
     <div style={{
       width: W, height: H, borderRadius: 20, overflow: 'hidden',
@@ -227,7 +224,6 @@ function Ad2() {
       alignItems: 'center', justifyContent: 'center',
       padding: '32px 24px', boxSizing: 'border-box',
     }}>
-      {/* floating code bg */}
       <pre style={{
         animation: a('a2-code-bg'),
         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
@@ -237,7 +233,6 @@ function Ad2() {
       }}>
         {CODE_TEXT}
       </pre>
-
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
         <div style={{ animation: a('a2-label'), color: '#fbbf24', fontSize: 10, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 14 }}>
           Kuasai Tech Stack
@@ -245,18 +240,15 @@ function Ad2() {
         <div style={{ animation: a('a2-h'), color: '#fff', fontSize: 26, fontWeight: 900, textAlign: 'center', lineHeight: 1.2, marginBottom: 28 }}>
           Dari Kode Pertama{'\n'}ke Karir Nyata
         </div>
-
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 24 }}>
           {badge('HTML & CSS', '#fbbf24', a('a2-b1'))}
           {badge('JavaScript', '#60a5fa', a('a2-b2'))}
           {badge('React', '#34d399', a('a2-b3'))}
           {badge('TypeScript', '#a78bfa', a('a2-b4'))}
         </div>
-
         <div style={{ animation: a('a2-sub'), color: '#9ca3af', fontSize: 13, textAlign: 'center', lineHeight: 1.65, marginBottom: 28 }}>
           Mentorship intensif 6 minggu{'\n'}untuk karir barumu di tech
         </div>
-
         <div style={{ animation: a('a2-cta'), color: '#fbbf24', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center' }}>
           → globaldev.id
           <span style={{
@@ -288,15 +280,12 @@ function Ad3() {
       }}>
         Pendaftaran Dibuka
       </div>
-
       <div style={{ animation: a('a3-heading'), color: '#fff', fontSize: 32, fontWeight: 900, textAlign: 'center', lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: 6 }}>
         Cohort Juni 2026
       </div>
       <div style={{ animation: a('a3-heading'), color: '#f97316', fontSize: 20, fontWeight: 800, textAlign: 'center', marginBottom: 32 }}>
         Kursi Terbatas!
       </div>
-
-      {/* progress bar */}
       <div style={{
         animation: a('a3-seats'),
         width: '100%', background: '#1f1f1f', borderRadius: 6, height: 8, marginBottom: 10, overflow: 'hidden',
@@ -312,16 +301,14 @@ function Ad3() {
         <span style={{ color: '#6b7280', fontSize: 12 }}>Kursi tersisa</span>
         <span style={{ color: '#f87171', fontSize: 12, fontWeight: 700 }}>22 / 30 terisi</span>
       </div>
-
       <div style={{ animation: a('a3-urgency'), color: '#fef3c7', fontSize: 14, textAlign: 'center', lineHeight: 1.7, marginBottom: 28 }}>
         Jangan lewatkan kesempatan{'\n'}memulai karir IT-mu sekarang.
       </div>
-
       <button style={{
         animation: `${a('a3-cta')}, ${a('a3-flash')}`,
         width: '100%', border: 'none', borderRadius: 14,
-        padding: '15px', fontSize: 16, fontWeight: 900, cursor: 'pointer',
-        background: '#f97316', color: '#fff',
+        padding: '15px', fontSize: 16, fontWeight: 900, cursor: 'default',
+        background: '#f97316', color: '#fff', pointerEvents: 'none',
       }}>
         Daftar Sekarang →
       </button>
@@ -331,25 +318,75 @@ function Ad3() {
 
 // ── Section ──────────────────────────────────────────────────────────────────
 const ADS = [
-  { id: 'karir-baru', label: 'Karir Baru', component: <Ad1 /> },
-  { id: 'tech-stack', label: 'Tech Stack', component: <Ad2 /> },
-  { id: 'urgency',    label: 'Urgency',    component: <Ad3 /> },
+  { id: 'karir-baru', label: 'Karir Baru', El: Ad1 },
+  { id: 'tech-stack', label: 'Tech Stack', El: Ad2 },
+  { id: 'urgency',    label: 'Urgency',    El: Ad3 },
 ]
 
 export default function ContentSection() {
+  const [open, setOpen] = useState<string | null>(null)
+  const active = ADS.find(ad => ad.id === open)
+
+  const scale = active
+    ? Math.min(
+        (window.innerHeight * 0.9) / H,
+        (window.innerWidth * 0.9) / W,
+      )
+    : 1
+
   return (
     <section style={{ marginTop: 56 }}>
       <style>{KEYFRAMES}</style>
 
+      {/* ── Full-screen modal ── */}
+      {active && (
+        <div
+          onClick={() => setOpen(null)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: '#000',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}
+        >
+          {/* stop clicks on the ad itself from closing the modal */}
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ pointerEvents: 'none', transform: `scale(${scale})`, transformOrigin: 'center center' }}
+          >
+            <active.El />
+          </div>
+
+          <button
+            onClick={() => setOpen(null)}
+            style={{
+              position: 'absolute', top: 20, right: 20,
+              background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+              borderRadius: '50%', width: 40, height: 40,
+              color: '#fff', fontSize: 18, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              pointerEvents: 'auto',
+            }}
+          >
+            ✕
+          </button>
+
+          <div style={{ position: 'absolute', bottom: 24, color: '#444', fontSize: 12 }}>
+            Klik di mana saja untuk tutup
+          </div>
+        </div>
+      )}
+
+      {/* ── Header ── */}
       <div style={{ marginBottom: 28 }}>
         <h2 style={{ color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 4 }}>
           Content
         </h2>
-        <p style={{ color: '#555', fontSize: 13 }}>3 ad creatives · Portrait · 10 detik loop · Klik untuk buka link</p>
+        <p style={{ color: '#555', fontSize: 13 }}>3 ad creatives · Portrait · 10 detik loop</p>
       </div>
 
+      {/* ── Thumbnail grid ── */}
       <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
-        {ADS.map(({ id, label, component }) => (
+        {ADS.map(({ id, label, El }) => (
           <div key={id}>
             <div style={{ marginBottom: 10 }}>
               <span style={{ color: '#888', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
@@ -357,23 +394,22 @@ export default function ContentSection() {
               </span>
             </div>
 
-            <a
-              href="https://globaldev.id"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: 'block', borderRadius: 20, textDecoration: 'none' }}
-            >
-              {component}
-            </a>
-
-            <div style={{ marginTop: 10, display: 'flex', gap: 8 }}>
-              <button
-                onClick={() => navigator.clipboard.writeText('https://globaldev.id')}
-                style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: 8, color: '#888', fontSize: 12, padding: '6px 14px', cursor: 'pointer' }}
-              >
-                Salin Link
-              </button>
+            {/* thumbnail — not clickable */}
+            <div style={{ pointerEvents: 'none', userSelect: 'none' }}>
+              <El />
             </div>
+
+            <button
+              onClick={() => setOpen(id)}
+              style={{
+                marginTop: 10, width: W,
+                background: '#161616', border: '1px solid #2a2a2a',
+                borderRadius: 8, color: '#aaa', fontSize: 12, fontWeight: 600,
+                padding: '8px 0', cursor: 'pointer',
+              }}
+            >
+              Layar Penuh
+            </button>
           </div>
         ))}
       </div>
