@@ -30,7 +30,6 @@ function rv(dur: number, inP: number, outP: number, o: { dy?: number; dx?: numbe
 const STATIC = `
 @keyframes blink{0%,49%{opacity:1}50%,99%{opacity:0}}
 @keyframes ring{0%,70%,100%{box-shadow:0 0 0 0 rgba(249,115,22,0)}80%{box-shadow:0 0 26px 4px rgba(249,115,22,.55)}90%{box-shadow:0 0 0 14px rgba(249,115,22,0)}}
-@keyframes fill80{0%,18%{width:0}52%,90%{width:80%}95%,100%{width:0}}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 `
 
@@ -336,25 +335,20 @@ const A9 = {
   badge: rv(16, 2, 95, { dy: -6 }),
   date: rv(16, 6, 92, { sc: 0.85 }),
   seats: rv(16, 22, 92),
-  bar: rv(16, 30, 92),
-  note: rv(16, 48, 92),
+  note: rv(16, 40, 92),
   cta: rv(16, 70, 95),
 }
 function Ad9() {
   return (
     <Card bg="linear-gradient(170deg,#140a00,#240c00)">
       <TopBadge a={A9.badge} color={A9.accent}>Tanggal penting</TopBadge>
-      <div style={{ animation: A9.date, textAlign: 'center', marginBottom: 6 }}>
+      <div style={{ animation: A9.date, textAlign: 'center', marginBottom: 18 }}>
         <div style={body('#cbb27a')}>Kelas dimulai</div>
         <div style={big(36)}>11 Juni 2026</div>
       </div>
-      <div style={{ animation: A9.seats, ...big(22, A9.accent), marginBottom: 24 }}>Cuma 30 kursi.</div>
-      <div style={{ animation: A9.bar, width: '100%', background: '#241a10', borderRadius: 6, height: 9, marginBottom: 10, overflow: 'hidden' }}>
-        <div style={{ animation: `fill80 ${A9.dur}s ${EASE} infinite both`, height: '100%', borderRadius: 6, background: 'linear-gradient(90deg,#fb923c,#ef4444)', width: 0 }} />
-      </div>
-      <div style={{ animation: A9.note, width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: 26 }}>
-        <span style={{ color: '#f87171', fontSize: 12, fontWeight: 800 }}>Sisa 8 kursi</span>
-        <span style={{ color: '#7a6a55', fontSize: 12 }}>22 / 30 terisi</span>
+      <div style={{ animation: A9.seats, ...big(22, A9.accent), marginBottom: 18 }}>Kuota terbatas.</div>
+      <div style={{ animation: A9.note, ...body('#cbb27a'), textAlign: 'center', marginBottom: 26 }}>
+        Tiap cohort kami jaga kecil biar mentoring tetap intensif. Yang duluan daftar, yang dapat tempat.
       </div>
       <div style={{ animation: A9.cta, color: '#fff', background: A9.accent, borderRadius: 11, padding: '11px 22px', fontSize: 14, fontWeight: 900 }}>
         Amankan tempatmu →
@@ -386,7 +380,7 @@ function Ad10() {
         5 minggu, dari nol sampai<br />aplikasi webmu online.
       </div>
       <div style={{ animation: A10.l2, color: '#f87171', fontSize: 14, fontWeight: 800, marginBottom: 22 }}>
-        Sisa 8 kursi.
+        Kuota cohort terbatas.
       </div>
       <div style={{ animation: `${A10.cta}, ring 2.5s ease-in-out infinite`, color: '#fff', background: A10.accent, borderRadius: 12, padding: '13px 26px', fontSize: 15, fontWeight: 900 }}>
         Daftar via WhatsApp →
