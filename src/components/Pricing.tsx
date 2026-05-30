@@ -1,12 +1,12 @@
 const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 
 const includes = [
-  '10 sesi live via Google Meet, sekitar 20 jam total',
+  '10 sesi live via Google Meet, total sekitar 20 jam',
   'Akses komunitas Discord khusus peserta',
-  'Source code lengkap proyek yang kamu bangun',
-  'Rekaman sesi untuk yang tidak bisa hadir',
-  'Code review dan feedback langsung dari instruktur',
-  'Sertifikat penyelesaian bootcamp',
+  'Source code lengkap dari proyek yang kamu bangun',
+  'Rekaman semua sesi, buat jaga-jaga kalau ada yang kelewat',
+  'Code review dan feedback langsung dari saya',
+  'Sertifikat setelah bootcamp selesai',
 ]
 
 export default function Pricing() {
@@ -22,7 +22,7 @@ export default function Pricing() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
         <div>
           <div style={{ marginBottom: '32px' }}>
-            <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>Biaya pendaftaran</p>
+            <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>Biaya ikut bootcamp</p>
             <p style={{ fontSize: '52px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 899.000</p>
             <p style={{ color: '#666', fontSize: '13px', marginTop: '8px' }}>Mulai 10 Juni 2026 · Hanya 20 kursi</p>
           </div>

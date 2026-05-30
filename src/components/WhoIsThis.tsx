@@ -1,13 +1,13 @@
 const forYou = [
-  'Fresh graduate IT yang mau kerja sebagai web developer',
-  'Sudah kenal HTML, CSS, dan sedikit JavaScript tapi belum pernah bangun aplikasi lengkap',
-  'Mau punya satu proyek nyata yang bisa masuk portofolio',
-  'Bisa hadir live dua kali seminggu selama empat minggu',
+  'Fresh graduate IT yang mau mulai karier sebagai web developer',
+  'Sudah paham dasar HTML, CSS, dan JavaScript, tapi belum pernah bikin aplikasi utuh',
+  'Mau punya satu proyek nyata buat mengisi portofolio',
+  'Bisa ikut sesi live dua kali seminggu selama lima minggu',
 ]
 
 const notForYou = [
-  'Sudah kerja sebagai developer dan familiar dengan React dan TypeScript',
-  'Belum pernah coding sama sekali. Bootcamp ini butuh dasar HTML dan CSS.',
+  'Sudah bekerja sebagai developer dan terbiasa dengan React dan TypeScript',
+  'Belum pernah coding sama sekali. Di sini kamu perlu dasar HTML dan CSS dulu.',
 ]
 
 export default function WhoIsThis() {

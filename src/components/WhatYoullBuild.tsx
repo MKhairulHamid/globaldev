@@ -2,19 +2,19 @@ const projects = [
   {
     icon: '💸',
     title: 'Expense Tracker',
-    desc: 'Catat pengeluaran harian, kelompokkan per kategori, lihat ringkasan bulanan. Langsung berguna buat kamu sendiri dan relevan di mata rekruiter.',
+    desc: 'Catat pengeluaran harian, kelompokkan per kategori, dan lihat ringkasan tiap bulan. Aplikasi yang kamu sendiri bakal pakai, dan enak dipajang di portofolio.',
     tags: ['CRUD', 'Auth', 'Charts'],
   },
   {
     icon: '📁',
     title: 'Portofolio Digital',
-    desc: 'Website portofolio pribadi dengan halaman proyek, tentang saya, dan form kontak yang tersimpan ke database. Kamu bangun sambil langsung punya portofolionya.',
+    desc: 'Website portofolio pribadi: halaman proyek, profil, dan form kontak yang langsung masuk ke database. Kamu bikin portofolionya sambil belajar, jadi sekali jalan langsung kepakai.',
     tags: ['Landing page', 'Auth', 'Form'],
   },
   {
     icon: '📋',
     title: 'Mini Forum Komunitas',
-    desc: 'Platform tanya jawab sederhana untuk komunitas — bisa untuk sesama alumni kampus, hobi, atau topik apa saja. Ada posting, komentar, dan upvote.',
+    desc: 'Forum tanya-jawab sederhana buat komunitas, entah teman kampus, hobi, atau topik apa pun. Lengkap dengan posting, komentar, dan upvote.',
     tags: ['Real-time', 'Auth', 'Social'],
   },
 ]
@@ -25,12 +25,12 @@ export default function WhatYoullBuild() {
       <div style={{ marginBottom: '48px' }}>
         <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Yang akan kamu bangun</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: '16px' }}>
-          Pilih proyek yang paling masuk akal buat kamu.
+          Pilih proyek yang paling pas buat kamu.
         </h2>
         <p style={{ color: '#a3a3a3', fontSize: '16px', lineHeight: 1.75, maxWidth: '600px' }}>
-          Di awal bootcamp kita putuskan bareng mau bangun apa.
-          Tiga pilihan di bawah sudah dirancang supaya selesai dalam 5 minggu dan langsung bisa masuk portofolio.
-          Kalau kamu punya ide sendiri, kita bisa diskusikan juga.
+          Di sesi pertama kita tentukan bareng mau bangun yang mana.
+          Tiga pilihan ini dirancang supaya bisa selesai dalam 5 minggu dan langsung pas dipajang di portofolio.
+          Punya ide sendiri? Boleh, nanti kita obrolin bareng.
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export default function WhatYoullBuild() {
       <div style={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: '14px', padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
         <span style={{ fontSize: '24px', flexShrink: 0 }}>💡</span>
         <p style={{ color: '#888', fontSize: '14px', lineHeight: 1.65, margin: 0 }}>
-          Punya ide proyek sendiri? Selama skalanya masuk dalam 5 minggu belajar, kita bisa bahas di sesi pertama dan wujudkan bareng.
+          Punya ide proyek sendiri? Selama skalanya masih realistis buat 5 minggu, kita bahas di sesi pertama dan wujudkan bareng.
         </p>
       </div>
     </section>

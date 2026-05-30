@@ -26,13 +26,13 @@ export default function Hero() {
 
       {/* Headline */}
       <h1 style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '24px', maxWidth: '800px' }}>
-        Mulai dari nol. Selesai dengan aplikasi live dan bisa kerja pakai AI.
+        Mulai dari nol. Selesai dengan aplikasi yang beneran jalan.
       </h1>
 
       <p style={{ color: '#a3a3a3', fontSize: '18px', maxWidth: '560px', lineHeight: 1.75, marginBottom: '40px' }}>
-        10 sesi live bareng engineer yang kerja remote di Australia.
-        Kita bangun platform lowongan kerja dari nol sampai deploy,
-        pakai React, TypeScript, Supabase, dan Claude Code.
+        10 sesi live bareng engineer yang sehari-hari kerja remote buat
+        perusahaan teknologi di Australia. Kita bangun satu aplikasi full stack
+        dari nol sampai online, pakai React, TypeScript, Supabase, dan dibantu Claude Code.
       </p>
 
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>

@@ -3,27 +3,27 @@ import { useState } from 'react'
 const faqs = [
   {
     q: 'Harus bisa apa sebelum daftar?',
-    a: 'Minimal sudah pernah buat halaman HTML dan kenal sedikit JavaScript: variabel, fungsi, if/else. Tidak harus expert. Tapi kalau belum pernah coding sama sekali, materi sesi pertama akan terasa berat.',
+    a: 'Minimal sudah pernah bikin halaman HTML dan paham dasar JavaScript: variabel, fungsi, if/else. Tidak harus mahir. Tapi kalau belum pernah coding sama sekali, materi di sesi pertama bisa terasa berat.',
   },
   {
-    q: 'Berapa lama tiap sesi dan jam berapa mulainya?',
-    a: 'Setiap sesi sekitar 90 sampai 120 menit, dua kali seminggu via Google Meet selama 5 minggu. Jadwal pastinya akan dikonfirmasi ke peserta yang sudah mendaftar, disesuaikan dengan mayoritas.',
+    q: 'Sesinya berapa lama dan jam berapa?',
+    a: 'Tiap sesi sekitar 90 sampai 120 menit, dua kali seminggu lewat Google Meet, selama lima minggu. Jadwal pastinya kita kunci setelah peserta terkumpul, menyesuaikan waktu yang paling pas buat mayoritas.',
   },
   {
-    q: 'Bagaimana cara bayarnya?',
-    a: 'Transfer bank ke BCA, Mandiri, GoPay, atau OVO. Detail rekening dan instruksi lengkap dikirim setelah kamu mengisi form pendaftaran.',
+    q: 'Cara bayarnya gimana?',
+    a: 'Transfer bank ke BCA, Mandiri, GoPay, atau OVO. Detail rekening dan langkah lengkapnya kita kirim begitu kamu isi form pendaftaran.',
   },
   {
-    q: 'Kalau ada sesi yang tidak bisa saya hadiri?',
-    a: 'Semua sesi direkam dan dibagikan ke peserta. Sangat disarankan hadir live karena kamu bisa tanya langsung. Tapi rekaman tetap ada kalau ada keperluan mendadak.',
+    q: 'Kalau ada sesi yang tidak bisa saya ikuti?',
+    a: 'Semua sesi direkam dan dibagikan ke peserta. Tetap lebih enak ikut live karena bisa tanya langsung, tapi rekamannya selalu ada kalau sewaktu-waktu kamu berhalangan.',
   },
   {
-    q: 'Software apa yang perlu disiapkan sebelum mulai?',
-    a: 'Node.js, VS Code, dan browser modern. Semuanya gratis. Panduan instalasi lengkap akan dikirim seminggu sebelum sesi pertama dimulai.',
+    q: 'Perlu nyiapin software apa saja?',
+    a: 'Node.js, VS Code, dan browser. Semuanya gratis. Panduan install lengkapnya kita kirim seminggu sebelum sesi pertama mulai.',
   },
   {
-    q: 'Ada garansi apa dari bootcamp ini?',
-    a: 'Tidak ada garansi kerja. Tidak ada yang bisa menjanjikan itu dengan jujur. Yang saya jamin: kamu keluar dengan satu aplikasi full stack yang sudah live dan bisa langsung kamu tunjukkan.',
+    q: 'Ada garansi kerja tidak?',
+    a: 'Jujur saja, garansi kerja tidak ada, dan tidak ada yang bisa menjanjikan itu dengan jujur. Yang pasti kamu dapat: satu aplikasi full stack yang sudah online dan bisa langsung kamu tunjukkan ke siapa pun.',
   },
 ]
 
