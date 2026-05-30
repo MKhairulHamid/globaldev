@@ -383,7 +383,7 @@ function Ad10() {
         Kuota cohort terbatas.
       </div>
       <div style={{ animation: `${A10.cta}, ring 2.5s ease-in-out infinite`, color: '#fff', background: A10.accent, borderRadius: 12, padding: '13px 26px', fontSize: 15, fontWeight: 900 }}>
-        Daftar via WhatsApp →
+        Daftar Sekarang →
       </div>
       <Url a={A10.url} color="#8a5a30" />
     </Card>
