@@ -2,62 +2,60 @@ const sessions = [
   {
     week: 'Minggu 1',
     items: [
-      { session: 'Sesi 1', title: 'Setup & React + TypeScript Fundamentals', desc: 'Vite setup, component structure, props, dan TypeScript basics' },
-      { session: 'Sesi 2', title: 'Hooks & State Management', desc: 'useState, useEffect, dan membangun UI interaktif' },
+      { n: '01', title: 'React + TypeScript dari nol', desc: 'Setup Vite, struktur komponen, props, dan TypeScript basics yang dipakai di dunia kerja.' },
+      { n: '02', title: 'State, hooks, dan UI interaktif', desc: 'useState, useEffect, dan cara berpikir React yang benar — bukan hafalan, tapi nalar.' },
     ],
   },
   {
     week: 'Minggu 2',
     items: [
-      { session: 'Sesi 3', title: 'Intro Supabase & Database Design', desc: 'Setup project Supabase, buat tabel jobs dan employers' },
-      { session: 'Sesi 4', title: 'Connecting React ke Supabase', desc: 'Fetch data, insert, update — CRUD lengkap dari frontend' },
+      { n: '03', title: 'Supabase setup dan desain database', desc: 'Buat project Supabase, rancang schema tabel jobs dan employers dari kebutuhan bisnis.' },
+      { n: '04', title: 'CRUD dari frontend ke database', desc: 'Fetch, insert, update, delete — kamu kontrol semua data dari React ke Supabase.' },
     ],
   },
   {
     week: 'Minggu 3',
     items: [
-      { session: 'Sesi 5', title: 'Authentication dengan Supabase Auth', desc: 'Login, register, protected routes, dan user session' },
-      { session: 'Sesi 6', title: 'Forms, Validasi & User Content', desc: 'Handle form submission, validasi TypeScript, dan post job listing' },
+      { n: '05', title: 'Autentikasi dengan Supabase Auth', desc: 'Login, register, protected routes, dan session management yang aman.' },
+      { n: '06', title: 'Form, validasi, dan konten user', desc: 'Handle form submission dengan TypeScript, validasi input, dan posting job listing.' },
     ],
   },
   {
     week: 'Minggu 4',
     items: [
-      { session: 'Sesi 7', title: 'Row Level Security & Polish UI', desc: 'RLS di Supabase, responsive design, dan UX improvements' },
-      { session: 'Sesi 8', title: 'Deploy & Portfolio Presentation', desc: 'GitHub Pages deployment, review proyek, dan langkah selanjutnya' },
+      { n: '07', title: 'Row Level Security dan polish UI', desc: 'RLS di Supabase — keamanan di level database, bukan cuma di frontend.' },
+      { n: '08', title: 'Deploy dan review portfolio', desc: 'Aplikasi live di internet. Review project bersama, dan roadmap belajar selanjutnya.' },
     ],
   },
 ]
 
 export default function Curriculum() {
   return (
-    <section className="px-6 py-20 bg-white/[0.02]">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">
-            Kurikulum
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            8 Sesi, 4 Minggu, 1 Aplikasi Nyata
+    <section id="kurikulum" className="px-6 py-20 border-t border-white/8">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-14">
+          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">Kurikulum</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-4">
+            8 sesi, 4 minggu, 1 aplikasi yang selesai.
           </h2>
-          <p className="text-gray-400 text-lg">
-            Setiap sesi live 90–120 menit, 2x seminggu via Google Meet.
+          <p className="text-neutral-400 text-lg">
+            Setiap sesi 90–120 menit live via Google Meet, 2x seminggu.
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           {sessions.map((week) => (
             <div key={week.week}>
-              <p className="text-blue-400 font-semibold text-sm mb-3">{week.week}</p>
-              <div className="grid md:grid-cols-2 gap-4">
+              <p className="text-neutral-600 text-sm font-medium mb-4">{week.week}</p>
+              <div className="grid md:grid-cols-2 gap-3">
                 {week.items.map((item) => (
                   <div
-                    key={item.session}
-                    className="bg-[#1a1a1a] border border-white/10 rounded-xl p-5 hover:border-blue-500/50 transition-colors"
+                    key={item.n}
+                    className="bg-white/[0.03] border border-white/8 hover:border-white/16 rounded-xl p-6 transition-colors"
                   >
-                    <p className="text-xs text-gray-500 mb-1">{item.session}</p>
-                    <h3 className="font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-gray-400 text-sm">{item.desc}</p>
+                    <p className="text-neutral-600 text-xs font-mono mb-3">Sesi {item.n}</p>
+                    <h3 className="text-white font-semibold mb-2 leading-snug">{item.title}</h3>
+                    <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>

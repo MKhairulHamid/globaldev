@@ -1,54 +1,50 @@
 const forYou = [
-  'Fresh graduate IT yang mau masuk dunia kerja sebagai web developer',
-  'Kamu sudah belajar coding sendiri tapi belum pernah bangun proyek lengkap',
-  'Mau punya portofolio yang bisa ditunjukkan ke rekruiter',
-  'Ingin memahami full stack development dari frontend sampai database',
+  'Fresh graduate IT yang mau masuk industri sebagai web developer',
+  'Sudah bisa HTML/CSS dan sedikit JavaScript, tapi belum pernah bangun aplikasi full stack',
+  'Mau punya satu project nyata yang bisa masuk portofolio',
+  'Siap hadir live 2x seminggu selama 4 minggu',
 ]
 
 const notForYou = [
-  'Yang sudah bekerja sebagai developer dan familiar dengan React + TypeScript',
-  'Yang mencari bootcamp intensif full-time (ini part-time, 2x seminggu)',
+  'Sudah bekerja sebagai developer dan familiar dengan React dan TypeScript',
+  'Belum pernah sama sekali coding — bootcamp ini butuh dasar HTML/CSS',
 ]
 
 export default function WhoIsThis() {
   return (
-    <section className="px-6 py-20 max-w-4xl mx-auto">
-      <div className="text-center mb-14">
-        <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">
-          Untuk Siapa
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold">
-          Bootcamp Ini Cocok Untukmu Jika...
-        </h2>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-green-500/5 border border-green-500/20 rounded-2xl p-6">
-          <h3 className="font-bold text-green-400 mb-4 flex items-center gap-2">
-            <span>✅</span> Ini untukmu
-          </h3>
-          <ul className="space-y-3">
-            {forYou.map((item) => (
-              <li key={item} className="flex gap-3 text-gray-300 text-sm">
-                <span className="text-green-400 mt-0.5 shrink-0">→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+    <section className="px-6 py-20 border-t border-white/8">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-14">
+          <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-4">Untuk siapa</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            Jujur dulu sebelum daftar.
+          </h2>
         </div>
 
-        <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6">
-          <h3 className="font-bold text-red-400 mb-4 flex items-center gap-2">
-            <span>❌</span> Mungkin bukan untukmu
-          </h3>
-          <ul className="space-y-3">
-            {notForYou.map((item) => (
-              <li key={item} className="flex gap-3 text-gray-300 text-sm">
-                <span className="text-red-400 mt-0.5 shrink-0">→</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="border border-white/10 rounded-2xl p-8">
+            <p className="text-white font-semibold mb-6">Cocok kalau kamu</p>
+            <ul className="space-y-4">
+              {forYou.map((item) => (
+                <li key={item} className="flex gap-4 text-neutral-300 text-sm leading-relaxed">
+                  <span className="text-orange-500 mt-0.5 shrink-0 font-bold">+</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="border border-white/8 rounded-2xl p-8 bg-white/[0.02]">
+            <p className="text-neutral-500 font-semibold mb-6">Kurang cocok kalau</p>
+            <ul className="space-y-4">
+              {notForYou.map((item) => (
+                <li key={item} className="flex gap-4 text-neutral-500 text-sm leading-relaxed">
+                  <span className="mt-0.5 shrink-0">–</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
