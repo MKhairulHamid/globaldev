@@ -2,325 +2,412 @@ import { useState } from 'react'
 
 const W = 270
 const H = 480
-const DUR = '10s'
 const EASE = 'cubic-bezier(0.4,0,0.2,1)'
-const ITER = 'infinite'
 
-function a(name: string) {
-  return `${name} ${DUR} ${EASE} ${ITER} both`
-}
+// ── Animation engine ─────────────────────────────────────────────────────────
+// rv() builds a percentage-based reveal keyframe that loops with the ad. It is
+// called at module load so the rules are collected once, then injected via the
+// shared <style> tag below.
+let _id = 0
+const _rules: string[] = []
 
-const KEYFRAMES = `
-/* ── Ad 1 Karir Baru ───────────────────────────────── */
-@keyframes a1-brand {
-  0%,8%   { opacity:0; transform:translateY(-8px) }
-  18%,92% { opacity:1; transform:translateY(0) }
-  100%    { opacity:0 }
-}
-@keyframes a1-h1 {
-  0%,23%  { opacity:0; transform:translateX(-24px) }
-  35%,90% { opacity:1; transform:translateX(0) }
-  97%,100%{ opacity:0 }
-}
-@keyframes a1-h2 {
-  0%,38%  { opacity:0; transform:translateX(24px) }
-  50%,90% { opacity:1; transform:translateX(0) }
-  97%,100%{ opacity:0 }
-}
-@keyframes a1-b1 {
-  0%,52%  { opacity:0; transform:translateY(12px) }
-  62%,88% { opacity:1; transform:translateY(0) }
-  95%,100%{ opacity:0 }
-}
-@keyframes a1-b2 {
-  0%,58%  { opacity:0; transform:translateY(12px) }
-  68%,88% { opacity:1; transform:translateY(0) }
-  95%,100%{ opacity:0 }
-}
-@keyframes a1-b3 {
-  0%,64%  { opacity:0; transform:translateY(12px) }
-  74%,88% { opacity:1; transform:translateY(0) }
-  95%,100%{ opacity:0 }
-}
-@keyframes a1-cta {
-  0%,80%  { opacity:0; transform:scale(0.9) }
-  88%,96% { opacity:1; transform:scale(1) }
-  100%    { opacity:0 }
-}
-@keyframes a1-pulse {
-  0%,88%,100% { box-shadow:0 0 0 0 rgba(249,115,22,0) }
-  90%         { box-shadow:0 0 24px 4px rgba(249,115,22,0.55) }
-  92%         { box-shadow:0 0 0 14px rgba(249,115,22,0) }
+function rv(dur: number, inP: number, outP: number, o: { dy?: number; dx?: number; sc?: number } = {}) {
+  const dy = o.dy ?? 12
+  const dx = o.dx ?? 0
+  const sc = o.sc ?? 1
+  const name = `r${_id++}`
+  const enter = Math.min(inP + 7, outP)
+  const fade = Math.min(outP + 4, 100)
+  _rules.push(
+    `@keyframes ${name}{` +
+    `0%,${inP}%{opacity:0;transform:translate(${dx}px,${dy}px) scale(${sc})}` +
+    `${enter}%,${outP}%{opacity:1;transform:translate(0,0) scale(1)}` +
+    `${fade}%,100%{opacity:0}}`,
+  )
+  return `${name} ${dur}s ${EASE} infinite both`
 }
 
-/* ── Ad 2 Tech Stack ────────────────────────────────── */
-@keyframes a2-code-bg {
-  0%      { opacity:0 }
-  15%,80% { opacity:0.055 }
-  100%    { opacity:0 }
-}
-@keyframes a2-label {
-  0%,13%  { opacity:0 }
-  23%,85% { opacity:1 }
-  93%,100%{ opacity:0 }
-}
-@keyframes a2-h {
-  0%,13%  { opacity:0; letter-spacing:0.4em }
-  26%,85% { opacity:1; letter-spacing:-0.02em }
-  93%,100%{ opacity:0 }
-}
-@keyframes a2-b1 {
-  0%,28%  { opacity:0; transform:scale(0.65) }
-  36%     { opacity:1; transform:scale(1.08) }
-  40%,83% { opacity:1; transform:scale(1) }
-  90%,100%{ opacity:0 }
-}
-@keyframes a2-b2 {
-  0%,34%  { opacity:0; transform:scale(0.65) }
-  42%     { opacity:1; transform:scale(1.08) }
-  46%,83% { opacity:1; transform:scale(1) }
-  90%,100%{ opacity:0 }
-}
-@keyframes a2-b3 {
-  0%,40%  { opacity:0; transform:scale(0.65) }
-  48%     { opacity:1; transform:scale(1.08) }
-  52%,83% { opacity:1; transform:scale(1) }
-  90%,100%{ opacity:0 }
-}
-@keyframes a2-b4 {
-  0%,46%  { opacity:0; transform:scale(0.65) }
-  54%     { opacity:1; transform:scale(1.08) }
-  58%,83% { opacity:1; transform:scale(1) }
-  90%,100%{ opacity:0 }
-}
-@keyframes a2-sub {
-  0%,55%  { opacity:0; transform:translateY(10px) }
-  65%,82% { opacity:1; transform:translateY(0) }
-  90%,100%{ opacity:0 }
-}
-@keyframes a2-cta {
-  0%,72%  { opacity:0 }
-  80%,96% { opacity:1 }
-  100%    { opacity:0 }
-}
-@keyframes a2-cursor {
-  0%,45%,55%,100% { opacity:1 }
-  50% { opacity:0 }
-}
-
-/* ── Ad 3 Urgency ───────────────────────────────────── */
-@keyframes a3-badge {
-  0%,7%   { opacity:0; transform:translateY(-28px) }
-  16%     { opacity:1; transform:translateY(3px) }
-  20%,88% { opacity:1; transform:translateY(0) }
-  95%,100%{ opacity:0 }
-}
-@keyframes a3-heading {
-  0%,24%  { opacity:0; transform:scale(0.82) }
-  35%,87% { opacity:1; transform:scale(1) }
-  94%,100%{ opacity:0 }
-}
-@keyframes a3-bar {
-  0%,35%  { width:0%; opacity:0 }
-  38%     { opacity:1 }
-  62%,86% { width:78%; opacity:1 }
-  93%,100%{ width:78%; opacity:0 }
-}
-@keyframes a3-seats {
-  0%,36%  { opacity:0 }
-  46%,85% { opacity:1 }
-  92%,100%{ opacity:0 }
-}
-@keyframes a3-urgency {
-  0%,54%  { opacity:0; transform:translateX(-8px) }
-  63%,85% { opacity:1; transform:translateX(0) }
-  92%,100%{ opacity:0 }
-}
-@keyframes a3-cta {
-  0%,70%  { opacity:0; transform:translateY(14px) }
-  79%,94% { opacity:1; transform:translateY(0) }
-  100%    { opacity:0 }
-}
-@keyframes a3-flash {
-  0%,79%,100%    { background:#f97316; color:#fff }
-  85%            { background:#fb923c }
-  90%            { background:#f97316 }
-  92%            { background:#fed7aa; color:#9a3412 }
-  94%            { background:#f97316; color:#fff }
-}
+const STATIC = `
+@keyframes blink{0%,49%{opacity:1}50%,99%{opacity:0}}
+@keyframes ring{0%,70%,100%{box-shadow:0 0 0 0 rgba(249,115,22,0)}80%{box-shadow:0 0 26px 4px rgba(249,115,22,.55)}90%{box-shadow:0 0 0 14px rgba(249,115,22,0)}}
+@keyframes fill80{0%,18%{width:0}52%,90%{width:80%}95%,100%{width:0}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 `
 
-// ── Ad 1: Karir Baru ─────────────────────────────────────────────────────────
+// ── Shared layout pieces ─────────────────────────────────────────────────────
+function Card({ bg, children }: { bg: string; children: React.ReactNode }) {
+  return (
+    <div style={{
+      width: W, height: H, borderRadius: 20, overflow: 'hidden',
+      background: bg, position: 'relative',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      padding: '56px 28px', boxSizing: 'border-box',
+    }}>
+      {children}
+    </div>
+  )
+}
+
+function TopBadge({ a, color, children }: { a: string; color: string; children: React.ReactNode }) {
+  return (
+    <div style={{ position: 'absolute', top: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', animation: a }}>
+      <span style={{ background: `${color}1f`, border: `1px solid ${color}55`, color, borderRadius: 99, padding: '5px 14px', fontSize: 9, fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+        {children}
+      </span>
+    </div>
+  )
+}
+
+function Url({ a, color = '#5a5a5a' }: { a: string; color?: string }) {
+  return (
+    <div style={{ position: 'absolute', bottom: 22, left: 0, right: 0, textAlign: 'center', color, fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', animation: a }}>
+      globaldev.sbs
+    </div>
+  )
+}
+
+// Scene = absolutely centered block, for story ads where lines swap one by one.
+function Scene({ a, children }: { a: string; children: React.ReactNode }) {
+  return (
+    <div style={{
+      position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center', padding: '60px 30px',
+      textAlign: 'center', gap: 10, animation: a,
+    }}>
+      {children}
+    </div>
+  )
+}
+
+const big = (size: number, color = '#fff'): React.CSSProperties => ({ color, fontSize: size, fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.03em' })
+const body = (color = '#cbd5e1'): React.CSSProperties => ({ color, fontSize: 14, fontWeight: 500, lineHeight: 1.6 })
+
+// ── 1. Awareness — Tutorial Hell ─────────────────────────────────────────── 20s
+const A1 = {
+  dur: 20, accent: '#f97316',
+  badge: rv(20, 2, 95, { dy: -6 }),
+  s1: rv(20, 7, 29), s2: rv(20, 32, 55), s3: rv(20, 58, 74), s4: rv(20, 77, 93),
+  url: rv(20, 80, 95),
+}
 function Ad1() {
   return (
-    <div style={{
-      width: W, height: H, borderRadius: 20, overflow: 'hidden',
-      background: 'linear-gradient(160deg,#0d0d0d 0%,#1a0a00 100%)',
-      position: 'relative', display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      padding: '32px 24px', boxSizing: 'border-box',
-    }}>
-      <div style={{
-        position: 'absolute', top: '35%', left: '50%',
-        transform: 'translate(-50%,-50%)',
-        width: 220, height: 220,
-        background: 'radial-gradient(circle,rgba(249,115,22,0.18) 0%,transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{ animation: a('a1-brand'), color: '#f97316', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 28 }}>
+    <Card bg="linear-gradient(160deg,#0d0d0d,#1a0a00)">
+      <TopBadge a={A1.badge} color={A1.accent}>Awareness</TopBadge>
+      <Scene a={A1.s1}>
+        <div style={big(30)}>Ratusan jam<br />nonton tutorial.</div>
+        <div style={body('#8a8a8a')}>Sertifikat numpuk di laptop.</div>
+      </Scene>
+      <Scene a={A1.s2}>
+        <div style={big(26)}>Giliran bikin aplikasi<br />sendiri,</div>
+        <div style={{ ...big(40, A1.accent), marginTop: 6 }}>blank.</div>
+      </Scene>
+      <Scene a={A1.s3}>
+        <div style={big(34, A1.accent)}>Itu Tutorial Hell.</div>
+        <div style={body('#9a9a9a')}>Muter di teori, nggak pernah jadi karya.</div>
+      </Scene>
+      <Scene a={A1.s4}>
+        <div style={body('#9a9a9a')}>Cara keluarnya cuma satu:</div>
+        <div style={{ ...big(30), marginTop: 4 }}>Bikin aplikasi<br /><span style={{ color: A1.accent }}>yang beneran jalan.</span></div>
+      </Scene>
+      <Url a={A1.url} />
+    </Card>
+  )
+}
+
+// ── 2. Education — React + TypeScript + Supabase ─────────────────────────── 28s
+const A2 = {
+  dur: 28, accent: '#60a5fa',
+  badge: rv(28, 2, 95, { dy: -6 }),
+  title: rv(28, 6, 94),
+  r1: rv(28, 16, 92, { dx: -18 }), r2: rv(28, 24, 92, { dx: -18 }), r3: rv(28, 32, 92, { dx: -18 }),
+  close: rv(28, 62, 93),
+  url: rv(28, 70, 95),
+}
+function Ad2() {
+  const row = (a: string, name: string, color: string, desc: string) => (
+    <div style={{ animation: a, display: 'flex', gap: 12, alignItems: 'flex-start', textAlign: 'left', width: '100%' }}>
+      <span style={{ color, fontSize: 15, fontWeight: 800, minWidth: 78 }}>{name}</span>
+      <span style={{ color: '#9ca3af', fontSize: 12.5, lineHeight: 1.5 }}>{desc}</span>
+    </div>
+  )
+  return (
+    <Card bg="linear-gradient(160deg,#070b14,#0a1424)">
+      <TopBadge a={A2.badge} color={A2.accent}>Education</TopBadge>
+      <div style={{ animation: A2.title, ...big(22), textAlign: 'center', marginBottom: 26 }}>
+        Kenapa stack ini<br />pas buat bisnis?
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%', marginBottom: 24 }}>
+        {row(A2.r1, 'React', '#60a5fa', 'UI cepat & mulus. Dipakai Gojek, Tokopedia, ribuan startup.')}
+        {row(A2.r2, 'TypeScript', '#a78bfa', 'Bug ketahuan sejak di editor, sebelum sampai ke user.')}
+        {row(A2.r3, 'Supabase', '#34d399', 'Database, login, dan storage langsung siap pakai.')}
+      </div>
+      <div style={{ animation: A2.close, color: A2.accent, fontSize: 13, fontWeight: 700, textAlign: 'center' }}>
+        Tiga tools, satu alur kerja yang rapi.
+      </div>
+      <Url a={A2.url} />
+    </Card>
+  )
+}
+
+// ── 3. Engagement — polling question ─────────────────────────────────────── 16s
+const A3 = {
+  dur: 16, accent: '#a78bfa',
+  badge: rv(16, 2, 95, { dy: -6 }),
+  q: rv(16, 6, 92),
+  o1: rv(16, 30, 90, { sc: 0.7 }), o2: rv(16, 38, 90, { sc: 0.7 }),
+  o3: rv(16, 46, 90, { sc: 0.7 }), o4: rv(16, 54, 90, { sc: 0.7 }),
+  cta: rv(16, 72, 95),
+}
+function Ad3() {
+  const chip = (a: string, t: string) => (
+    <span style={{ animation: a, background: '#a78bfa1a', border: '1px solid #a78bfa44', color: '#c4b5fd', borderRadius: 10, padding: '8px 14px', fontSize: 13, fontWeight: 700 }}>{t}</span>
+  )
+  return (
+    <Card bg="linear-gradient(160deg,#0c0814,#160a24)">
+      <TopBadge a={A3.badge} color={A3.accent}>Pertanyaan buat kamu</TopBadge>
+      <div style={{ animation: A3.q, ...big(23), textAlign: 'center', marginBottom: 28 }}>
+        Kalau bisa bikin web sendiri, fitur apa yang paling kamu butuhin buat bisnismu?
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 9, justifyContent: 'center', marginBottom: 26 }}>
+        {chip(A3.o1, 'Booking online')}
+        {chip(A3.o2, 'Katalog produk')}
+        {chip(A3.o3, 'Pembayaran')}
+        {chip(A3.o4, 'Dashboard admin')}
+      </div>
+      <div style={{ animation: A3.cta, color: A3.accent, fontSize: 14, fontWeight: 800 }}>
+        Tulis jawabanmu di komentar 👇
+      </div>
+    </Card>
+  )
+}
+
+// ── 4. Lead Magnet — free PDF checklist ──────────────────────────────────── 20s
+const A4 = {
+  dur: 20, accent: '#34d399',
+  badge: rv(20, 2, 95, { dy: -6 }),
+  icon: rv(20, 8, 92, { sc: 0.6 }),
+  title: rv(20, 18, 92),
+  sub: rv(20, 42, 92),
+  cta: rv(20, 70, 95),
+}
+function Ad4() {
+  return (
+    <Card bg="linear-gradient(160deg,#06120d,#0a2018)">
+      <TopBadge a={A4.badge} color={A4.accent}>Gratis</TopBadge>
+      <div style={{ animation: `${A4.icon}, floatY 3s ease-in-out infinite`, fontSize: 52, marginBottom: 20 }}>📋</div>
+      <div style={{ animation: A4.title, ...big(23), textAlign: 'center', marginBottom: 16 }}>
+        Checklist Persiapan<br />Bikin Web Booking<br />dari Nol
+      </div>
+      <div style={{ animation: A4.sub, ...body('#9ca3af'), textAlign: 'center', marginBottom: 24 }}>
+        Langkah demi langkah, format PDF.<br />Tinggal ikutin dari atas ke bawah.
+      </div>
+      <div style={{ animation: A4.cta, background: '#34d399', color: '#06120d', borderRadius: 10, padding: '11px 22px', fontSize: 14, fontWeight: 900 }}>
+        Komen "CHECKLIST" 👇
+      </div>
+    </Card>
+  )
+}
+
+// ── 5. Nurturing — remote Australia story ────────────────────────────────── 38s
+const A5 = {
+  dur: 38, accent: '#fbbf24',
+  badge: rv(38, 2, 96, { dy: -6 }),
+  s1: rv(38, 6, 26), s2: rv(38, 29, 50), s3: rv(38, 53, 76), s4: rv(38, 79, 93),
+  url: rv(38, 82, 96),
+}
+function Ad5() {
+  return (
+    <Card bg="linear-gradient(160deg,#100b00,#1c1400)">
+      <TopBadge a={A5.badge} color={A5.accent}>Cerita</TopBadge>
+      <Scene a={A5.s1}>
+        <div style={big(26)}>Dulu saya ngoding dari kamar kecil di Indonesia.</div>
+      </Scene>
+      <Scene a={A5.s2}>
+        <div style={big(26)}>Klien saya satu tim engineer di <span style={{ color: A5.accent }}>Australia.</span></div>
+      </Scene>
+      <Scene a={A5.s3}>
+        <div style={big(24)}>Nggak ada yang nanya saya lulusan mana.</div>
+        <div style={{ ...body('#cbb27a'), marginTop: 6 }}>Mereka cuma lihat aplikasi yang saya bangun.</div>
+      </Scene>
+      <Scene a={A5.s4}>
+        <div style={big(28, A5.accent)}>Sekarang giliran saya bantu kamu sampai ke sana.</div>
+      </Scene>
+      <Url a={A5.url} color="#7a6a3a" />
+    </Card>
+  )
+}
+
+// ── 6. Problem Agitation — fresh grad & UMKM ─────────────────────────────── 30s
+const A6 = {
+  dur: 30, accent: '#f87171',
+  badge: rv(30, 2, 96, { dy: -6 }),
+  s1: rv(30, 6, 30), s2: rv(30, 33, 58), s3: rv(30, 61, 80), s4: rv(30, 82, 93),
+  url: rv(30, 85, 96),
+}
+function Ad6() {
+  return (
+    <Card bg="linear-gradient(160deg,#140707,#220a0a)">
+      <TopBadge a={A6.badge} color={A6.accent}>Realita</TopBadge>
+      <Scene a={A6.s1}>
+        <div style={big(40, A6.accent)}>100 lamaran.<br />2 panggilan.</div>
+        <div style={{ ...body('#b08a8a'), marginTop: 8 }}>Cerita banyak fresh graduate.</div>
+      </Scene>
+      <Scene a={A6.s2}>
+        <div style={big(24)}>Masalahnya, nggak ada karya yang bisa diklik dan dicoba HRD.</div>
+      </Scene>
+      <Scene a={A6.s3}>
+        <div style={big(24)}>Di sisi lain, UMKM bayar jutaan cuma buat satu web booking.</div>
+      </Scene>
+      <Scene a={A6.s4}>
+        <div style={big(28, A6.accent)}>Skill yang sama, dua peluang besar.</div>
+      </Scene>
+      <Url a={A6.url} color="#8a5a5a" />
+    </Card>
+  )
+}
+
+// ── 7. Soft Selling — coding with AI (Claude Code) ───────────────────────── 28s
+const A7 = {
+  dur: 28, accent: '#22d3ee',
+  badge: rv(28, 2, 96, { dy: -6 }),
+  s1: rv(28, 6, 28), s2: rv(28, 31, 54), s3: rv(28, 57, 78), s4: rv(28, 81, 93),
+  url: rv(28, 84, 96),
+}
+function Ad7() {
+  return (
+    <Card bg="linear-gradient(160deg,#04121a,#06181c)">
+      <TopBadge a={A7.badge} color={A7.accent}>Cara kerja baru</TopBadge>
+      <Scene a={A7.s1}>
+        <div style={big(26)}>Developer hari ini ngoding bareng <span style={{ color: A7.accent }}>AI.</span></div>
+      </Scene>
+      <Scene a={A7.s2}>
+        <div style={big(24)}>Claude Code bantu nulis, benerin, dan jelasin kode.</div>
+      </Scene>
+      <Scene a={A7.s3}>
+        <div style={big(28)}>Kerjaan yang dulu seminggu, sekarang bisa sehari.</div>
+      </Scene>
+      <Scene a={A7.s4}>
+        <div style={big(24, A7.accent)}>Di kelas kami, kamu praktik langsung pakai tools ini.</div>
+      </Scene>
+      <Url a={A7.url} color="#3a7a82" />
+    </Card>
+  )
+}
+
+// ── 8. Social Proof — Cloud Exam Lab showcase ────────────────────────────── 24s
+const A8 = {
+  dur: 24, accent: '#10b981',
+  badge: rv(24, 2, 95, { dy: -6 }),
+  title: rv(24, 8, 92, { sc: 0.85 }),
+  sub: rv(24, 18, 92),
+  chips: [rv(24, 30, 90, { sc: 0.7 }), rv(24, 38, 90, { sc: 0.7 }), rv(24, 46, 90, { sc: 0.7 })],
+  close: rv(24, 62, 93),
+  url: rv(24, 70, 95),
+}
+function Ad8() {
+  const chip = (a: string, t: string, c: string) => (
+    <span style={{ animation: a, background: `${c}1a`, border: `1px solid ${c}44`, color: c, borderRadius: 8, padding: '6px 13px', fontSize: 12.5, fontWeight: 700 }}>{t}</span>
+  )
+  return (
+    <Card bg="linear-gradient(160deg,#04140e,#06201a)">
+      <TopBadge a={A8.badge} color={A8.accent}>Bukti nyata</TopBadge>
+      <div style={{ animation: A8.title, ...big(30, A8.accent), textAlign: 'center', marginBottom: 12 }}>
+        Cloud Exam Lab
+      </div>
+      <div style={{ animation: A8.sub, ...body('#9ca3af'), textAlign: 'center', marginBottom: 24 }}>
+        Platform ujian online yang<br />beneran dipakai, bukan sekadar demo.
+      </div>
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 24 }}>
+        {chip(A8.chips[0], 'React', '#60a5fa')}
+        {chip(A8.chips[1], 'TypeScript', '#a78bfa')}
+        {chip(A8.chips[2], 'Supabase', '#34d399')}
+      </div>
+      <div style={{ animation: A8.close, color: A8.accent, fontSize: 13, fontWeight: 700, textAlign: 'center' }}>
+        Stack yang sama yang bakal kamu kuasai.
+      </div>
+      <Url a={A8.url} color="#3a7a62" />
+    </Card>
+  )
+}
+
+// ── 9. Urgency & Scarcity ────────────────────────────────────────────────── 16s
+const A9 = {
+  dur: 16, accent: '#fb923c',
+  badge: rv(16, 2, 95, { dy: -6 }),
+  date: rv(16, 6, 92, { sc: 0.85 }),
+  seats: rv(16, 22, 92),
+  bar: rv(16, 30, 92),
+  note: rv(16, 48, 92),
+  cta: rv(16, 70, 95),
+}
+function Ad9() {
+  return (
+    <Card bg="linear-gradient(170deg,#140a00,#240c00)">
+      <TopBadge a={A9.badge} color={A9.accent}>Tanggal penting</TopBadge>
+      <div style={{ animation: A9.date, textAlign: 'center', marginBottom: 6 }}>
+        <div style={body('#cbb27a')}>Kelas dimulai</div>
+        <div style={big(36)}>11 Juni 2026</div>
+      </div>
+      <div style={{ animation: A9.seats, ...big(22, A9.accent), marginBottom: 24 }}>Cuma 30 kursi.</div>
+      <div style={{ animation: A9.bar, width: '100%', background: '#241a10', borderRadius: 6, height: 9, marginBottom: 10, overflow: 'hidden' }}>
+        <div style={{ animation: `fill80 ${A9.dur}s ${EASE} infinite both`, height: '100%', borderRadius: 6, background: 'linear-gradient(90deg,#fb923c,#ef4444)', width: 0 }} />
+      </div>
+      <div style={{ animation: A9.note, width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: 26 }}>
+        <span style={{ color: '#f87171', fontSize: 12, fontWeight: 800 }}>Sisa 8 kursi</span>
+        <span style={{ color: '#7a6a55', fontSize: 12 }}>22 / 30 terisi</span>
+      </div>
+      <div style={{ animation: A9.cta, color: '#fff', background: A9.accent, borderRadius: 11, padding: '11px 22px', fontSize: 14, fontWeight: 900 }}>
+        Amankan tempatmu →
+      </div>
+    </Card>
+  )
+}
+
+// ── 10. Hard Selling — direct promo ──────────────────────────────────────── 22s
+const A10 = {
+  dur: 22, accent: '#f97316',
+  badge: rv(22, 2, 95, { dy: -6 }),
+  brand: rv(22, 6, 93),
+  price: rv(22, 16, 93, { sc: 0.7 }),
+  l1: rv(22, 38, 93),
+  l2: rv(22, 50, 93),
+  cta: rv(22, 70, 96),
+  url: rv(22, 78, 96),
+}
+function Ad10() {
+  return (
+    <Card bg="linear-gradient(160deg,#1a0a00,#2a0e00)">
+      <TopBadge a={A10.badge} color={A10.accent}>Daftar sekarang</TopBadge>
+      <div style={{ animation: A10.brand, color: A10.accent, fontSize: 11, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14 }}>
         Global Developer Academy
       </div>
-      <div style={{ animation: a('a1-h1'), color: '#fff', fontSize: 34, fontWeight: 900, textAlign: 'center', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 2 }}>
-        Skill Tech-mu,
+      <div style={{ animation: A10.price, ...big(48), marginBottom: 16 }}>Rp 899.000</div>
+      <div style={{ animation: A10.l1, ...body('#e2c9a0'), textAlign: 'center', marginBottom: 8 }}>
+        5 minggu, dari nol sampai<br />aplikasi webmu online.
       </div>
-      <div style={{ animation: a('a1-h2'), color: '#f97316', fontSize: 44, fontWeight: 900, textAlign: 'center', lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 32 }}>
-        Nilai Jualmu.
+      <div style={{ animation: A10.l2, color: '#f87171', fontSize: 14, fontWeight: 800, marginBottom: 22 }}>
+        Sisa 8 kursi.
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32, width: '100%' }}>
-        {[
-          { an: a('a1-b1'), text: 'Full Stack Web — dari nol sampai deploy' },
-          { an: a('a1-b2'), text: 'Mentorship 1-on-1 dari engineer aktif' },
-          { an: a('a1-b3'), text: 'Portofolio nyata, langsung siap apply' },
-        ].map(({ an, text }) => (
-          <div key={text} style={{ animation: an, display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f97316', flexShrink: 0, display: 'inline-block' }} />
-            <span style={{ color: '#d1d5db', fontSize: 14, fontWeight: 500 }}>{text}</span>
-          </div>
-        ))}
+      <div style={{ animation: `${A10.cta}, ring 2.5s ease-in-out infinite`, color: '#fff', background: A10.accent, borderRadius: 12, padding: '13px 26px', fontSize: 15, fontWeight: 900 }}>
+        Daftar via WhatsApp →
       </div>
-      <button style={{
-        animation: `${a('a1-cta')}, ${a('a1-pulse')}`,
-        background: '#f97316', color: '#fff', border: 'none',
-        borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 800, cursor: 'default',
-        pointerEvents: 'none',
-      }}>
-        Daftar Cohort Juni →
-      </button>
-      <div style={{ animation: a('a1-cta'), color: '#555', fontSize: 11, marginTop: 14 }}>
-        globaldev.sbs
-      </div>
-    </div>
+      <Url a={A10.url} color="#8a5a30" />
+    </Card>
   )
 }
 
-// ── Ad 2: Tech Stack ─────────────────────────────────────────────────────────
-const CODE_TEXT = `const dev = new Developer()\ndev.learn(['HTML','CSS','JS'])\ndev.master('React + TS')\ndev.build({ realProjects: true })\ndev.getJob() // ✓ hired\n\n`.repeat(7)
-
-function Ad2() {
-  const badge = (text: string, color: string, an: string) => (
-    <span key={text} style={{
-      animation: an,
-      background: `${color}1a`, border: `1px solid ${color}44`,
-      color, borderRadius: 8, padding: '6px 14px', fontSize: 13, fontWeight: 700,
-    }}>
-      {text}
-    </span>
-  )
-  return (
-    <div style={{
-      width: W, height: H, borderRadius: 20, overflow: 'hidden',
-      background: '#080c10', position: 'relative',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      padding: '32px 24px', boxSizing: 'border-box',
-    }}>
-      <pre style={{
-        animation: a('a2-code-bg'),
-        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-        padding: 20, margin: 0, color: '#fbbf24',
-        fontSize: 10, lineHeight: 1.7, fontFamily: 'monospace',
-        whiteSpace: 'pre', overflow: 'hidden', pointerEvents: 'none',
-      }}>
-        {CODE_TEXT}
-      </pre>
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-        <div style={{ animation: a('a2-label'), color: '#fbbf24', fontSize: 10, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 14 }}>
-          Masuk Industri Tech
-        </div>
-        <div style={{ animation: a('a2-h'), color: '#fff', fontSize: 24, fontWeight: 900, textAlign: 'center', lineHeight: 1.2, marginBottom: 28 }}>
-          Bukan Kursus Biasa.{'\n'}Ini Akselerator Karir.
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 24 }}>
-          {badge('HTML & CSS', '#fbbf24', a('a2-b1'))}
-          {badge('JavaScript', '#60a5fa', a('a2-b2'))}
-          {badge('React', '#34d399', a('a2-b3'))}
-          {badge('TypeScript', '#a78bfa', a('a2-b4'))}
-        </div>
-        <div style={{ animation: a('a2-sub'), color: '#9ca3af', fontSize: 13, textAlign: 'center', lineHeight: 1.65, marginBottom: 28 }}>
-          Diajar langsung engineer aktif di industri.{'\n'}6 minggu serius, langsung bisa ngelamar.
-        </div>
-        <div style={{ animation: a('a2-cta'), color: '#fbbf24', fontSize: 14, fontWeight: 700, display: 'flex', alignItems: 'center' }}>
-          → globaldev.sbs
-          <span style={{
-            animation: a('a2-cursor'),
-            display: 'inline-block', width: 2, height: 16,
-            background: '#fbbf24', marginLeft: 3, verticalAlign: 'middle',
-          }} />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ── Ad 3: Urgency ─────────────────────────────────────────────────────────────
-function Ad3() {
-  return (
-    <div style={{
-      width: W, height: H, borderRadius: 20, overflow: 'hidden',
-      background: 'linear-gradient(170deg,#0f0a00 0%,#1c0600 100%)',
-      position: 'relative', display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      padding: '32px 24px', boxSizing: 'border-box',
-    }}>
-      <div style={{
-        animation: a('a3-badge'),
-        background: 'rgba(249,115,22,0.15)', border: '1px solid rgba(249,115,22,0.4)',
-        borderRadius: 99, padding: '5px 16px', marginBottom: 24,
-        color: '#f97316', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase',
-      }}>
-        Cohort Juni 2026
-      </div>
-      <div style={{ animation: a('a3-heading'), color: '#fff', fontSize: 36, fontWeight: 900, textAlign: 'center', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 6 }}>
-        Hampir Penuh.
-      </div>
-      <div style={{ animation: a('a3-heading'), color: '#f97316', fontSize: 20, fontWeight: 800, textAlign: 'center', marginBottom: 32 }}>
-        Daftar Sekarang.
-      </div>
-      <div style={{
-        animation: a('a3-seats'),
-        width: '100%', background: '#1f1f1f', borderRadius: 6, height: 8, marginBottom: 10, overflow: 'hidden',
-      }}>
-        <div style={{
-          animation: a('a3-bar'),
-          height: '100%', borderRadius: 6,
-          background: 'linear-gradient(90deg,#f97316,#ef4444)',
-          width: 0,
-        }} />
-      </div>
-      <div style={{ animation: a('a3-seats'), width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
-        <span style={{ color: '#f87171', fontSize: 12, fontWeight: 700 }}>8 kursi tersisa</span>
-        <span style={{ color: '#6b7280', fontSize: 12 }}>22 / 30 terisi</span>
-      </div>
-      <div style={{ animation: a('a3-urgency'), color: '#fef3c7', fontSize: 14, textAlign: 'center', lineHeight: 1.7, marginBottom: 28 }}>
-        Yang duluan daftar,{'\n'}yang dapat tempatnya.{'\n'}Setelah penuh, kami tutup.
-      </div>
-      <button style={{
-        animation: `${a('a3-cta')}, ${a('a3-flash')}`,
-        width: '100%', border: 'none', borderRadius: 14,
-        padding: '15px', fontSize: 16, fontWeight: 900, cursor: 'default',
-        background: '#f97316', color: '#fff', pointerEvents: 'none',
-      }}>
-        Amankan Kursimu →
-      </button>
-    </div>
-  )
-}
-
-// ── Section ──────────────────────────────────────────────────────────────────
+// ── Catalog ──────────────────────────────────────────────────────────────────
 const ADS = [
-  { id: 'karir-baru', label: 'Karir Baru', El: Ad1 },
-  { id: 'tech-stack', label: 'Tech Stack', El: Ad2 },
-  { id: 'urgency',    label: 'Urgency',    El: Ad3 },
+  { id: 'awareness',  n: 1,  cat: 'Awareness',          dur: A1.dur,  El: Ad1 },
+  { id: 'education',  n: 2,  cat: 'Education',           dur: A2.dur,  El: Ad2 },
+  { id: 'engagement', n: 3,  cat: 'Engagement',          dur: A3.dur,  El: Ad3 },
+  { id: 'leadmagnet', n: 4,  cat: 'Lead Magnet',         dur: A4.dur,  El: Ad4 },
+  { id: 'nurturing',  n: 5,  cat: 'Nurturing',           dur: A5.dur,  El: Ad5 },
+  { id: 'agitation',  n: 6,  cat: 'Problem Agitation',   dur: A6.dur,  El: Ad6 },
+  { id: 'softsell',   n: 7,  cat: 'Soft Selling',        dur: A7.dur,  El: Ad7 },
+  { id: 'proof',      n: 8,  cat: 'Social Proof',        dur: A8.dur,  El: Ad8 },
+  { id: 'urgency',    n: 9,  cat: 'Urgency & Scarcity',  dur: A9.dur,  El: Ad9 },
+  { id: 'hardsell',   n: 10, cat: 'Hard Selling',        dur: A10.dur, El: Ad10 },
 ]
 
 export default function ContentSection() {
@@ -328,70 +415,46 @@ export default function ContentSection() {
   const active = ADS.find(ad => ad.id === open)
 
   const scale = active
-    ? Math.min(
-        (window.innerHeight * 0.9) / H,
-        (window.innerWidth * 0.9) / W,
-      )
+    ? Math.min((window.innerHeight * 0.9) / H, (window.innerWidth * 0.9) / W)
     : 1
 
   return (
     <section style={{ marginTop: 56 }}>
-      <style>{KEYFRAMES}</style>
+      <style>{STATIC + _rules.join('')}</style>
 
       {/* ── Full-screen modal ── */}
       {active && (
         <div
           onClick={() => setOpen(null)}
-          style={{
-            position: 'fixed', inset: 0, zIndex: 9999,
-            background: '#000',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}
+          style={{ position: 'fixed', inset: 0, zIndex: 9999, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          {/* stop clicks on the ad itself from closing the modal */}
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{ pointerEvents: 'none', transform: `scale(${scale})`, transformOrigin: 'center center' }}
-          >
+          <div onClick={e => e.stopPropagation()} style={{ pointerEvents: 'none', transform: `scale(${scale})`, transformOrigin: 'center center' }}>
             <active.El />
           </div>
-
           <button
             onClick={() => setOpen(null)}
-            style={{
-              position: 'absolute', top: 20, right: 20,
-              background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
-              borderRadius: '50%', width: 40, height: 40,
-              color: '#fff', fontSize: 18, cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              pointerEvents: 'auto',
-            }}
+            style={{ position: 'absolute', top: 20, right: 20, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '50%', width: 40, height: 40, color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'auto' }}
           >
             ✕
           </button>
-
-          <div style={{ position: 'absolute', bottom: 24, color: '#444', fontSize: 12 }}>
-            Klik di mana saja untuk tutup
-          </div>
+          <div style={{ position: 'absolute', bottom: 24, color: '#444', fontSize: 12 }}>Klik di mana saja untuk tutup</div>
         </div>
       )}
 
       {/* ── Header ── */}
       <div style={{ marginBottom: 28 }}>
-        <h2 style={{ color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 4 }}>
-          Content
-        </h2>
-        <p style={{ color: '#555', fontSize: 13 }}>3 ad creatives · Portrait · 10 detik loop</p>
+        <h2 style={{ color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 4 }}>Content</h2>
+        <p style={{ color: '#555', fontSize: 13 }}>10 ad creatives · Portrait · Durasi 15 sampai 60 detik · Klik "Layar Penuh" untuk screen record</p>
       </div>
 
       {/* ── Thumbnail grid ── */}
       <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
-        {ADS.map(({ id, label, El }) => (
+        {ADS.map(({ id, n, cat, dur, El }) => (
           <div key={id}>
-            <div style={{ marginBottom: 10 }}>
-              <span style={{ color: '#888', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                {label}
-              </span>
+            <div style={{ marginBottom: 10, display: 'flex', alignItems: 'baseline', gap: 8 }}>
+              <span style={{ color: '#f97316', fontSize: 12, fontWeight: 800 }}>{n}</span>
+              <span style={{ color: '#888', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{cat}</span>
+              <span style={{ color: '#444', fontSize: 11, marginLeft: 'auto' }}>{dur} detik</span>
             </div>
 
             {/* thumbnail — not clickable */}
@@ -401,12 +464,7 @@ export default function ContentSection() {
 
             <button
               onClick={() => setOpen(id)}
-              style={{
-                marginTop: 10, width: W,
-                background: '#161616', border: '1px solid #2a2a2a',
-                borderRadius: 8, color: '#aaa', fontSize: 12, fontWeight: 600,
-                padding: '8px 0', cursor: 'pointer',
-              }}
+              style={{ marginTop: 10, width: W, background: '#161616', border: '1px solid #2a2a2a', borderRadius: 8, color: '#aaa', fontSize: 12, fontWeight: 600, padding: '8px 0', cursor: 'pointer' }}
             >
               Layar Penuh
             </button>
