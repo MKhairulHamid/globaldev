@@ -1,8 +1,8 @@
 import Logo from './Logo'
-
-const REGISTER_URL = '/register'
+import { authEntryPath } from '../lib/authEntry'
 
 export default function Hero() {
+  const REGISTER_URL = authEntryPath()
   return (
     <section style={{ paddingTop: '48px', paddingBottom: '80px' }}>
       {/* Nav */}

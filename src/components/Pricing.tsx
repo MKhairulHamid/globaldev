@@ -1,4 +1,4 @@
-const REGISTER_URL = '/register'
+import { authEntryPath } from '../lib/authEntry'
 
 const includes = [
   '10 sesi live via Google Meet, total sekitar 20 jam',
@@ -10,6 +10,7 @@ const includes = [
 ]
 
 export default function Pricing() {
+  const REGISTER_URL = authEntryPath()
   return (
     <section className="section">
       <div style={{ marginBottom: '56px' }}>

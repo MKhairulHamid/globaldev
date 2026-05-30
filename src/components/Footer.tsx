@@ -1,8 +1,8 @@
 import Logo from './Logo'
-
-const REGISTER_URL = '/register'
+import { authEntryPath } from '../lib/authEntry'
 
 export default function Footer() {
+  const REGISTER_URL = authEntryPath()
   return (
     <footer style={{ padding: '80px 0 48px', borderTop: '1px solid #252525' }}>
       <div className="g2" style={{ gap: '48px', alignItems: 'end', marginBottom: '64px' }}>

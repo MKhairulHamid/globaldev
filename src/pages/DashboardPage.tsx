@@ -5,6 +5,7 @@ import type { Profile, Registration } from '../types'
 import Logo from '../components/Logo'
 import Loader from '../components/Loader'
 import WhatsAppButton from '../components/WhatsAppButton'
+import { markReturning } from '../lib/authEntry'
 
 const WA_URL = 'https://wa.me/628111330130'
 
@@ -90,6 +91,9 @@ export default function DashboardPage() {
       const { data: { session } } = await supabase.auth.getSession()
       const user = session?.user
       if (!user) { navigate('/auth'); return }
+
+      // Remember this device has authenticated → returning visitors get login first
+      markReturning()
 
       // Link lead saved before Google OAuth
       const storedLeadId = sessionStorage.getItem('lead_id')
