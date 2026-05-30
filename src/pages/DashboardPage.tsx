@@ -157,6 +157,9 @@ export default function DashboardPage() {
       <div style={{ borderBottom: '1px solid #1f1f1f', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          {profile?.role === 'admin' && (
+            <a href="/admin" style={{ color: '#f97316', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>Admin</a>
+          )}
           <a href={WA_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#25d366', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>WhatsApp ↗</a>
           <button onClick={signOut} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '8px', color: '#666', fontSize: '13px', padding: '6px 14px', cursor: 'pointer' }}>Keluar</button>
         </div>
