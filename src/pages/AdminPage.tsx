@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 import type { Profile, Registration } from '../types'
 import Logo from '../components/Logo'
 import Loader from '../components/Loader'
+import ContentSection from '../components/ContentSection'
 
 type StatusFilter = 'all' | Registration['payment_status']
 
@@ -199,6 +200,8 @@ export default function AdminPage() {
             </div>
           ))}
         </div>
+
+        <ContentSection />
       </div>
     </div>
   )
