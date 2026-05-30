@@ -1,3 +1,5 @@
+import Logo from './Logo'
+
 const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 
 export default function Hero() {
@@ -5,10 +7,7 @@ export default function Hero() {
     <section style={{ paddingTop: '48px', paddingBottom: '80px' }}>
       {/* Nav */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '72px' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/logo.svg" alt="Global Developer Academy" width={32} height={32} />
-          <span style={{ color: '#fff', fontWeight: 600, letterSpacing: '-0.02em' }}>Global Developer Academy</span>
-        </span>
+        <Logo height={26} />
         <a
           href={REGISTER_URL}
           target="_blank"
