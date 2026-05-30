@@ -49,12 +49,12 @@ export default function Hero() {
         >
           Daftar · Rp 899.000
         </a>
-        <a
-          href="#kurikulum"
-          style={{ color: '#a3a3a3', fontSize: '16px', textDecoration: 'none' }}
+        <button
+          onClick={() => document.getElementById('kurikulum')?.scrollIntoView({ behavior: 'smooth' })}
+          style={{ background: 'none', border: 'none', color: '#a3a3a3', fontSize: '16px', cursor: 'pointer', padding: 0 }}
         >
           Lihat kurikulum →
-        </a>
+        </button>
       </div>
 
       {/* Trust bar */}

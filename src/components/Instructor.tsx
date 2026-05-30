@@ -33,7 +33,7 @@ export default function Instructor() {
                 href="https://www.linkedin.com/in/mkhairulhamid/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: '#666', fontSize: '13px', textDecoration: 'none' }}
+                style={{ color: '#666', fontSize: '13px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
               >
                 LinkedIn ↗
               </a>
