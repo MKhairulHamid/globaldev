@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: 'Berapa lama tiap sesi dan jam berapa mulainya?',
-    a: 'Setiap sesi sekitar 90 sampai 120 menit, dua kali seminggu via Google Meet. Jadwal pastinya akan dikonfirmasi ke peserta yang sudah mendaftar, disesuaikan dengan mayoritas.',
+    a: 'Setiap sesi sekitar 90 sampai 120 menit, dua kali seminggu via Google Meet selama 5 minggu. Jadwal pastinya akan dikonfirmasi ke peserta yang sudah mendaftar, disesuaikan dengan mayoritas.',
   },
   {
     q: 'Bagaimana cara bayarnya?',

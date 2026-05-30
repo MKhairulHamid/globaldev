@@ -1,30 +1,37 @@
 const sessions = [
   {
-    week: 'Minggu 1',
+    week: 'Minggu 1 — Fondasi',
     items: [
       { n: '01', title: 'React dan TypeScript dari awal', desc: 'Setup Vite, cara berpikir komponen, props, dan TypeScript yang dipakai sehari-hari di dunia kerja.' },
       { n: '02', title: 'State, hooks, dan tampilan interaktif', desc: 'useState, useEffect, dan cara React merespons perubahan data. Fokus ke nalar, bukan hafalan sintaks.' },
     ],
   },
   {
-    week: 'Minggu 2',
+    week: 'Minggu 2 — Backend dengan Supabase',
     items: [
       { n: '03', title: 'Setup Supabase dan rancang database', desc: 'Buat project Supabase, rancang tabel jobs dan employers dari kebutuhan nyata aplikasi.' },
       { n: '04', title: 'Sambungkan React ke database', desc: 'Fetch, insert, update, delete. Kamu kontrol semua data dari React langsung ke Supabase.' },
     ],
   },
   {
-    week: 'Minggu 3',
+    week: 'Minggu 3 — Auth dan AI masuk',
     items: [
-      { n: '05', title: 'Login dan register pakai Supabase Auth', desc: 'Sistem autentikasi yang beneran aman, protected routes, dan manajemen sesi pengguna.' },
-      { n: '06', title: 'Form, validasi, dan konten pengguna', desc: 'Tangani input dari user, validasi pakai TypeScript, dan biarkan employer posting lowongan sendiri.' },
+      { n: '05', title: 'Login dan register pakai Supabase Auth', desc: 'Sistem autentikasi yang aman, protected routes, dan manajemen sesi pengguna.' },
+      { n: '06', title: 'Kenalan dengan Claude Code', desc: 'Setelah paham fondasi, kita mulai pakai AI sebagai pair programmer. Cara kerja, cara prompt yang efektif, dan cara review kode yang digenerate AI.' },
     ],
   },
   {
-    week: 'Minggu 4',
+    week: 'Minggu 4 — Fitur lengkap',
     items: [
-      { n: '07', title: 'Keamanan di level database', desc: 'Row Level Security di Supabase. Keamanan yang diatur langsung di database, bukan cuma di tampilan.' },
-      { n: '08', title: 'Deploy dan presentasi proyek', desc: 'Aplikasi live di internet. Kita review bareng, dan saya kasih tahu langkah belajar yang logis setelah ini.' },
+      { n: '07', title: 'Form, validasi, dan konten pengguna', desc: 'Tangani input dari user, validasi pakai TypeScript, dan biarkan employer posting lowongan sendiri. Dipercepat dengan bantuan AI.' },
+      { n: '08', title: 'Keamanan di level database', desc: 'Row Level Security di Supabase. Kita tulis dulu secara manual, lalu lihat bagaimana AI bisa bantu debug dan iterasi lebih cepat.' },
+    ],
+  },
+  {
+    week: 'Minggu 5 — Deploy dan polish',
+    items: [
+      { n: '09', title: 'Polish UI dan problem solving dengan AI', desc: 'Perbaiki tampilan, tangani edge case, dan pelajari cara pakai AI untuk problem solving bukan cuma generate kode.' },
+      { n: '10', title: 'Deploy dan review portfolio', desc: 'Aplikasi live di internet. Review proyek bersama, roadmap belajar selanjutnya, dan cara terus berkembang sebagai developer di era AI.' },
     ],
   },
 ]
@@ -35,7 +42,7 @@ export default function Curriculum() {
       <div style={{ marginBottom: '56px' }}>
         <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Kurikulum</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '12px' }}>
-          8 sesi, 4 minggu, 1 aplikasi yang selesai.
+          10 sesi, 5 minggu, 1 aplikasi yang selesai.
         </h2>
         <p style={{ color: '#a3a3a3', fontSize: '16px' }}>
           Setiap sesi 90 sampai 120 menit live via Google Meet, dua kali seminggu.

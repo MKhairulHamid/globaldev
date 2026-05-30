@@ -26,13 +26,13 @@ export default function Hero() {
 
       {/* Headline */}
       <h1 style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 800, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '24px', maxWidth: '800px' }}>
-        Mulai dari nol. Selesai dengan aplikasi live yang siap masuk CV.
+        Mulai dari nol. Selesai dengan aplikasi live dan bisa kerja pakai AI.
       </h1>
 
       <p style={{ color: '#a3a3a3', fontSize: '18px', maxWidth: '560px', lineHeight: 1.75, marginBottom: '40px' }}>
-        8 sesi live bareng engineer yang kerja remote di Australia.
+        10 sesi live bareng engineer yang kerja remote di Australia.
         Kita bangun platform lowongan kerja dari nol sampai deploy,
-        pakai React, TypeScript, dan Supabase.
+        pakai React, TypeScript, Supabase, dan Claude Code.
       </p>
 
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -42,7 +42,7 @@ export default function Hero() {
           rel="noopener noreferrer"
           style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
         >
-          Daftar · Rp 699.000
+          Daftar · Rp 899.000
         </a>
         <a
           href="#kurikulum"
@@ -54,7 +54,7 @@ export default function Hero() {
 
       {/* Trust bar */}
       <div style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid #252525', display: 'flex', flexWrap: 'wrap', gap: '24px', color: '#666', fontSize: '14px' }}>
-        <span>8 sesi live via Google Meet</span>
+        <span>10 sesi live via Google Meet</span>
         <span>·</span>
         <span>Komunitas Discord</span>
         <span>·</span>

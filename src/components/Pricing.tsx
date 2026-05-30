@@ -1,7 +1,7 @@
 const REGISTER_URL = 'https://forms.gle/YOUR_GOOGLE_FORM_LINK'
 
 const includes = [
-  '8 sesi live via Google Meet, sekitar 16 jam total',
+  '10 sesi live via Google Meet, sekitar 20 jam total',
   'Akses komunitas Discord khusus peserta',
   'Source code lengkap proyek Job Listing App',
   'Rekaman sesi untuk yang tidak bisa hadir',
@@ -23,7 +23,7 @@ export default function Pricing() {
         <div>
           <div style={{ marginBottom: '32px' }}>
             <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>Biaya pendaftaran</p>
-            <p style={{ fontSize: '52px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 699.000</p>
+            <p style={{ fontSize: '52px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 899.000</p>
             <p style={{ color: '#666', fontSize: '13px', marginTop: '8px' }}>Mulai 10 Juni 2026 · Hanya 20 kursi</p>
           </div>
 

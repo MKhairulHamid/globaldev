@@ -21,8 +21,8 @@ export default function Footer() {
 
         <div style={{ textAlign: 'right' }}>
           <div style={{ color: '#555', fontSize: '14px', lineHeight: 2.2 }}>
-            <p>8 sesi live · 4 minggu · React dan Supabase</p>
-            <p>Rp 699.000 · Hanya 20 kursi</p>
+            <p>10 sesi live · 5 minggu · React, Supabase, Claude Code</p>
+            <p>Rp 899.000 · Hanya 20 kursi</p>
           </div>
         </div>
       </div>
