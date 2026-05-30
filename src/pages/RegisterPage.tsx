@@ -59,7 +59,7 @@ export default function RegisterPage() {
     const { data: authData, error: authErr } = await supabase.auth.signUp({
       email: email.trim(),
       password,
-      options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+      options: { emailRedirectTo: window.location.origin },
     })
 
     if (authErr) {
@@ -105,7 +105,7 @@ export default function RegisterPage() {
     if (id) sessionStorage.setItem('lead_id', id)
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: window.location.origin },
     })
   }
 

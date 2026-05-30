@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import { supabase } from './lib/supabase'
 import Hero from './components/Hero'
 import Instructor from './components/Instructor'
 import WhatYoullBuild from './components/WhatYoullBuild'
@@ -14,6 +16,26 @@ import DashboardPage from './pages/DashboardPage'
 import AdminPage from './pages/AdminPage'
 
 function LandingPage() {
+  const navigate = useNavigate()
+
+  // If we arrived here from an auth callback (OAuth or email confirm),
+  // Supabase puts a token in the URL. Forward to the dashboard once the
+  // session is established. Normal logged-in visits are NOT redirected.
+  useEffect(() => {
+    const hasOAuthMarker =
+      window.location.hash.includes('access_token') ||
+      new URLSearchParams(window.location.search).has('code')
+    if (!hasOAuthMarker) return
+
+    let done = false
+    const go = (session: unknown) => {
+      if (session && !done) { done = true; navigate('/dashboard', { replace: true }) }
+    }
+    supabase.auth.getSession().then(({ data: { session } }) => go(session))
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => go(session))
+    return () => subscription.unsubscribe()
+  }, [navigate])
+
   return (
     <div className="min-h-screen text-white" style={{ background: '#0a0a0a' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>

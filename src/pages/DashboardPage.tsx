@@ -40,7 +40,10 @@ export default function DashboardPage() {
       }
 
       // Ensure profile row exists (fallback if trigger failed)
-      await supabase.from('profiles').upsert({ id: user.id }, { onConflict: 'id', ignoreDuplicates: true })
+      await supabase.from('profiles').upsert({ id: user.id, email: user.email }, { onConflict: 'id', ignoreDuplicates: true })
+
+      // Recover form data from the user's lead into the profile (fills empty fields only)
+      await supabase.rpc('sync_profile_from_lead')
 
       const { data: p } = await supabase.from('profiles').select('*').eq('id', user.id).single()
       if (p) {
