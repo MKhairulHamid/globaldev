@@ -190,9 +190,9 @@ export default function DashboardPage() {
     if (registration?.payment_status !== 'confirmed') return
     const key = `conversion_fired_${registration.id}`
     if (localStorage.getItem(key)) return
-    // @ts-expect-error gtag loaded via index.html
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {
+    const w = window as Record<string, unknown>
+    if (typeof w['gtag'] === 'function') {
+      (w['gtag'] as (...args: unknown[]) => void)('event', 'conversion', {
         send_to: 'AW-18199825981/QG_bCIv8u7YcEL2creZD',
         value: registration.unique_amount,
         currency: 'IDR',
