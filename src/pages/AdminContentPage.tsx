@@ -7,10 +7,10 @@ import AdminLayout from '../components/AdminLayout'
 import { GOOGLE_ADS, type AdDef } from '../components/GoogleAdsSection'
 
 const FORMAT_LABEL: Record<string, string> = {
-  l1: 'Landscape', l2: 'Landscape', l3: 'Landscape',
-  s1: 'Square',    s2: 'Square',    s3: 'Square',
-  p1: 'Portrait',  p2: 'Portrait',
-  t1: 'Tall',      t2: 'Tall',
+  l1:'Landscape',l2:'Landscape',l3:'Landscape',l4:'Landscape',l5:'Landscape',l6:'Landscape',
+  s1:'Square',s2:'Square',s3:'Square',s4:'Square',s5:'Square',s6:'Square',
+  p1:'Portrait',p2:'Portrait',p3:'Portrait',p4:'Portrait',
+  t1:'Tall',t2:'Tall',t3:'Tall',t4:'Tall',
 }
 const FORMAT_ORDER = ['Landscape', 'Square', 'Portrait', 'Tall']
 const PREVIEW_W = 280
