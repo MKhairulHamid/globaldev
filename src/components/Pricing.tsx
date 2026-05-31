@@ -14,7 +14,7 @@ export default function Pricing() {
   return (
     <section className="section">
       <div style={{ marginBottom: '56px' }}>
-        <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Harga</p>
+        <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Harga</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>
           Satu harga, semua sudah termasuk.
         </h2>
@@ -24,13 +24,13 @@ export default function Pricing() {
         <div>
           <div style={{ marginBottom: '32px' }}>
             <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>Biaya ikut bootcamp</p>
-            <p style={{ fontSize: '52px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 899.000</p>
+            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '52px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 899.000</p>
             <p style={{ color: '#666', fontSize: '13px', marginTop: '8px' }}>Mulai 11 Juni 2026 · Hanya 30 kursi</p>
           </div>
 
           <a
             href={REGISTER_URL}
-            style={{ display: 'block', background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '16px 32px', borderRadius: '12px', textAlign: 'center', textDecoration: 'none', marginBottom: '12px' }}
+            style={{ display: 'block', background: 'var(--spark)', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '16px 32px', borderRadius: '12px', textAlign: 'center', textDecoration: 'none', marginBottom: '12px' }}
           >
             Daftar Sekarang
           </a>
@@ -44,7 +44,7 @@ export default function Pricing() {
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {includes.map((item) => (
               <li key={item} style={{ display: 'flex', gap: '12px', color: '#c3c3c3', fontSize: '14px', lineHeight: 1.55 }}>
-                <span style={{ color: '#f97316', flexShrink: 0, marginTop: '2px' }}>✓</span>
+                <span style={{ color: 'var(--spark)', flexShrink: 0, marginTop: '2px' }}>✓</span>
                 {item}
               </li>
             ))}

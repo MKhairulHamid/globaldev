@@ -49,7 +49,7 @@ export default function AuthPage() {
         <h1 style={{ color: '#fff', fontWeight: 800, fontSize: '22px', letterSpacing: '-0.03em', marginBottom: '6px' }}>Masuk ke akunmu</h1>
         <p style={{ color: '#666', fontSize: '14px', marginBottom: '28px' }}>
           Belum punya akun?{' '}
-          <a href="/register" style={{ color: '#f97316', textDecoration: 'none' }}>Daftar di sini</a>
+          <a href="/register" style={{ color: 'var(--spark)', textDecoration: 'none' }}>Daftar di sini</a>
         </p>
 
         <button onClick={handleGoogle}
@@ -80,7 +80,7 @@ export default function AuthPage() {
           )}
 
           <button type="submit" disabled={loading}
-            style={{ background: '#f97316', color: '#fff', border: 'none', borderRadius: '10px', padding: '13px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
+            style={{ background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '10px', padding: '13px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
             {loading ? 'Masuk...' : 'Masuk'}
           </button>
         </form>

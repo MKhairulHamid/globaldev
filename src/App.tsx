@@ -16,6 +16,7 @@ import AuthPage from './pages/AuthPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import AdminPage from './pages/AdminPage'
+import PosterSection from './components/PosterSection'
 
 function LandingPage() {
   const navigate = useNavigate()
@@ -64,6 +65,7 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/__poster" element={<div style={{ minHeight: '100vh', background: '#0a0a0a', padding: 40 }}><PosterSection /></div>} />
       </Routes>
     </BrowserRouter>
   )

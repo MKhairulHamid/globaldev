@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* ── Brand tokens ─────────────────────────────────────────
+   Spark  = action  (CTAs, primary buttons)
+   Signal = identity (eyebrow labels, icons, AI accent, logo dot)
+   Tints use literal rgb of these so varying alpha stays inline. */
+:root {
+  --spark: #FF5A1F;   /* rgb(255, 90, 31) */
+  --signal: #7B6CFF;  /* rgb(123, 108, 255) */
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -7,6 +16,11 @@ body {
   background: #0a0a0a;
   color: #e5e5e5;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display typeface for headings — Inter remains the body face */
+h1, h2, h3, .h2 {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 }
 
 /* ── Loader animations ───────────────────────────────────── */

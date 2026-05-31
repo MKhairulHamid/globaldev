@@ -29,7 +29,7 @@ function rv(dur: number, inP: number, outP: number, o: { dy?: number; dx?: numbe
 
 const STATIC = `
 @keyframes blink{0%,49%{opacity:1}50%,99%{opacity:0}}
-@keyframes ring{0%,70%,100%{box-shadow:0 0 0 0 rgba(249,115,22,0)}80%{box-shadow:0 0 26px 4px rgba(249,115,22,.55)}90%{box-shadow:0 0 0 14px rgba(249,115,22,0)}}
+@keyframes ring{0%,70%,100%{box-shadow:0 0 0 0 rgba(255,90,31,0)}80%{box-shadow:0 0 26px 4px rgba(255,90,31,.55)}90%{box-shadow:0 0 0 14px rgba(255,90,31,0)}}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 `
 
@@ -83,7 +83,7 @@ const body = (color = '#cbd5e1'): React.CSSProperties => ({ color, fontSize: 14,
 
 // ── 1. Awareness — Tutorial Hell ─────────────────────────────────────────── 20s
 const A1 = {
-  dur: 20, accent: '#f97316',
+  dur: 20, accent: 'var(--spark)',
   badge: rv(20, 2, 95, { dy: -6 }),
   s1: rv(20, 7, 29), s2: rv(20, 32, 55), s3: rv(20, 58, 74), s4: rv(20, 77, 93),
   url: rv(20, 80, 95),
@@ -359,7 +359,7 @@ function Ad9() {
 
 // ── 10. Hard Selling — direct promo ──────────────────────────────────────── 22s
 const A10 = {
-  dur: 22, accent: '#f97316',
+  dur: 22, accent: 'var(--spark)',
   badge: rv(22, 2, 95, { dy: -6 }),
   brand: rv(22, 6, 93),
   price: rv(22, 16, 93, { sc: 0.7 }),
@@ -446,7 +446,7 @@ export default function ContentSection() {
         {ADS.map(({ id, n, cat, dur, El }) => (
           <div key={id}>
             <div style={{ marginBottom: 10, display: 'flex', alignItems: 'baseline', gap: 8 }}>
-              <span style={{ color: '#f97316', fontSize: 12, fontWeight: 800 }}>{n}</span>
+              <span style={{ color: 'var(--spark)', fontSize: 12, fontWeight: 800 }}>{n}</span>
               <span style={{ color: '#888', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{cat}</span>
               <span style={{ color: '#444', fontSize: 11, marginLeft: 'auto' }}>{dur} detik</span>
             </div>

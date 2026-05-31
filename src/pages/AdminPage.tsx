@@ -98,7 +98,7 @@ export default function AdminPage() {
       <div style={{ borderBottom: '1px solid #1f1f1f', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <span style={{ color: '#f97316', fontSize: '13px', fontWeight: 600 }}>Admin</span>
+          <span style={{ color: 'var(--spark)', fontSize: '13px', fontWeight: 600 }}>Admin</span>
           <a href="/dashboard" style={{ color: '#666', fontSize: '13px', textDecoration: 'none' }}>Dashboard</a>
           <button onClick={async () => { await supabase.auth.signOut(); navigate('/') }} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '8px', color: '#666', fontSize: '13px', padding: '6px 14px', cursor: 'pointer' }}>Keluar</button>
         </div>
@@ -117,8 +117,8 @@ export default function AdminPage() {
               key={s}
               onClick={() => setFilter(s)}
               style={{
-                background: filter === s ? '#f97316' : '#161616',
-                border: `1px solid ${filter === s ? '#f97316' : '#2a2a2a'}`,
+                background: filter === s ? 'var(--spark)' : '#161616',
+                border: `1px solid ${filter === s ? 'var(--spark)' : '#2a2a2a'}`,
                 borderRadius: '8px',
                 color: filter === s ? '#fff' : '#888',
                 fontSize: '13px',
@@ -159,7 +159,7 @@ export default function AdminPage() {
                   )}
                 </div>
                 <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                  <p style={{ color: '#f97316', fontWeight: 700, fontSize: '18px' }}>{formatAmount(row.unique_amount)}</p>
+                  <p style={{ color: 'var(--spark)', fontWeight: 700, fontSize: '18px' }}>{formatAmount(row.unique_amount)}</p>
                   {row.transfer_submitted_at && (
                     <p style={{ color: '#555', fontSize: '12px' }}>
                       Transfer: {new Date(row.transfer_submitted_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}

@@ -29,9 +29,9 @@ export default function Loader() {
           <span style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#2a2a2a' }} />
           {/* Globe mark */}
           <svg width="16" height="16" viewBox="0 0 32 32" fill="none" style={{ marginLeft: '6px' }} className="gda-pulse">
-            <circle cx="16" cy="16" r="13" stroke="#f97316" strokeWidth="1.5" />
-            <ellipse cx="16" cy="16" rx="6.5" ry="13" stroke="rgba(249,115,22,0.5)" strokeWidth="1.5" />
-            <line x1="3" y1="16" x2="29" y2="16" stroke="rgba(249,115,22,0.5)" strokeWidth="1.5" />
+            <circle cx="16" cy="16" r="13" stroke="#FF5A1F" strokeWidth="1.5" />
+            <ellipse cx="16" cy="16" rx="6.5" ry="13" stroke="rgba(255,90,31,0.5)" strokeWidth="1.5" />
+            <line x1="3" y1="16" x2="29" y2="16" stroke="rgba(255,90,31,0.5)" strokeWidth="1.5" />
           </svg>
           <span style={{ marginLeft: '4px', color: '#444', fontSize: '12px', fontFamily: 'monospace' }}>globaldev — zsh</span>
         </div>
@@ -39,7 +39,7 @@ export default function Loader() {
         {/* Terminal body */}
         <div style={{ padding: '20px 22px', fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace', fontSize: '13px', lineHeight: 1.9, minHeight: '170px' }}>
           <div style={{ color: '#666' }}>
-            <span style={{ color: '#f97316' }}>➜</span>{' '}
+            <span style={{ color: 'var(--spark)' }}>➜</span>{' '}
             <span style={{ color: '#67e8f9' }}>globaldev</span>{' '}
             <span style={{ color: '#a3a3a3' }}>npm run start</span>
           </div>
@@ -50,7 +50,7 @@ export default function Loader() {
             if (i > step) return null
             return (
               <div key={label} className="gda-line" style={{ color: isDone ? '#4ade80' : '#e5e5e5' }}>
-                <span style={{ color: isDone ? '#4ade80' : '#f97316', display: 'inline-block', width: '14px' }}>
+                <span style={{ color: isDone ? '#4ade80' : 'var(--spark)', display: 'inline-block', width: '14px' }}>
                   {isDone ? '✓' : SPINNER[frame]}
                 </span>{' '}
                 {label}
@@ -61,7 +61,7 @@ export default function Loader() {
 
           {/* Prompt cursor */}
           <div style={{ color: '#666', marginTop: '2px' }}>
-            <span style={{ color: '#f97316' }}>➜</span>{' '}
+            <span style={{ color: 'var(--spark)' }}>➜</span>{' '}
             <span className="gda-blink" style={{ color: '#e5e5e5' }}>▋</span>
           </div>
         </div>

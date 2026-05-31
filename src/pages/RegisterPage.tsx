@@ -211,7 +211,7 @@ export default function RegisterPage() {
     borderRadius: '12px', padding: '13px 16px', color: '#fff', fontSize: '15px', outline: 'none',
   }
   const sendBtn: React.CSSProperties = {
-    background: '#f97316', color: '#fff', border: 'none', borderRadius: '12px',
+    background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '12px',
     width: '46px', height: '46px', fontSize: '18px', cursor: 'pointer', flexShrink: 0,
   }
 
@@ -311,7 +311,7 @@ export default function RegisterPage() {
 
         {/* Progress */}
         <div style={{ height: '3px', background: '#222', flexShrink: 0 }}>
-          <div style={{ height: '100%', width: `${pct}%`, background: '#f97316', transition: 'width 0.4s ease' }} />
+          <div style={{ height: '100%', width: `${pct}%`, background: 'var(--spark)', transition: 'width 0.4s ease' }} />
         </div>
 
         {/* Messages */}
@@ -320,7 +320,7 @@ export default function RegisterPage() {
             <div key={i} style={{ display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start', animation: 'bubbleIn 0.25s ease both' }}>
               <div style={{
                 maxWidth: '80%', padding: '10px 14px', borderRadius: m.from === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                background: m.error ? 'rgba(239,68,68,0.12)' : m.from === 'user' ? '#f97316' : '#1c1c1c',
+                background: m.error ? 'rgba(239,68,68,0.12)' : m.from === 'user' ? 'var(--spark)' : '#1c1c1c',
                 border: m.error ? '1px solid rgba(239,68,68,0.3)' : 'none',
                 color: m.error ? '#f87171' : m.from === 'user' ? '#fff' : '#e5e5e5',
                 fontSize: '14.5px', lineHeight: 1.5, whiteSpace: 'pre-wrap', wordBreak: 'break-word',
@@ -350,7 +350,7 @@ export default function RegisterPage() {
                 Kami kirim link konfirmasi ke <strong style={{ color: '#fff' }}>{email}</strong>.<br />
                 Klik link itu untuk aktifkan akun dan lanjut ke pembayaran.
               </p>
-              <a href="/auth" style={{ color: '#f97316', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>
+              <a href="/auth" style={{ color: 'var(--spark)', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>
                 Sudah konfirmasi? Masuk di sini →
               </a>
             </div>

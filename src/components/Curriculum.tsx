@@ -40,7 +40,7 @@ export default function Curriculum() {
   return (
     <section id="kurikulum" className="section">
       <div style={{ marginBottom: '56px' }}>
-        <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Kurikulum</p>
+        <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Kurikulum</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '12px' }}>
           10 sesi, 5 minggu, 1 aplikasi yang selesai.
         </h2>
@@ -58,7 +58,7 @@ export default function Curriculum() {
                 <div key={item.n} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '14px', padding: '24px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '12px' }}>
                     <p style={{ color: '#555', fontSize: '12px', fontFamily: 'monospace' }}>Sesi {item.n}</p>
-                    <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 600 }}>{item.date} · 19.30</p>
+                    <p style={{ color: 'var(--spark)', fontSize: '12px', fontWeight: 600 }}>{item.date} · 19.30</p>
                   </div>
                   <h3 style={{ color: '#fff', fontWeight: 700, fontSize: '15px', marginBottom: '8px', lineHeight: 1.4 }}>{item.title}</h3>
                   <p style={{ color: '#888', fontSize: '14px', lineHeight: 1.65 }}>{item.desc}</p>

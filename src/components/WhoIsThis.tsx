@@ -11,20 +11,25 @@ const notForYou = [
   'Belum pernah coding sama sekali. Di sini kamu perlu dasar HTML dan CSS dulu.',
 ]
 
-const profiles = [
-  { icon: '🎓', label: 'Fresh grad IT', desc: 'Portofolio siap kerja' },
-  { icon: '📸', label: 'Fotografer', desc: 'Booking sesi foto online' },
-  { icon: '📚', label: 'Tutor privat', desc: 'Platform jadwal & bayar' },
-  { icon: '🛍️', label: 'UMKM / Home baker', desc: 'Katalog & form order' },
-  { icon: '🩺', label: 'Tenaga medis / klinik', desc: 'Sistem reservasi pasien' },
-  { icon: '🎪', label: 'Event organizer', desc: 'Pendaftaran & tiket' },
+import {
+  GraduationCap, Camera, BookOpen, ShoppingBag, Stethoscope, Ticket,
+  type LucideIcon,
+} from 'lucide-react'
+
+const profiles: { Icon: LucideIcon; label: string; desc: string }[] = [
+  { Icon: GraduationCap, label: 'Fresh grad IT', desc: 'Portofolio siap kerja' },
+  { Icon: Camera, label: 'Fotografer', desc: 'Booking sesi foto online' },
+  { Icon: BookOpen, label: 'Tutor privat', desc: 'Platform jadwal & bayar' },
+  { Icon: ShoppingBag, label: 'UMKM / Home baker', desc: 'Katalog & form order' },
+  { Icon: Stethoscope, label: 'Tenaga medis / klinik', desc: 'Sistem reservasi pasien' },
+  { Icon: Ticket, label: 'Event organizer', desc: 'Pendaftaran & tiket' },
 ]
 
 export default function WhoIsThis() {
   return (
     <section className="section">
       <div style={{ marginBottom: '56px' }}>
-        <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Untuk siapa</p>
+        <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>Untuk siapa</p>
         <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', marginBottom: '12px' }}>
           Pas buat kamu yang...
         </h2>
@@ -37,7 +42,9 @@ export default function WhoIsThis() {
       <div className="g3" style={{ gap: '10px', marginBottom: '40px' }}>
         {profiles.map((p) => (
           <div key={p.label} style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '22px' }}>{p.icon}</span>
+            <span style={{ width: 36, height: 36, borderRadius: '9px', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(123, 108, 255, 0.14)', border: '1px solid rgba(123, 108, 255, 0.30)', color: '#7B6CFF' }}>
+              <p.Icon size={18} strokeWidth={2} />
+            </span>
             <div>
               <p style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '13px', marginBottom: '2px' }}>{p.label}</p>
               <p style={{ color: '#666', fontSize: '12px' }}>{p.desc}</p>
@@ -52,7 +59,7 @@ export default function WhoIsThis() {
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {forYou.map((item) => (
               <li key={item} style={{ display: 'flex', gap: '16px', color: '#c3c3c3', fontSize: '14px', lineHeight: 1.65 }}>
-                <span style={{ color: '#f97316', fontWeight: 700, flexShrink: 0 }}>+</span>
+                <span style={{ color: 'var(--spark)', fontWeight: 700, flexShrink: 0 }}>+</span>
                 {item}
               </li>
             ))}

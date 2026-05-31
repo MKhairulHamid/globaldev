@@ -34,7 +34,7 @@ export default function FAQ() {
     <section className="section">
       <div style={{ maxWidth: '680px' }}>
         <div style={{ marginBottom: '56px' }}>
-          <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>FAQ</p>
+          <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>FAQ</p>
           <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', letterSpacing: '-0.03em' }}>Pertanyaan yang sering masuk.</h2>
         </div>
 

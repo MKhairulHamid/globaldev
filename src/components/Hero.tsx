@@ -13,7 +13,7 @@ export default function Hero() {
         </span>
         <a
           href={REGISTER_URL}
-          style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '10px 20px', borderRadius: '10px', textDecoration: 'none' }}
+          style={{ background: 'var(--spark)', color: '#fff', fontWeight: 700, fontSize: '14px', padding: '10px 20px', borderRadius: '10px', textDecoration: 'none' }}
         >
           Daftar
         </a>
@@ -22,7 +22,7 @@ export default function Hero() {
       {/* Badge */}
       <div style={{ marginBottom: '32px' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)', fontSize: '13px', color: '#b3b3b3', padding: '6px 16px', borderRadius: '999px' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f97316', flexShrink: 0 }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--spark)', flexShrink: 0 }} />
           Mulai 11 Juni 2026 · Hanya 30 kursi
         </span>
       </div>
@@ -41,7 +41,7 @@ export default function Hero() {
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
         <a
           href={REGISTER_URL}
-          style={{ background: '#f97316', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
+          style={{ background: 'var(--spark)', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
         >
           Daftar · Rp 899.000
         </a>

@@ -10,7 +10,7 @@ const credentials = [
 export default function Instructor() {
   return (
     <section className="section">
-      <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '40px' }}>Instruktur</p>
+      <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '40px' }}>Instruktur</p>
 
       <div className="g2" style={{ gap: '48px' }}>
         {/* Left */}
@@ -90,7 +90,7 @@ export default function Instructor() {
             </a>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {['React', 'TypeScript', 'Supabase'].map((t) => (
-                <span key={t} style={{ fontSize: '12px', background: 'rgba(249,115,22,0.12)', color: '#f97316', padding: '4px 10px', borderRadius: '6px' }}>{t}</span>
+                <span key={t} style={{ fontSize: '12px', background: 'rgba(255,90,31,0.12)', color: 'var(--spark)', padding: '4px 10px', borderRadius: '6px' }}>{t}</span>
               ))}
             </div>
           </div>

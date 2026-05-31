@@ -57,7 +57,7 @@ function PaymentDetails({ amount }: { amount: number }) {
         </div>
         <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: '20px' }}>
           <p style={{ color: '#666', fontSize: '12px', marginBottom: '4px' }}>Jumlah transfer (unik untuk kamu)</p>
-          <p style={{ color: '#f97316', fontWeight: 800, fontSize: '28px', letterSpacing: '-0.02em' }}>
+          <p style={{ color: 'var(--spark)', fontWeight: 800, fontSize: '28px', letterSpacing: '-0.02em' }}>
             {formatAmount(amount)}
           </p>
           <p style={{ color: '#555', fontSize: '12px', marginTop: '6px' }}>Transfer jumlah persis ini agar transaksi kamu bisa dikonfirmasi dengan cepat.</p>
@@ -187,7 +187,7 @@ export default function DashboardPage() {
         <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
           {profile?.role === 'admin' && (
-            <a href="/admin" style={{ color: '#f97316', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>Admin</a>
+            <a href="/admin" style={{ color: 'var(--spark)', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>Admin</a>
           )}
           <a href={WA_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#25d366', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>WhatsApp ↗</a>
           <button onClick={signOut} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '8px', color: '#666', fontSize: '13px', padding: '6px 14px', cursor: 'pointer' }}>Keluar</button>
@@ -200,7 +200,7 @@ export default function DashboardPage() {
         {!profileComplete && (
           <>
             <div style={{ marginBottom: '32px' }}>
-              <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Langkah 1 dari 2</p>
+              <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Langkah 1 dari 2</p>
               <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>Lengkapi profilmu dulu</h1>
               <p style={{ color: '#666', fontSize: '14px' }}>Kami perlu beberapa info sebelum kamu lanjut ke pembayaran.</p>
             </div>
@@ -228,7 +228,7 @@ export default function DashboardPage() {
                       value={opt.value}
                       checked={background === opt.value}
                       onChange={() => setBackground(opt.value as Profile['background'])}
-                      style={{ accentColor: '#f97316' }}
+                      style={{ accentColor: 'var(--spark)' }}
                     />
                     <span style={{ color: '#c3c3c3', fontSize: '14px' }}>{opt.label}</span>
                   </label>
@@ -251,7 +251,7 @@ export default function DashboardPage() {
                 />
               </div>
               {error && <p style={{ color: '#f87171', fontSize: '13px' }}>{error}</p>}
-              <button type="submit" disabled={saving || !background} style={{ background: '#f97316', color: '#fff', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}>
+              <button type="submit" disabled={saving || !background} style={{ background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}>
                 {saving ? 'Menyimpan...' : 'Simpan dan Lanjutkan →'}
               </button>
             </form>
@@ -262,12 +262,12 @@ export default function DashboardPage() {
         {profileComplete && !registration && (
           <>
             <div style={{ marginBottom: '32px' }}>
-              <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Langkah 2 dari 2</p>
+              <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Langkah 2 dari 2</p>
               <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>Halo, {profile?.full_name?.split(' ')[0]} 👋</h1>
               <p style={{ color: '#666', fontSize: '14px' }}>Profil sudah lengkap. Lanjutkan ke pembayaran untuk mengamankan tempat kamu.</p>
             </div>
             {error && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
-            <button onClick={proceedToPayment} disabled={saving} style={{ background: '#f97316', color: '#fff', border: 'none', borderRadius: '10px', padding: '14px 32px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}>
+            <button onClick={proceedToPayment} disabled={saving} style={{ background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '10px', padding: '14px 32px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}>
               {saving ? 'Memproses...' : 'Lihat Detail Pembayaran →'}
             </button>
           </>
@@ -277,7 +277,7 @@ export default function DashboardPage() {
         {profileComplete && registration?.payment_status === 'pending' && (
           <>
             <div style={{ marginBottom: '32px' }}>
-              <p style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Pembayaran</p>
+              <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Pembayaran</p>
               <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>Halo, {profile?.full_name?.split(' ')[0]} 👋</h1>
               <p style={{ color: '#666', fontSize: '14px' }}>Transfer ke rekening berikut, lalu konfirmasi di bawah.</p>
             </div>
@@ -289,7 +289,7 @@ export default function DashboardPage() {
             <button
               onClick={confirmTransfer}
               disabled={confirming}
-              style={{ width: '100%', background: '#f97316', color: '#fff', border: 'none', borderRadius: '12px', padding: '16px', fontWeight: 700, fontSize: '16px', cursor: 'pointer', marginBottom: '12px', opacity: confirming ? 0.7 : 1 }}
+              style={{ width: '100%', background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '12px', padding: '16px', fontWeight: 700, fontSize: '16px', cursor: 'pointer', marginBottom: '12px', opacity: confirming ? 0.7 : 1 }}
             >
               {confirming ? 'Memproses...' : '✓ Saya Sudah Transfer'}
             </button>
@@ -310,14 +310,14 @@ export default function DashboardPage() {
             <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '20px' }}>
               Terima kasih sudah konfirmasi. Kami akan cek mutasi rekening dan memverifikasi pembayaranmu dalam 1×24 jam kerja.
             </p>
-            <div style={{ background: 'rgba(249,115,22,0.08)', border: '1px solid rgba(249,115,22,0.25)', borderRadius: '12px', padding: '16px 20px', marginBottom: '20px', textAlign: 'left' }}>
-              <p style={{ color: '#f97316', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>⚠️ Simpan bukti transfermu</p>
+            <div style={{ background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.25)', borderRadius: '12px', padding: '16px 20px', marginBottom: '20px', textAlign: 'left' }}>
+              <p style={{ color: 'var(--spark)', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>⚠️ Simpan bukti transfermu</p>
               <p style={{ color: '#a3a3a3', fontSize: '13px', lineHeight: 1.6 }}>
                 Jangan hapus dulu bukti transfernya sampai pembayaranmu kami konfirmasi. Kalau ada yang perlu dicek, kami mungkin meminta buktinya lewat WhatsApp.
               </p>
             </div>
             <p style={{ color: '#666', fontSize: '14px', marginBottom: '32px' }}>
-              Jumlah yang kamu transfer: <strong style={{ color: '#f97316' }}>{registration?.unique_amount ? formatAmount(registration.unique_amount) : ''}</strong>
+              Jumlah yang kamu transfer: <strong style={{ color: 'var(--spark)' }}>{registration?.unique_amount ? formatAmount(registration.unique_amount) : ''}</strong>
             </p>
             <a
               href={WA_URL}
@@ -376,7 +376,7 @@ export default function DashboardPage() {
             <button
               onClick={confirmTransfer}
               disabled={confirming}
-              style={{ width: '100%', background: '#f97316', color: '#fff', border: 'none', borderRadius: '12px', padding: '16px', fontWeight: 700, fontSize: '16px', cursor: 'pointer', marginBottom: '12px', opacity: confirming ? 0.7 : 1 }}
+              style={{ width: '100%', background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '12px', padding: '16px', fontWeight: 700, fontSize: '16px', cursor: 'pointer', marginBottom: '12px', opacity: confirming ? 0.7 : 1 }}
             >
               {confirming ? 'Memproses...' : '✓ Saya Sudah Transfer Ulang'}
             </button>
