@@ -348,7 +348,7 @@ function Ad9() {
       </div>
       <div style={{ animation: A9.seats, ...big(22, A9.accent), marginBottom: 18 }}>Kuota terbatas.</div>
       <div style={{ animation: A9.note, ...body('#cbb27a'), textAlign: 'center', marginBottom: 26 }}>
-        Tiap cohort kami jaga kecil biar mentoring tetap intensif. Yang duluan daftar, yang dapat tempat.
+        Tiap batch kami jaga kecil biar mentoring tetap intensif. Yang duluan daftar, yang dapat tempat.
       </div>
       <div style={{ animation: A9.cta, color: '#fff', background: A9.accent, borderRadius: 11, padding: '11px 22px', fontSize: 14, fontWeight: 900 }}>
         Amankan tempatmu →
@@ -380,7 +380,7 @@ function Ad10() {
         5 minggu, dari nol sampai<br />aplikasi webmu online.
       </div>
       <div style={{ animation: A10.l2, color: '#f87171', fontSize: 14, fontWeight: 800, marginBottom: 22 }}>
-        Kuota cohort terbatas.
+        Kuota batch terbatas.
       </div>
       <div style={{ animation: `${A10.cta}, ring 2.5s ease-in-out infinite`, color: '#fff', background: A10.accent, borderRadius: 12, padding: '13px 26px', fontSize: 15, fontWeight: 900 }}>
         Daftar Sekarang →

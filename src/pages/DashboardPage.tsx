@@ -397,7 +397,7 @@ export default function DashboardPage() {
             <div style={{ fontSize: '48px', marginBottom: '24px' }}>🎉</div>
             <h1 style={{ color: '#fff', fontSize: '26px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>Pembayaran dikonfirmasi!</h1>
             <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '8px' }}>
-              Selamat, <strong style={{ color: '#fff' }}>{profile?.full_name?.split(' ')[0]}</strong>. Kamu resmi terdaftar di Cohort Juni 2026.
+              Selamat, <strong style={{ color: '#fff' }}>{profile?.full_name?.split(' ')[0]}</strong>. Kamu resmi terdaftar di Batch Juni 2026.
             </p>
             <p style={{ color: '#666', fontSize: '14px', marginBottom: '32px' }}>Kelas mulai Kamis, 11 Juni 2026. Simpan jadwal di bawah ini.</p>
             <ScheduleList />

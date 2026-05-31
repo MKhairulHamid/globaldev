@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Global Developer Academy – Logo Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0a0a0a; font-family: 'Inter', system-ui, sans-serif; color: #e5e5e5; display: flex; flex-direction: column; align-items: center; padding: 60px 24px; gap: 48px; }
+    h1 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #555; }
+    .card { background: #161616; border: 1px solid #2a2a2a; border-radius: 20px; padding: 48px 64px; display: flex; flex-direction: column; align-items: center; gap: 32px; min-width: 480px; }
+    .card.light { background: #f5f5f5; border-color: #e0e0e0; }
+    .label { font-size: 11px; color: #555; letter-spacing: 0.08em; text-transform: uppercase; }
+    .label.dark { color: #aaa; }
+    .divider { width: 100%; border: none; border-top: 1px solid #222; margin: 0; }
+    .divider.light { border-color: #ddd; }
+    .actions { display: flex; gap: 12px; }
+    button {
+      background: #1e1e1e; border: 1px solid #333; border-radius: 10px;
+      color: #c3c3c3; font-size: 13px; font-weight: 600; padding: 10px 20px;
+      cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    }
+    button:hover { background: #252525; border-color: #444; color: #fff; }
+    button.primary { background: rgba(255,90,31,0.15); border-color: rgba(255,90,31,0.4); color: #FF5A1F; }
+    button.primary:hover { background: rgba(255,90,31,0.25); }
+    .row { display: flex; gap: 48px; align-items: flex-start; }
+    .variant { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  </style>
+</head>
+<body>
+
+  <h1>Global Developer Academy — Logo Preview</h1>
+
+  <!-- Dark background -->
+  <div class="card">
+    <span class="label dark">Dark background</span>
+    <hr class="divider" />
+
+    <!-- Full wordmark -->
+    <div class="variant">
+      <svg id="logo-dark" width="372" height="36" viewBox="0 0 248 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="8" stroke="#ffffff" stroke-width="1.2" />
+        <ellipse cx="12" cy="12" rx="4" ry="8" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" />
+        <line x1="4" y1="12" x2="20" y2="12" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" />
+        <circle cx="19" cy="5" r="2.5" fill="#7B6CFF" />
+        <text x="28" y="17" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="400" letter-spacing="-0.2" fill="#ffffff">Global</text>
+        <text x="74" y="17" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" letter-spacing="-0.2" fill="#ffffff">Developer</text>
+        <text x="152" y="17" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="400" letter-spacing="-0.2" fill="#ffffff">Academy</text>
+      </svg>
+      <span class="label dark">Full wordmark</span>
+      <div class="actions">
+        <button class="primary" onclick="downloadSVG('logo-dark', 'gda-logo-dark.svg')">Download SVG</button>
+        <button onclick="downloadPNG('logo-dark', 'gda-logo-dark.png', 3)">Download PNG @3x</button>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Mark only -->
+    <div class="variant">
+      <svg id="mark-dark" width="80" height="80" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="10.5" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.4" />
+        <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.8" stroke-linecap="round" />
+        <circle cx="9.2" cy="22.8" r="3.4" fill="#FF5A1F" />
+        <circle cx="22.8" cy="9.2" r="3.4" fill="#7B6CFF" />
+      </svg>
+      <span class="label dark">Icon mark</span>
+      <div class="actions">
+        <button class="primary" onclick="downloadSVG('mark-dark', 'gda-mark-dark.svg')">Download SVG</button>
+        <button onclick="downloadPNG('mark-dark', 'gda-mark-dark.png', 6)">Download PNG @6x</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Light background -->
+  <div class="card light">
+    <span class="label">Light background</span>
+    <hr class="divider light" />
+
+    <div class="variant">
+      <svg id="logo-light" width="372" height="36" viewBox="0 0 248 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="8" stroke="#111111" stroke-width="1.2" />
+        <ellipse cx="12" cy="12" rx="4" ry="8" stroke="rgba(0,0,0,0.25)" stroke-width="1.2" />
+        <line x1="4" y1="12" x2="20" y2="12" stroke="rgba(0,0,0,0.25)" stroke-width="1.2" />
+        <circle cx="19" cy="5" r="2.5" fill="#7B6CFF" />
+        <text x="28" y="17" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="400" letter-spacing="-0.2" fill="#111111">Global</text>
+        <text x="74" y="17" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" letter-spacing="-0.2" fill="#111111">Developer</text>
+        <text x="152" y="17" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="400" letter-spacing="-0.2" fill="#111111">Academy</text>
+      </svg>
+      <span class="label">Full wordmark</span>
+      <div class="actions">
+        <button onclick="downloadSVG('logo-light', 'gda-logo-light.svg')" style="background:#eee;border-color:#ccc;color:#333">Download SVG</button>
+        <button onclick="downloadPNG('logo-light', 'gda-logo-light.png', 3)" style="background:#eee;border-color:#ccc;color:#333">Download PNG @3x</button>
+      </div>
+    </div>
+
+    <hr class="divider light" />
+
+    <div class="variant">
+      <svg id="mark-light" width="80" height="80" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="10.5" stroke="#111111" stroke-opacity="0.18" stroke-width="1.4" />
+        <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="#111111" stroke-opacity="0.55" stroke-width="1.8" stroke-linecap="round" />
+        <circle cx="9.2" cy="22.8" r="3.4" fill="#FF5A1F" />
+        <circle cx="22.8" cy="9.2" r="3.4" fill="#7B6CFF" />
+      </svg>
+      <span class="label">Icon mark</span>
+      <div class="actions">
+        <button onclick="downloadSVG('mark-light', 'gda-mark-light.svg')" style="background:#eee;border-color:#ccc;color:#333">Download SVG</button>
+        <button onclick="downloadPNG('mark-light', 'gda-mark-light.png', 6)" style="background:#eee;border-color:#ccc;color:#333">Download PNG @6x</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function downloadSVG(id, filename) {
+      const svg = document.getElementById(id)
+      const serializer = new XMLSerializer()
+      const svgStr = serializer.serializeToString(svg)
+      const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url; a.download = filename; a.click()
+      URL.revokeObjectURL(url)
+    }
+
+    function downloadPNG(id, filename, scale) {
+      const svg = document.getElementById(id)
+      const w = svg.width.baseVal.value * scale
+      const h = svg.height.baseVal.value * scale
+      const serializer = new XMLSerializer()
+      let svgStr = serializer.serializeToString(svg)
+
+      const canvas = document.createElement('canvas')
+      canvas.width = w; canvas.height = h
+      const ctx = canvas.getContext('2d')
+      const img = new Image()
+      const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' })
+      const url = URL.createObjectURL(blob)
+      img.onload = () => {
+        ctx.scale(scale, scale)
+        ctx.drawImage(img, 0, 0)
+        URL.revokeObjectURL(url)
+        const a = document.createElement('a')
+        a.href = canvas.toDataURL('image/png')
+        a.download = filename; a.click()
+      }
+      img.src = url
+    }
+  </script>
+</body>
+</html>

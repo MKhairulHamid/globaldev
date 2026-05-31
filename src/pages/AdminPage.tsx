@@ -96,7 +96,7 @@ export default function AdminPage() {
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
         <div style={{ marginBottom: '32px' }}>
           <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '10px' }}>Admin Panel</p>
-          <h1 style={{ color: '#fff', fontSize: '28px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Pendaftaran Cohort Juni 2026</h1>
+          <h1 style={{ color: '#fff', fontSize: '28px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Pendaftaran Batch Juni 2026</h1>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '13px', background: 'rgba(123,108,255,0.1)', color: 'var(--signal)', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(123,108,255,0.25)' }}>{rows.length} terdaftar</span>
             <span style={{ fontSize: '13px', background: 'rgba(251,191,36,0.1)', color: '#fbbf24', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(251,191,36,0.25)' }}>{counts.waiting_confirmation} menunggu konfirmasi</span>

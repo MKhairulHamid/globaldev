@@ -150,7 +150,7 @@ function DashboardUI({ scale = 1 }: { scale?: number }) {
         {/* Header */}
         <div style={{ marginBottom: fs(20) }}>
           <div style={{ color: TEXT, fontSize: fs(18), fontWeight: 800, letterSpacing: '-0.02em', marginBottom: fs(4) }}>Pendaftaran</div>
-          <div style={{ color: SUBTLE, fontSize: fs(12) }}>Cohort Juni 2026</div>
+          <div style={{ color: SUBTLE, fontSize: fs(12) }}>Batch Juni 2026</div>
         </div>
 
         {/* Stats */}
