@@ -6,10 +6,12 @@ import { trackSectionView } from '../lib/analytics'
 export default function SectionTracker({
   name,
   index,
+  id,
   children,
 }: {
   name: string
   index: number
+  id?: string
   children: React.ReactNode
 }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -35,7 +37,7 @@ export default function SectionTracker({
   }, [name, index])
 
   return (
-    <div ref={ref} data-section={name}>
+    <div ref={ref} data-section={name} id={id}>
       {children}
     </div>
   )

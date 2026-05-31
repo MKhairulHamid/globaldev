@@ -43,14 +43,14 @@ function LandingPage() {
   return (
     <div className="min-h-screen text-white" style={{ background: '#0a0a0a' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>
-        <SectionTracker name="hero" index={1}><Hero /></SectionTracker>
-        <SectionTracker name="instructor" index={2}><Instructor /></SectionTracker>
-        <SectionTracker name="what_youll_build" index={3}><WhatYoullBuild /></SectionTracker>
-        <SectionTracker name="curriculum" index={4}><Curriculum /></SectionTracker>
-        <SectionTracker name="who_is_this" index={5}><WhoIsThis /></SectionTracker>
-        <SectionTracker name="pricing" index={6}><Pricing /></SectionTracker>
-        <SectionTracker name="faq" index={7}><FAQ /></SectionTracker>
-        <SectionTracker name="footer" index={8}><Footer /></SectionTracker>
+        <SectionTracker name="hero" index={1} id="hero"><Hero /></SectionTracker>
+        <SectionTracker name="instructor" index={2} id="instructor"><Instructor /></SectionTracker>
+        <SectionTracker name="what_youll_build" index={3} id="what-youll-build"><WhatYoullBuild /></SectionTracker>
+        <SectionTracker name="curriculum" index={4} id="curriculum"><Curriculum /></SectionTracker>
+        <SectionTracker name="who_is_this" index={5} id="who-is-this"><WhoIsThis /></SectionTracker>
+        <SectionTracker name="pricing" index={6} id="pricing"><Pricing /></SectionTracker>
+        <SectionTracker name="faq" index={7} id="faq"><FAQ /></SectionTracker>
+        <SectionTracker name="footer" index={8} id="footer"><Footer /></SectionTracker>
       </div>
       <WhatsAppButton />
     </div>
