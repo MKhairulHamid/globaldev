@@ -38,7 +38,7 @@ const formatAmount = (n: number) =>
 
 export default function AdminPage() {
   const [rows, setRows] = useState<Row[]>([])
-  const [filter, setFilter] = useState<StatusFilter>('waiting_confirmation')
+  const [filter, setFilter] = useState<StatusFilter>('all')
   const [loading, setLoading] = useState(true)
   const [rejectNotes, setRejectNotes] = useState<Record<string, string>>({})
   const [processing, setProcessing] = useState<string | null>(null)
@@ -106,8 +106,13 @@ export default function AdminPage() {
 
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
         <div style={{ marginBottom: '32px' }}>
-          <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '4px' }}>Pendaftaran Cohort Juni 2026</h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>{rows.length} peserta terdaftar</p>
+          <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '10px' }}>Admin Panel</p>
+          <h1 style={{ color: '#fff', fontSize: '28px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Pendaftaran Cohort Juni 2026</h1>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '13px', background: 'rgba(123,108,255,0.1)', color: 'var(--signal)', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(123,108,255,0.25)' }}>{rows.length} terdaftar</span>
+            <span style={{ fontSize: '13px', background: 'rgba(251,191,36,0.1)', color: '#fbbf24', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(251,191,36,0.25)' }}>{counts.waiting_confirmation} menunggu konfirmasi</span>
+            <span style={{ fontSize: '13px', background: 'rgba(74,222,128,0.08)', color: '#4ade80', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(74,222,128,0.25)' }}>{counts.confirmed} terkonfirmasi</span>
+          </div>
         </div>
 
         {/* Filter tabs */}
@@ -141,8 +146,8 @@ export default function AdminPage() {
             <div key={row.id} style={{ background: '#111', border: '1px solid #1f1f1f', borderRadius: '14px', padding: '24px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                    <h3 style={{ color: '#fff', fontWeight: 700, fontSize: '16px' }}>{row.profiles?.full_name ?? '(belum lengkap)'}</h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                    <h3 style={{ color: '#fff', fontWeight: 700, fontSize: '16px', letterSpacing: '-0.02em' }}>{row.profiles?.full_name ?? '(belum lengkap)'}</h3>
                     <span style={{ fontSize: '12px', color: STATUS_COLOR[row.payment_status], background: `${STATUS_COLOR[row.payment_status]}18`, padding: '2px 10px', borderRadius: '999px', border: `1px solid ${STATUS_COLOR[row.payment_status]}44` }}>
                       {STATUS_LABEL[row.payment_status]}
                     </span>
@@ -159,9 +164,12 @@ export default function AdminPage() {
                   )}
                 </div>
                 <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                  <p style={{ color: 'var(--spark)', fontWeight: 700, fontSize: '18px' }}>{formatAmount(row.unique_amount)}</p>
+                  <p style={{ color: 'var(--spark)', fontWeight: 700, fontSize: '18px', letterSpacing: '-0.02em' }}>{formatAmount(row.unique_amount)}</p>
+                  <p style={{ color: '#444', fontSize: '12px', marginTop: '4px' }}>
+                    Daftar: {new Date(row.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                  </p>
                   {row.transfer_submitted_at && (
-                    <p style={{ color: '#555', fontSize: '12px' }}>
+                    <p style={{ color: '#444', fontSize: '12px' }}>
                       Transfer: {new Date(row.transfer_submitted_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                     </p>
                   )}

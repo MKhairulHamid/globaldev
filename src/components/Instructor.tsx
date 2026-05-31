@@ -23,7 +23,7 @@ export default function Instructor() {
               decoding="async"
               width={72}
               height={72}
-              style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2a2a2a', flexShrink: 0 }}
+              style={{ width: '72px', height: '72px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'center 20%', border: '2px solid #2a2a2a', flexShrink: 0 }}
             />
             <div>
               <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '4px' }}>
