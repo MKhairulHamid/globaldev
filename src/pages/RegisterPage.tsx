@@ -1,101 +1,103 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import Logo from '../components/Logo'
 
 type Background = 'it_fresh_grad' | 'professional_non_it' | 'other'
-type Msg = { from: 'bot' | 'user'; text: string; error?: boolean }
-type Phase = 'name' | 'phone' | 'background' | 'occupation' | 'goals' | 'email' | 'password' | 'done'
-
-const ORDER: Phase[] = ['name', 'phone', 'background', 'occupation', 'goals', 'email', 'password']
+type Step = 1 | 2 | 'done'
 
 const BG_OPTIONS: { value: Background; label: string }[] = [
-  { value: 'it_fresh_grad', label: 'Fresh graduate IT' },
+  { value: 'it_fresh_grad', label: 'Fresh grad IT' },
   { value: 'professional_non_it', label: 'Profesional non-IT' },
   { value: 'other', label: 'Lainnya' },
 ]
 
-export default function RegisterPage() {
-  const [messages, setMessages] = useState<Msg[]>([])
-  const [phase, setPhase] = useState<Phase>('name')
-  const [botTyping, setBotTyping] = useState(true)
-  const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
+const BENEFITS = [
+  '10 sesi live via Google Meet',
+  'Komunitas Discord eksklusif',
+  'Source code proyek lengkap',
+  'Rekaman semua sesi tersedia',
+  'Proyek full stack dari nol sampai online',
+]
 
-  // Collected answers
+export default function RegisterPage() {
+  const [step, setStep] = useState<Step>(1)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
   const [background, setBackground] = useState<Background | null>(null)
   const [occupation, setOccupation] = useState('')
   const [goals, setGoals] = useState('')
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [leadId, setLeadId] = useState<string | null>(null)
 
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const started = useRef(false)
+  const firstName = fullName.trim().split(' ')[0] || ''
+  const stepNum = step === 'done' ? 3 : step
 
-  const firstName = fullName.trim().split(' ')[0] || 'kamu'
+  async function handleStep1(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
+    if (!fullName.trim()) { setError('Nama wajib diisi'); return }
+    if (phone.replace(/\D/g, '').length < 8) { setError('Nomor WhatsApp tidak valid'); return }
+    if (!background) { setError('Pilih latar belakangmu'); return }
+    if (goals.trim().length < 3) { setError('Ceritakan tujuanmu (min. 3 karakter)'); return }
 
-  // ── Conversation driver ─────────────────────────────────────────────────────
-  function botSay(texts: string[], next: Phase, delay = 650) {
-    setBotTyping(true)
-    setTimeout(() => {
-      setMessages(m => [...m, ...texts.map(t => ({ from: 'bot' as const, text: t }))])
-      setBotTyping(false)
-      setPhase(next)
-      setInput('')
-    }, delay)
-  }
-
-  function userSay(text: string) {
-    setMessages(m => [...m, { from: 'user', text }])
-  }
-
-  // Greeting on mount (guarded against StrictMode double-invoke)
-  useEffect(() => {
-    if (started.current) return
-    started.current = true
-    botSay(['Hai 👋 Kenalan dulu, yuk.', 'Siapa nama lengkap kamu?'], 'name', 500)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // Auto-scroll to the newest message
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
-  }, [messages, botTyping])
-
-  // ── Side effects ────────────────────────────────────────────────────────────
-  async function saveLead(goalsVal: string) {
-    const { data, error } = await supabase.rpc('save_lead', {
+    setLoading(true)
+    const { data } = await supabase.rpc('save_lead', {
       p_full_name: fullName.trim(),
       p_phone: phone.trim(),
-      p_background: background!,
+      p_background: background,
       p_occupation: occupation.trim() || null,
-      p_goals: goalsVal.trim(),
+      p_goals: goals.trim(),
     })
-    if (error) console.warn('Lead save failed:', error.message)
-    else if (data) setLeadId(data as string)
+    if (data) setLeadId(data as string)
+    setLoading(false)
+    setStep(2)
   }
 
-  async function doSignUp(pw: string) {
-    setLoading(true)
+  async function handleGoogle() {
+    let id = leadId
+    if (!id) {
+      const { data } = await supabase.rpc('save_lead', {
+        p_full_name: fullName.trim(),
+        p_phone: phone.trim(),
+        p_background: background!,
+        p_occupation: occupation.trim() || null,
+        p_goals: goals.trim(),
+      })
+      if (data) id = data as string
+    }
+    if (id) sessionStorage.setItem('lead_id', id)
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin },
+    })
+  }
 
+  async function handleEmailSignup(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('Format email tidak valid'); return }
+    if (password.length < 8) { setError('Password minimal 8 karakter'); return }
+
+    setLoading(true)
     if (leadId) await supabase.rpc('link_lead', { p_lead_id: leadId, p_email: email.trim() })
 
     const { data: authData, error: authErr } = await supabase.auth.signUp({
       email: email.trim(),
-      password: pw,
+      password,
       options: { emailRedirectTo: window.location.origin },
     })
 
     if (authErr) {
       setLoading(false)
-      setMessages(m => [...m, {
-        from: 'bot',
-        error: true,
-        text: authErr.message === 'User already registered'
-          ? 'Hmm, email ini sudah terdaftar. Coba pakai email lain, atau masuk lewat halaman login ya.'
-          : authErr.message,
-      }])
+      setError(
+        authErr.message === 'User already registered'
+          ? 'Email ini sudah terdaftar. Masuk lewat halaman login.'
+          : authErr.message
+      )
       return
     }
 
@@ -112,260 +114,383 @@ export default function RegisterPage() {
     }
 
     setLoading(false)
-    botSay([`Selesai, ${firstName}! 🎉`], 'done', 500)
+    setStep('done')
   }
-
-  async function handleGoogle() {
-    let id = leadId
-    if (!id && fullName && phone && background && goals) {
-      const { data } = await supabase.rpc('save_lead', {
-        p_full_name: fullName.trim(),
-        p_phone: phone.trim(),
-        p_background: background,
-        p_occupation: occupation.trim() || null,
-        p_goals: goals.trim(),
-      })
-      if (data) id = data as string
-    }
-    if (id) sessionStorage.setItem('lead_id', id)
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin },
-    })
-  }
-
-  // ── Submit handlers per phase ────────────────────────────────────────────────
-  function submitName(e: React.FormEvent) {
-    e.preventDefault()
-    const v = input.trim()
-    if (v.length < 2) return
-    setFullName(v)
-    userSay(v)
-    const first = v.split(' ')[0]
-    botSay([`Salam kenal, ${first}! 👋`, 'Nomor WhatsApp kamu berapa? Kami pakai cuma buat info penting soal kelas.'], 'phone')
-  }
-
-  function submitPhone(e: React.FormEvent) {
-    e.preventDefault()
-    const v = input.trim()
-    if (v.replace(/\D/g, '').length < 8) return
-    setPhone(v)
-    userSay(v)
-    botSay(['Oke, dicatat ✍️', 'Sekarang, kamu lagi ada di posisi mana?'], 'background')
-  }
-
-  function chooseBackground(opt: { value: Background; label: string }) {
-    setBackground(opt.value)
-    userSay(opt.label)
-    if (opt.value === 'it_fresh_grad') {
-      botSay(['Sip, basic teknisnya pasti kepakai.', 'Apa yang pengen kamu bangun atau capai lewat kelas ini?'], 'goals')
-    } else {
-      botSay(['Menarik!', 'Boleh cerita kamu berkecimpung di bidang apa? (boleh dilewati)'], 'occupation')
-    }
-  }
-
-  function submitOccupation(skip: boolean) {
-    const v = input.trim()
-    if (!skip && !v) return
-    setOccupation(skip ? '' : v)
-    userSay(skip ? '(dilewati)' : v)
-    botSay(['Noted 👍', 'Apa yang pengen kamu bangun atau capai lewat kelas ini?'], 'goals')
-  }
-
-  async function submitGoals(e: React.FormEvent) {
-    e.preventDefault()
-    const v = input.trim()
-    if (v.length < 3) return
-    setGoals(v)
-    userSay(v)
-    setInput('')
-    await saveLead(v)
-    botSay(['Keren, semua sudah kecatat. 🙌', 'Tinggal bikin akunmu. Email kamu apa?'], 'email')
-  }
-
-  function submitEmail(e: React.FormEvent) {
-    e.preventDefault()
-    const v = input.trim()
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return
-    setEmail(v)
-    userSay(v)
-    botSay(['Terakhir nih, bikin password buat akunmu (min 8 karakter).'], 'password')
-  }
-
-  function submitPassword(e: React.FormEvent) {
-    e.preventDefault()
-    if (input.length < 8) return
-    const pw = input
-    userSay('••••••••')
-    setInput('')
-    setBotTyping(true)
-    doSignUp(pw)
-  }
-
-  // ── Render helpers ───────────────────────────────────────────────────────────
-  const stepIdx = ORDER.indexOf(phase)
-  const pct = phase === 'done' ? 100 : Math.round(((stepIdx + 1) / ORDER.length) * 100)
 
   const inp: React.CSSProperties = {
-    flex: 1, background: '#161616', border: '1px solid #2a2a2a',
-    borderRadius: '12px', padding: '13px 16px', color: '#fff', fontSize: '15px', outline: 'none',
+    width: '100%',
+    background: '#161616',
+    border: '1px solid #2a2a2a',
+    borderRadius: '10px',
+    padding: '12px 14px',
+    color: '#fff',
+    fontSize: '15px',
+    outline: 'none',
+    fontFamily: 'inherit',
+    transition: 'border-color 0.15s ease',
   }
-  const sendBtn: React.CSSProperties = {
-    background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '12px',
-    width: '46px', height: '46px', fontSize: '18px', cursor: 'pointer', flexShrink: 0,
-  }
-
-  function renderInput() {
-    if (botTyping || phase === 'done') return null
-
-    if (phase === 'background') {
-      return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {BG_OPTIONS.map(opt => (
-            <button key={opt.value} onClick={() => chooseBackground(opt)}
-              style={{ textAlign: 'left', background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '13px 16px', color: '#e5e5e5', fontSize: '15px', cursor: 'pointer' }}>
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      )
-    }
-
-    if (phase === 'occupation') {
-      return (
-        <form onSubmit={e => { e.preventDefault(); submitOccupation(false) }} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <input key={phase} autoFocus style={inp} value={input} onChange={e => setInput(e.target.value)} placeholder="Fotografer, tutor, dokter, dll." />
-            <button type="submit" style={sendBtn}>→</button>
-          </div>
-          <button type="button" onClick={() => submitOccupation(true)}
-            style={{ background: 'none', border: 'none', color: '#666', fontSize: '13px', cursor: 'pointer', alignSelf: 'flex-start', padding: '4px 2px' }}>
-            Lewati
-          </button>
-        </form>
-      )
-    }
-
-    if (phase === 'goals') {
-      return (
-        <form onSubmit={submitGoals} style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
-          <textarea key={phase} autoFocus value={input} onChange={e => setInput(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitGoals(e) } }}
-            placeholder="Ceritakan ide atau tujuanmu..."
-            style={{ ...inp, minHeight: '54px', maxHeight: '140px', resize: 'vertical', lineHeight: 1.5 }} />
-          <button type="submit" style={sendBtn}>→</button>
-        </form>
-      )
-    }
-
-    const map: Record<string, { submit: (e: React.FormEvent) => void; type: string; placeholder: string; auto: string }> = {
-      name: { submit: submitName, type: 'text', placeholder: 'Nama lengkap kamu', auto: 'name' },
-      phone: { submit: submitPhone, type: 'tel', placeholder: '08xx-xxxx-xxxx', auto: 'tel' },
-      email: { submit: submitEmail, type: 'email', placeholder: 'email@kamu.com', auto: 'email' },
-      password: { submit: submitPassword, type: 'password', placeholder: 'Min 8 karakter', auto: 'new-password' },
-    }
-    const cfg = map[phase]
-    if (!cfg) return null
-
-    return (
-      <div>
-        <form onSubmit={cfg.submit} style={{ display: 'flex', gap: '8px' }}>
-          <input key={phase} autoFocus style={inp} type={cfg.type} value={input}
-            onChange={e => setInput(e.target.value)} placeholder={cfg.placeholder} autoComplete={cfg.auto} />
-          <button type="submit" disabled={loading} style={{ ...sendBtn, opacity: loading ? 0.6 : 1 }}>→</button>
-        </form>
-
-        {phase === 'email' && (
-          <>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '14px 0' }}>
-              <div style={{ flex: 1, height: '1px', background: '#222' }} />
-              <span style={{ color: '#444', fontSize: '12px' }}>atau</span>
-              <div style={{ flex: 1, height: '1px', background: '#222' }} />
-            </div>
-            <button onClick={handleGoogle}
-              style={{ width: '100%', background: '#fff', border: 'none', borderRadius: '12px', padding: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '14px', fontWeight: 600, color: '#111', cursor: 'pointer' }}>
-              <svg width="18" height="18" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-              </svg>
-              Daftar dengan Google
-            </button>
-          </>
-        )}
-      </div>
-    )
+  const lbl: React.CSSProperties = {
+    display: 'block',
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#888',
+    marginBottom: '7px',
+    letterSpacing: '0.06em',
+    textTransform: 'uppercase',
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px' }}>
+    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex' }}>
       <style>{`
-        @keyframes bubbleIn { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
-        @keyframes dot { 0%, 60%, 100% { opacity: .25; transform: translateY(0) } 30% { opacity: 1; transform: translateY(-3px) } }
+        .reg-left { width: 400px; flex-shrink: 0; background: #0d0d0d; border-right: 1px solid #1a1a1a; padding: 48px 40px; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+        .reg-mobile-logo { display: none; }
+        @media (max-width: 800px) {
+          .reg-left { display: none !important; }
+          .reg-mobile-logo { display: block; }
+        }
+        .reg-inp:focus { border-color: rgba(255,90,31,0.45) !important; box-shadow: 0 0 0 3px rgba(255,90,31,0.07); }
+        .reg-bg-btn:hover { border-color: rgba(255,90,31,0.3) !important; color: #ccc !important; }
+        .reg-back:hover { color: #aaa !important; }
+        .reg-submit:hover:not(:disabled) { opacity: 0.88 !important; }
+        .reg-google:hover { background: #f5f5f5 !important; }
+        .reg-link:hover { color: #888 !important; }
       `}</style>
 
-      <a href="/" style={{ margin: '16px 0 28px' }}><Logo height={24} /></a>
+      {/* ── Left: value prop panel ─────────────────────────── */}
+      <div className="reg-left">
+        <a href="/" style={{ marginBottom: '52px', display: 'block' }}>
+          <Logo height={24} />
+        </a>
 
-      <div style={{ width: '100%', maxWidth: '440px', background: '#111', border: '1px solid #222', borderRadius: '20px', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '600px', maxHeight: 'calc(100vh - 140px)' }}>
-
-        {/* Progress */}
-        <div style={{ height: '3px', background: '#222', flexShrink: 0 }}>
-          <div style={{ height: '100%', width: `${pct}%`, background: 'var(--spark)', transition: 'width 0.4s ease' }} />
+        <div style={{ marginBottom: '18px' }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '7px',
+            background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.18)',
+            borderRadius: '999px', padding: '5px 14px', fontSize: '12px',
+            color: 'var(--spark)', fontWeight: 600, letterSpacing: '0.02em',
+          }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--spark)', flexShrink: 0 }} />
+            30 kursi tersisa · Batch 1
+          </span>
         </div>
 
-        {/* Messages */}
-        <div ref={scrollRef} style={{ flex: 1, overflowY: 'auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {messages.map((m, i) => (
-            <div key={i} style={{ display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start', animation: 'bubbleIn 0.25s ease both' }}>
-              <div style={{
-                maxWidth: '80%', padding: '10px 14px', borderRadius: m.from === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                background: m.error ? 'rgba(239,68,68,0.12)' : m.from === 'user' ? 'var(--spark)' : '#1c1c1c',
-                border: m.error ? '1px solid rgba(239,68,68,0.3)' : 'none',
-                color: m.error ? '#f87171' : m.from === 'user' ? '#fff' : '#e5e5e5',
-                fontSize: '14.5px', lineHeight: 1.5, whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+        <h2 style={{
+          fontFamily: "'Space Grotesk', sans-serif", fontSize: '26px', fontWeight: 800,
+          color: '#fff', lineHeight: 1.2, letterSpacing: '-0.025em', marginBottom: '12px',
+        }}>
+          Mulai dari nol.<br />Selesai dengan<br />aplikasi nyata.
+        </h2>
+
+        <p style={{ color: '#666', fontSize: '14px', lineHeight: 1.65, marginBottom: '32px' }}>
+          10 sesi live bersama Software Engineer dari Australia. Kita bangun satu aplikasi full stack dari nol sampai online, pakai React, TypeScript, dan Supabase.
+        </p>
+
+        <div style={{
+          background: '#161616', border: '1px solid #232323',
+          borderRadius: '14px', padding: '20px 22px', marginBottom: '28px',
+        }}>
+          <div style={{ fontSize: '12px', color: '#555', marginBottom: '4px', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Biaya pendaftaran</div>
+          <div style={{
+            fontFamily: "'Space Grotesk', sans-serif", fontSize: '30px',
+            fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1,
+          }}>Rp 899.000</div>
+          <div style={{ fontSize: '13px', color: '#555', marginTop: '6px' }}>Mulai 11 Juni 2026 · 10 pertemuan</div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+          {BENEFITS.map(b => (
+            <div key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+              <span style={{
+                width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
+                background: 'rgba(255,90,31,0.12)', display: 'flex',
+                alignItems: 'center', justifyContent: 'center', marginTop: '1px',
               }}>
-                {m.text}
-              </div>
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path d="M1.5 4L3.8 6.5L8.5 1.5" stroke="#FF5A1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span style={{ fontSize: '13.5px', color: '#999', lineHeight: 1.4 }}>{b}</span>
             </div>
           ))}
-
-          {botTyping && (
-            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-              <div style={{ background: '#1c1c1c', borderRadius: '14px 14px 14px 4px', padding: '14px 16px', display: 'flex', gap: '4px' }}>
-                {[0, 1, 2].map(i => (
-                  <span key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#888', display: 'inline-block', animation: `dot 1.2s ${i * 0.15}s infinite ease-in-out` }} />
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
-        {/* Input dock / done state */}
-        <div style={{ borderTop: '1px solid #1c1c1c', padding: '16px', flexShrink: 0 }}>
-          {phase === 'done' ? (
-            <div style={{ textAlign: 'center', padding: '4px 0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '8px' }}>📬</div>
-              <p style={{ color: '#e5e5e5', fontSize: '14px', lineHeight: 1.6, marginBottom: '12px' }}>
-                Kami kirim link konfirmasi ke <strong style={{ color: '#fff' }}>{email}</strong>.<br />
-                Klik link itu untuk aktifkan akun dan lanjut ke pembayaran.
+        <div style={{ marginTop: 'auto', paddingTop: '28px' }}>
+          <p style={{ fontSize: '12px', color: '#3a3a3a', lineHeight: 1.6 }}>
+            Dengan mendaftar, kamu menyetujui syarat dan ketentuan yang berlaku.
+          </p>
+        </div>
+      </div>
+
+      {/* ── Right: form area ───────────────────────────────── */}
+      <div style={{
+        flex: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+        padding: '48px 24px', minHeight: '100vh', overflowY: 'auto',
+      }}>
+        <div style={{ width: '100%', maxWidth: '420px', paddingTop: '8px' }}>
+
+          {/* Mobile logo */}
+          <div className="reg-mobile-logo" style={{ marginBottom: '36px' }}>
+            <a href="/"><Logo height={24} /></a>
+          </div>
+
+          {/* Step indicator */}
+          {step !== 'done' && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '36px' }}>
+              {([1, 2] as const).map((s, idx) => {
+                const isActive = stepNum === s
+                const isDone = stepNum > s
+                return (
+                  <div key={s} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {idx > 0 && (
+                      <div style={{ width: '28px', height: '1px', background: isDone ? 'rgba(255,90,31,0.3)' : '#1e1e1e', marginRight: '2px' }} />
+                    )}
+                    <div style={{
+                      width: '26px', height: '26px', borderRadius: '50%', flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      background: isActive ? 'var(--spark)' : isDone ? 'rgba(255,90,31,0.15)' : '#181818',
+                      border: isActive ? 'none' : isDone ? '1px solid rgba(255,90,31,0.25)' : '1px solid #252525',
+                      fontSize: '11px', fontWeight: 700,
+                      color: isActive ? '#fff' : isDone ? 'var(--spark)' : '#444',
+                    }}>
+                      {isDone
+                        ? <svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1.5 4.5L4 7L9.5 1.5" stroke="#FF5A1F" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        : s}
+                    </div>
+                    <span style={{ fontSize: '13px', color: isActive ? '#e0e0e0' : '#484848', fontWeight: isActive ? 600 : 400 }}>
+                      {s === 1 ? 'Tentang kamu' : 'Buat akun'}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          {/* ── Step 1: personal info ── */}
+          {step === 1 && (
+            <form onSubmit={handleStep1}>
+              <h1 style={{
+                fontFamily: "'Space Grotesk', sans-serif", fontSize: '22px',
+                fontWeight: 800, color: '#fff', letterSpacing: '-0.025em', marginBottom: '6px',
+              }}>Ceritakan tentang dirimu</h1>
+              <p style={{ color: '#555', fontSize: '14px', marginBottom: '28px', lineHeight: 1.5 }}>
+                Bantu kami mengenalmu lebih baik sebelum sesi pertama.
               </p>
-              <a href="/auth" style={{ color: 'var(--spark)', fontSize: '13px', textDecoration: 'none', fontWeight: 600 }}>
-                Sudah konfirmasi? Masuk di sini →
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                <div>
+                  <label style={lbl}>Nama lengkap</label>
+                  <input className="reg-inp" style={inp} type="text"
+                    placeholder="Budi Santoso" value={fullName}
+                    onChange={e => setFullName(e.target.value)}
+                    autoComplete="name" autoFocus />
+                </div>
+
+                <div>
+                  <label style={lbl}>Nomor WhatsApp</label>
+                  <input className="reg-inp" style={inp} type="tel"
+                    placeholder="08xx-xxxx-xxxx" value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    autoComplete="tel" />
+                  <p style={{ fontSize: '12px', color: '#444', marginTop: '6px' }}>Hanya untuk informasi penting tentang kelas.</p>
+                </div>
+
+                <div>
+                  <label style={lbl}>Latar belakang</label>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    {BG_OPTIONS.map(opt => (
+                      <button key={opt.value} type="button"
+                        className="reg-bg-btn"
+                        onClick={() => setBackground(opt.value)}
+                        style={{
+                          flex: 1, padding: '10px 6px', borderRadius: '10px',
+                          fontSize: '12.5px', fontWeight: 600, cursor: 'pointer',
+                          transition: 'all 0.15s ease', textAlign: 'center',
+                          background: background === opt.value ? 'rgba(255,90,31,0.12)' : '#161616',
+                          border: background === opt.value ? '1px solid rgba(255,90,31,0.4)' : '1px solid #252525',
+                          color: background === opt.value ? 'var(--spark)' : '#666',
+                        }}>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {background && background !== 'it_fresh_grad' && (
+                  <div>
+                    <label style={lbl}>
+                      Bidang pekerjaan{' '}
+                      <span style={{ color: '#3a3a3a', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>(opsional)</span>
+                    </label>
+                    <input className="reg-inp" style={inp} type="text"
+                      placeholder="Fotografer, dokter, akuntan..."
+                      value={occupation}
+                      onChange={e => setOccupation(e.target.value)} />
+                  </div>
+                )}
+
+                <div>
+                  <label style={lbl}>Apa yang ingin kamu bangun atau capai?</label>
+                  <textarea className="reg-inp" style={{ ...inp, minHeight: '88px', resize: 'vertical', lineHeight: 1.55 }}
+                    placeholder="Ceritakan ide, tujuan, atau masalah yang ingin kamu selesaikan..."
+                    value={goals}
+                    onChange={e => setGoals(e.target.value)} />
+                </div>
+              </div>
+
+              {error && <ErrorBox message={error} />}
+
+              <button type="submit" disabled={loading} className="reg-submit"
+                style={{
+                  width: '100%', marginTop: '22px', background: 'var(--spark)',
+                  color: '#fff', border: 'none', borderRadius: '12px', padding: '14px',
+                  fontSize: '15px', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.65 : 1, transition: 'opacity 0.15s ease', fontFamily: 'inherit',
+                }}>
+                {loading ? 'Menyimpan...' : 'Lanjut ke pembuatan akun →'}
+              </button>
+            </form>
+          )}
+
+          {/* ── Step 2: account creation ── */}
+          {step === 2 && (
+            <div>
+              <button onClick={() => { setStep(1); setError(null) }}
+                className="reg-back"
+                style={{
+                  background: 'none', border: 'none', color: '#555', fontSize: '13px',
+                  cursor: 'pointer', padding: 0, marginBottom: '24px',
+                  display: 'flex', alignItems: 'center', gap: '5px', transition: 'color 0.15s ease',
+                  fontFamily: 'inherit',
+                }}>
+                ← Kembali
+              </button>
+
+              <h1 style={{
+                fontFamily: "'Space Grotesk', sans-serif", fontSize: '22px',
+                fontWeight: 800, color: '#fff', letterSpacing: '-0.025em', marginBottom: '6px',
+              }}>
+                Buat akunmu{firstName ? `, ${firstName}` : ''}
+              </h1>
+              <p style={{ color: '#555', fontSize: '14px', marginBottom: '28px', lineHeight: 1.5 }}>
+                Satu langkah lagi menuju kelas pertamamu.
+              </p>
+
+              <button onClick={handleGoogle} className="reg-google"
+                style={{
+                  width: '100%', background: '#fff', border: 'none', borderRadius: '12px',
+                  padding: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  gap: '10px', fontSize: '14.5px', fontWeight: 700, color: '#111', cursor: 'pointer',
+                  marginBottom: '20px', transition: 'background 0.15s ease', fontFamily: 'inherit',
+                }}>
+                <GoogleIcon />
+                Daftar dengan Google
+              </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+                <div style={{ flex: 1, height: '1px', background: '#1c1c1c' }} />
+                <span style={{ color: '#383838', fontSize: '12px', fontWeight: 500 }}>atau dengan email</span>
+                <div style={{ flex: 1, height: '1px', background: '#1c1c1c' }} />
+              </div>
+
+              <form onSubmit={handleEmailSignup}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div>
+                    <label style={lbl}>Email</label>
+                    <input className="reg-inp" style={inp} type="email"
+                      placeholder="kamu@email.com" value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      autoComplete="email" autoFocus />
+                  </div>
+                  <div>
+                    <label style={lbl}>Password</label>
+                    <input className="reg-inp" style={inp} type="password"
+                      placeholder="Minimal 8 karakter" value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      autoComplete="new-password" />
+                  </div>
+                </div>
+
+                {error && <ErrorBox message={error} />}
+
+                <button type="submit" disabled={loading} className="reg-submit"
+                  style={{
+                    width: '100%', marginTop: '20px', background: 'var(--spark)',
+                    color: '#fff', border: 'none', borderRadius: '12px', padding: '14px',
+                    fontSize: '15px', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer',
+                    opacity: loading ? 0.65 : 1, transition: 'opacity 0.15s ease', fontFamily: 'inherit',
+                  }}>
+                  {loading ? 'Membuat akun...' : 'Daftar sekarang'}
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* ── Done ── */}
+          {step === 'done' && (
+            <div style={{ paddingTop: '20px' }}>
+              <div style={{
+                width: '56px', height: '56px', borderRadius: '50%',
+                background: 'rgba(255,90,31,0.1)', border: '1px solid rgba(255,90,31,0.2)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                marginBottom: '24px', fontSize: '24px',
+              }}>📬</div>
+              <h1 style={{
+                fontFamily: "'Space Grotesk', sans-serif", fontSize: '22px',
+                fontWeight: 800, color: '#fff', letterSpacing: '-0.025em', marginBottom: '12px',
+              }}>
+                Hampir selesai{firstName ? `, ${firstName}` : ''}!
+              </h1>
+              <p style={{ color: '#666', fontSize: '15px', lineHeight: 1.7, marginBottom: '28px' }}>
+                Kami kirim link konfirmasi ke{' '}
+                <strong style={{ color: '#e0e0e0' }}>{email}</strong>.<br />
+                Klik link itu untuk mengaktifkan akunmu dan lanjut ke pembayaran.
+              </p>
+              <a href="/auth" style={{
+                display: 'inline-block', background: 'var(--spark)', color: '#fff',
+                fontWeight: 700, fontSize: '14px', padding: '12px 24px',
+                borderRadius: '10px', textDecoration: 'none',
+              }}>
+                Sudah konfirmasi? Masuk →
               </a>
             </div>
-          ) : (
-            renderInput()
           )}
+
+          {/* Footer */}
+          <div style={{ marginTop: '36px', display: 'flex', gap: '20px' }}>
+            <a href="/" className="reg-link" style={{ color: '#3a3a3a', fontSize: '13px', textDecoration: 'none', transition: 'color 0.15s ease' }}>
+              ← Halaman utama
+            </a>
+            {step !== 'done' && (
+              <a href="/auth" className="reg-link" style={{ color: '#3a3a3a', fontSize: '13px', textDecoration: 'none', transition: 'color 0.15s ease' }}>
+                Sudah punya akun? Masuk
+              </a>
+            )}
+          </div>
         </div>
       </div>
-
-      <div style={{ marginTop: '20px', display: 'flex', gap: '16px' }}>
-        <a href="/" style={{ color: '#555', fontSize: '13px', textDecoration: 'none' }}>← Halaman utama</a>
-        {phase !== 'done' && (
-          <a href="/auth" style={{ color: '#555', fontSize: '13px', textDecoration: 'none' }}>Sudah punya akun? Masuk</a>
-        )}
-      </div>
     </div>
+  )
+}
+
+function ErrorBox({ message }: { message: string }) {
+  return (
+    <div style={{
+      marginTop: '14px', padding: '11px 14px',
+      background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.18)',
+      borderRadius: '10px', color: '#f87171', fontSize: '13.5px', lineHeight: 1.5,
+    }}>
+      {message}
+    </div>
+  )
+}
+
+function GoogleIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24">
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+    </svg>
   )
 }
