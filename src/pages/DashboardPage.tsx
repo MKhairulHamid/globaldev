@@ -186,6 +186,22 @@ export default function DashboardPage() {
     load()
   }, [navigate])
 
+  useEffect(() => {
+    if (registration?.payment_status !== 'confirmed') return
+    const key = `conversion_fired_${registration.id}`
+    if (localStorage.getItem(key)) return
+    // @ts-expect-error gtag loaded via index.html
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+        send_to: 'AW-18199825981/QG_bCIv8u7YcEL2creZD',
+        value: registration.unique_amount,
+        currency: 'IDR',
+        transaction_id: registration.id,
+      })
+    }
+    localStorage.setItem(key, '1')
+  }, [registration?.payment_status, registration?.id])
+
   const profileComplete = !!(profile?.full_name && profile?.phone && profile?.background && profile?.goals)
 
   async function saveProfile(e: React.FormEvent) {
