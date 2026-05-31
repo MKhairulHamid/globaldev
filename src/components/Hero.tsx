@@ -1,4 +1,5 @@
 import Logo from './Logo'
+import LogoMark from './LogoMark'
 import { authEntryPath } from '../lib/authEntry'
 
 export default function Hero() {
@@ -9,7 +10,7 @@ export default function Hero() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '72px' }}>
         <span className="logo-full"><Logo height={26} /></span>
         <span className="logo-short" style={{ display: 'none', alignItems: 'center', gap: '8px' }}>
-          <Logo height={26} />
+          <LogoMark size={30} />
         </span>
         <a
           href={REGISTER_URL}
