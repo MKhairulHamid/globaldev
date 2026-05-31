@@ -1,26 +1,29 @@
-// Static image creatives for Google Ads — 10 formats
-// Render at exact pixel size; parent wraps in a scaled container for preview.
+// Google Ads static image creatives — redesigned per Google guidelines
+// ✓ Visual-first (authentic app mockups)   ✓ No fake buttons
+// ✓ Focal point centered                   ✓ No text overload
+// ✓ Brand colours                          ✓ No CTAs in image
 
 import React, { useState } from 'react'
 
-// ── Shared brand tokens ──────────────────────────────────────────────────────
-const SPARK   = '#FF5A1F'
-const SIGNAL  = '#7B6CFF'
-const BG      = '#0a0a0a'
-const SURF1   = '#111111'
-const SURF2   = '#161616'
-const BORDER  = '#2a2a2a'
-const TEXT    = '#e5e5e5'
-const MUTED   = '#a3a3a3'
-const SUBTLE  = '#666666'
+// ── Brand tokens ─────────────────────────────────────────────────────────────
+const SPARK  = '#FF5A1F'
+const SIGNAL = '#7B6CFF'
+const BG     = '#0a0a0a'
+const SURF1  = '#111111'
+const SURF2  = '#161616'
+const SURF3  = '#1c1c1c'
+const BORDER = '#2a2a2a'
+const TEXT   = '#e5e5e5'
+const SUBTLE = '#666666'
 
-// ── Shared SVG components ────────────────────────────────────────────────────
-function GlobeMark({ size = 80 }: { size?: number }) {
+// ── Shared micro-components ──────────────────────────────────────────────────
+
+function GlobeMark({ size = 40 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
       <circle cx="16" cy="16" r="10.5" stroke="white" strokeOpacity="0.15" strokeWidth="1.4"/>
-      <ellipse cx="16" cy="16" rx="4.5" ry="10.5" stroke="white" strokeOpacity="0.1" strokeWidth="1.2"/>
-      <line x1="5.5" y1="16" x2="26.5" y2="16" stroke="white" strokeOpacity="0.1" strokeWidth="1.2"/>
+      <ellipse cx="16" cy="16" rx="4.5" ry="10.5" stroke="white" strokeOpacity="0.08" strokeWidth="1.2"/>
+      <line x1="5.5" y1="16" x2="26.5" y2="16" stroke="white" strokeOpacity="0.08" strokeWidth="1.2"/>
       <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="white" strokeOpacity="0.55" strokeWidth="1.8" strokeLinecap="round"/>
       <circle cx="9.2" cy="22.8" r="3.4" fill={SPARK}/>
       <circle cx="22.8" cy="9.2" r="3.4" fill={SIGNAL}/>
@@ -28,776 +31,544 @@ function GlobeMark({ size = 80 }: { size?: number }) {
   )
 }
 
-function GlobeMarkLarge({ size = 320, opacity = 0.12 }: { size?: number; opacity?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 320 320" fill="none" style={{ position: 'absolute', pointerEvents: 'none' }}>
-      <circle cx="160" cy="160" r="130" stroke="white" strokeOpacity={opacity} strokeWidth="2"/>
-      <ellipse cx="160" cy="160" rx="52" ry="130" stroke="white" strokeOpacity={opacity * 0.6} strokeWidth="1.5"/>
-      <ellipse cx="160" cy="160" rx="104" ry="130" stroke="white" strokeOpacity={opacity * 0.4} strokeWidth="1.2"/>
-      <line x1="30" y1="160" x2="290" y2="160" stroke="white" strokeOpacity={opacity * 0.5} strokeWidth="1.5"/>
-      <line x1="160" y1="30" x2="160" y2="290" stroke="white" strokeOpacity={opacity * 0.3} strokeWidth="1.2"/>
-      <path d="M 92 228 A 132 132 0 0 1 228 92" stroke="white" strokeOpacity={opacity * 3} strokeWidth="3" strokeLinecap="round"/>
-      <circle cx="92" cy="228" r="12" fill={SPARK}/>
-      <circle cx="228" cy="92" r="12" fill={SIGNAL}/>
-    </svg>
-  )
-}
-
-function Wordmark({ scale = 1 }: { scale?: number }) {
-  const h = 20 * scale
-  const w = 206 * scale
+function BrandMark({ size = 40 }: { size?: number }) {
+  const h = size
+  const w = (206 / 20) * h
   return (
     <svg width={w} height={h} viewBox="0 0 206 20" fill="none">
       <circle cx="10" cy="10" r="6.5" stroke="white" strokeWidth="1"/>
-      <ellipse cx="10" cy="10" rx="3.2" ry="6.5" stroke="rgba(255,255,255,0.3)" strokeWidth="0.9"/>
-      <line x1="3.5" y1="10" x2="16.5" y2="10" stroke="rgba(255,255,255,0.3)" strokeWidth="0.9"/>
+      <ellipse cx="10" cy="10" rx="3.2" ry="6.5" stroke="rgba(255,255,255,0.25)" strokeWidth="0.9"/>
+      <line x1="3.5" y1="10" x2="16.5" y2="10" stroke="rgba(255,255,255,0.25)" strokeWidth="0.9"/>
       <circle cx="15.5" cy="4.5" r="2" fill={SIGNAL}/>
-      <text x="23" y="14" fontFamily="'Inter', system-ui, sans-serif" fontSize="11.5" fontWeight="400" letterSpacing="-0.2" fill="white">Global</text>
-      <text x="61" y="14" fontFamily="'Inter', system-ui, sans-serif" fontSize="11.5" fontWeight="700" letterSpacing="-0.2" fill="white">Developer</text>
-      <text x="126" y="14" fontFamily="'Inter', system-ui, sans-serif" fontSize="11.5" fontWeight="400" letterSpacing="-0.2" fill="white">Academy</text>
+      <text x="23" y="14" fontFamily="'Inter',system-ui,sans-serif" fontSize="11.5" fontWeight="400" fill="white">Global</text>
+      <text x="61" y="14" fontFamily="'Inter',system-ui,sans-serif" fontSize="11.5" fontWeight="700" fill="white">Developer</text>
+      <text x="126" y="14" fontFamily="'Inter',system-ui,sans-serif" fontSize="11.5" fontWeight="400" fill="white">Academy</text>
     </svg>
   )
 }
 
-// ── Shared helper styles ─────────────────────────────────────────────────────
-const sg = (sz: number, w: number | string = 800, color = '#fff', ls = '-0.03em'): React.CSSProperties => ({
-  fontFamily: "'Space Grotesk', 'Inter', sans-serif",
-  fontSize: sz,
-  fontWeight: w as number,
-  color,
-  letterSpacing: ls,
-  lineHeight: 1.1,
-})
+type BookingStatus = 'confirmed' | 'waiting' | 'pending'
+function StatusBadge({ status }: { status: BookingStatus }) {
+  const m = {
+    confirmed: { color: '#4ade80', bg: 'rgba(74,222,128,0.1)',  border: 'rgba(74,222,128,0.3)', label: 'Terkonfirmasi' },
+    waiting:   { color: '#fbbf24', bg: 'rgba(251,191,36,0.1)',  border: 'rgba(251,191,36,0.3)', label: 'Menunggu' },
+    pending:   { color: SUBTLE,    bg: 'rgba(255,255,255,0.05)', border: BORDER,                 label: 'Belum bayar' },
+  }[status]
+  return (
+    <span style={{ background: m.bg, color: m.color, border: `1px solid ${m.border}`, borderRadius: 999, padding: '3px 12px', fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', fontFamily: "'Inter',sans-serif" }}>
+      {m.label}
+    </span>
+  )
+}
 
-const inter = (sz: number, w: number | string = 400, color = MUTED): React.CSSProperties => ({
-  fontFamily: "'Inter', system-ui, sans-serif",
-  fontSize: sz,
-  fontWeight: w as number,
-  color,
-  lineHeight: 1.6,
-})
+// Browser chrome frame
+function BrowserFrame({ width, height, url = 'globaldev.sbs/dashboard', children }: {
+  width: number; height: number; url?: string; children: React.ReactNode
+}) {
+  return (
+    <div style={{ width, height, background: SURF2, borderRadius: 12, overflow: 'hidden', border: `1px solid ${BORDER}`, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ height: 38, background: SURF3, borderBottom: `1px solid ${BORDER}`, display: 'flex', alignItems: 'center', padding: '0 14px', gap: 10, flexShrink: 0 }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {['#ff5f57','#ffbd2e','#28c840'].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c, opacity: 0.8 }}/>)}
+        </div>
+        <div style={{ flex: 1, background: '#252525', borderRadius: 5, height: 22, display: 'flex', alignItems: 'center', padding: '0 12px' }}>
+          <span style={{ color: SUBTLE, fontSize: 11, fontFamily: "'Inter',sans-serif" }}>🔒 {url}</span>
+        </div>
+      </div>
+      <div style={{ flex: 1, overflow: 'hidden' }}>{children}</div>
+    </div>
+  )
+}
+
+// Phone frame
+function PhoneFrame({ width, children }: { width: number; children: React.ReactNode }) {
+  const height = width * 2.1
+  return (
+    <div style={{ width, height, background: '#1a1a1a', borderRadius: width * 0.12, border: `${width * 0.025}px solid #333`, overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
+      <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: width * 0.28, height: width * 0.06, background: '#0a0a0a', borderRadius: '0 0 10px 10px', zIndex: 10 }}/>
+      <div style={{ width: '100%', height: '100%', overflow: 'hidden', background: BG }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+// Booking rows data
+const BOOKINGS: { name: string; init: string; color: string; status: BookingStatus; date: string }[] = [
+  { name: 'Andi Pratama',   init: 'AP', color: '#60a5fa', status: 'confirmed', date: '11 Jun 2026' },
+  { name: 'Siti Rahayu',    init: 'SR', color: '#f472b6', status: 'waiting',   date: '11 Jun 2026' },
+  { name: 'Budi Santoso',   init: 'BS', color: '#34d399', status: 'confirmed', date: '11 Jun 2026' },
+  { name: 'Diana Kusuma',   init: 'DK', color: '#a78bfa', status: 'pending',   date: '12 Jun 2026' },
+  { name: 'Rizki Putra',    init: 'RP', color: '#fb923c', status: 'waiting',   date: '12 Jun 2026' },
+  { name: 'Lena Wulandari', init: 'LW', color: '#22d3ee', status: 'confirmed', date: '12 Jun 2026' },
+]
+
+// Meet participants
+const PARTICIPANTS = [
+  { init: 'AP', color: '#60a5fa', name: 'Andi P.' },
+  { init: 'SR', color: '#f472b6', name: 'Siti R.' },
+  { init: 'BS', color: '#34d399', name: 'Budi S.' },
+  { init: 'DK', color: '#a78bfa', name: 'Diana K.' },
+  { init: 'RP', color: '#fb923c', name: 'Rizki P.' },
+  { init: 'MH', color: SPARK,     name: 'MH (host)' },
+]
+
+// ── Syntax-coloured code lines ────────────────────────────────────────────────
+const kw  = (t: string) => <span style={{ color: '#c792ea' }}>{t}</span>
+const str = (t: string) => <span style={{ color: '#c3e88d' }}>{t}</span>
+const typ = (t: string) => <span style={{ color: '#82aaff' }}>{t}</span>
+const fn  = (t: string) => <span style={{ color: '#82aaff' }}>{t}</span>
+const cm  = (t: string) => <span style={{ color: '#546e7a' }}>{t}</span>
+const op  = (t: string) => <span style={{ color: '#89ddff' }}>{t}</span>
+const df  = (t: string) => <span style={{ color: '#d6deeb' }}>{t}</span>
+
+// Full booking dashboard UI (reused across multiple ads)
+function DashboardUI({ scale = 1 }: { scale?: number }) {
+  const fs = (n: number) => n * scale
+  return (
+    <div style={{ background: BG, width: '100%', height: '100%', fontFamily: "'Inter',sans-serif", display: 'flex' }}>
+      {/* Sidebar */}
+      <div style={{ width: fs(200), background: SURF1, borderRight: `1px solid ${BORDER}`, flexShrink: 0, padding: fs(20) }}>
+        <div style={{ marginBottom: fs(24) }}>
+          <GlobeMark size={fs(28)} />
+        </div>
+        {[
+          { label: 'Dashboard', active: false },
+          { label: 'Pendaftaran', active: true },
+          { label: 'Pembayaran', active: false },
+          { label: 'Peserta', active: false },
+          { label: 'Pengaturan', active: false },
+        ].map(({ label, active }) => (
+          <div key={label} style={{ padding: `${fs(8)}px ${fs(12)}px`, borderRadius: fs(8), marginBottom: fs(4), background: active ? `${SPARK}18` : 'none', color: active ? SPARK : SUBTLE, fontSize: fs(13), fontWeight: active ? 700 : 400 }}>
+            {label}
+          </div>
+        ))}
+      </div>
+
+      {/* Main */}
+      <div style={{ flex: 1, padding: fs(24), overflow: 'hidden' }}>
+        {/* Header */}
+        <div style={{ marginBottom: fs(20) }}>
+          <div style={{ color: TEXT, fontSize: fs(18), fontWeight: 800, letterSpacing: '-0.02em', marginBottom: fs(4) }}>Pendaftaran</div>
+          <div style={{ color: SUBTLE, fontSize: fs(12) }}>Cohort Juni 2026</div>
+        </div>
+
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: fs(12), marginBottom: fs(20) }}>
+          {[
+            { label: 'Terdaftar', value: '23', color: TEXT },
+            { label: 'Terkonfirmasi', value: '15', color: '#4ade80' },
+            { label: 'Menunggu', value: '5', color: '#fbbf24' },
+            { label: 'Kursi sisa', value: '7', color: SPARK },
+          ].map(({ label, value, color }) => (
+            <div key={label} style={{ background: SURF2, border: `1px solid ${BORDER}`, borderRadius: fs(10), padding: fs(14) }}>
+              <div style={{ color, fontSize: fs(22), fontWeight: 800 }}>{value}</div>
+              <div style={{ color: SUBTLE, fontSize: fs(11), marginTop: fs(2) }}>{label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Table */}
+        <div style={{ background: SURF1, border: `1px solid ${BORDER}`, borderRadius: fs(12), overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: `${fs(10)}px ${fs(16)}px`, borderBottom: `1px solid ${BORDER}`, color: SUBTLE, fontSize: fs(11), fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <span>Peserta</span><span>Tanggal</span><span>Status</span>
+          </div>
+          {BOOKINGS.map(({ name, init, color, status, date }) => (
+            <div key={name} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: `${fs(11)}px ${fs(16)}px`, borderBottom: `1px solid ${BORDER}`, alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: fs(10) }}>
+                <div style={{ width: fs(28), height: fs(28), borderRadius: '50%', background: `${color}25`, border: `1px solid ${color}55`, display: 'flex', alignItems: 'center', justifyContent: 'center', color, fontSize: fs(10), fontWeight: 800, flexShrink: 0 }}>{init}</div>
+                <span style={{ color: TEXT, fontSize: fs(13), fontWeight: 500 }}>{name}</span>
+              </div>
+              <span style={{ color: SUBTLE, fontSize: fs(12) }}>{date}</span>
+              <StatusBadge status={status} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Code editor UI (reused)
+function CodeEditorUI({ scale = 1 }: { scale?: number }) {
+  const fs = (n: number) => n * scale
+  const LINE_H = fs(22)
+  const lines: React.ReactNode[] = [
+    <>{cm('// src/lib/bookings.ts')}</>,
+    <>{kw('import')} {op('{')} {df('supabase')} {op('}')} {kw('from')} {str("'./supabase'")}</>,
+    <></>,
+    <>{kw('interface')} {typ('Booking')} {op('{')}</>,
+    <>&nbsp;&nbsp;{df('id')}{op(':')} {typ('string')}</>,
+    <>&nbsp;&nbsp;{df('user_id')}{op(':')} {typ('string')}</>,
+    <>&nbsp;&nbsp;{df('service')}{op(':')} {typ('string')}</>,
+    <>&nbsp;&nbsp;{df('status')}{op(':')} {str("'pending'")} {op('|')} {str("'confirmed'")}</>,
+    <>&nbsp;&nbsp;{df('amount')}{op(':')} {typ('number')}</>,
+    <>{op('}')}</>,
+    <></>,
+    <>{kw('export async function')} {fn('getBookings')}{op('()')} {op('{')} </>,
+    <>&nbsp;&nbsp;{kw('const')} {op('{')} {df('data')} {op('}')} {op('=')} {kw('await')} {df('supabase')}</>,
+    <>&nbsp;&nbsp;&nbsp;&nbsp;{op('.')} {fn('from')}{op('(')}{str("'bookings'")}{op(')')}</>,
+    <>&nbsp;&nbsp;&nbsp;&nbsp;{op('.')} {fn('select')}{op('(')}{str("'*, profiles(full_name)'")} {op(')')}</>,
+    <>&nbsp;&nbsp;&nbsp;&nbsp;{op('.')} {fn('order')}{op('(')}{str("'created_at'")} {op(',,')} {op('{')}{df(' ascending')}{op(':')} {kw('false')}{op('})')}</>,
+    <></>,
+    <>&nbsp;&nbsp;{kw('return')} {df('data')} {kw('as')} {typ('Booking[]')}</>,
+    <>{op('}')}</>,
+    <></>,
+    <>{kw('export async function')} {fn('confirmPayment')}{op('(')}{df('id')}{op(': ')}{typ('string')}{op(')')} {op('{')}</>,
+    <>&nbsp;&nbsp;{kw('await')} {df('supabase')}{op('.')}{fn('rpc')}{op('(')}{str("'confirm_payment'")}{op(', {')} {df('registration_id')}{op(': ')}{df('id')}{op(' })')}</>,
+    <>{op('}')}</>,
+  ]
+  return (
+    <div style={{ background: '#011627', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', fontFamily: "'Fira Code','SF Mono','Consolas',monospace" }}>
+      {/* Tab bar */}
+      <div style={{ height: fs(36), background: '#01111d', borderBottom: '1px solid #0d2137', display: 'flex', alignItems: 'flex-end', flexShrink: 0 }}>
+        {['bookings.ts', 'supabase.ts', 'BookingForm.tsx'].map((tab, i) => (
+          <div key={tab} style={{ padding: `${fs(6)}px ${fs(16)}px`, fontSize: fs(12), color: i === 0 ? '#d6deeb' : '#546e7a', borderTop: i === 0 ? `1px solid ${SPARK}` : 'none', background: i === 0 ? '#011627' : 'transparent', borderRight: '1px solid #0d2137' }}>
+            {tab}
+          </div>
+        ))}
+      </div>
+      {/* Body */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        {/* Line numbers */}
+        <div style={{ width: fs(44), background: '#01111d', borderRight: '1px solid #0d2137', paddingTop: fs(12), flexShrink: 0, textAlign: 'right', paddingRight: fs(8) }}>
+          {lines.map((_, i) => (
+            <div key={i} style={{ height: LINE_H, lineHeight: `${LINE_H}px`, color: '#1d3b53', fontSize: fs(12) }}>{i + 1}</div>
+          ))}
+        </div>
+        {/* Code */}
+        <div style={{ flex: 1, paddingTop: fs(12), paddingLeft: fs(16), overflow: 'hidden' }}>
+          {lines.map((line, i) => (
+            <div key={i} style={{ height: LINE_H, lineHeight: `${LINE_H}px`, fontSize: fs(13), whiteSpace: 'nowrap' }}>{line}</div>
+          ))}
+        </div>
+        {/* Minimap */}
+        <div style={{ width: fs(48), background: '#011627', borderLeft: '1px solid #0d2137', opacity: 0.4, flexShrink: 0, paddingTop: fs(12) }}>
+          {lines.map((_, i) => (
+            <div key={i} style={{ height: LINE_H * 0.35, margin: `${LINE_H * 0.1}px ${fs(4)}px`, background: '#1d3b53', borderRadius: 1 }}/>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Google Meet-style grid UI
+function MeetUI({ scale = 1 }: { scale?: number }) {
+  const fs = (n: number) => n * scale
+  return (
+    <div style={{ background: '#202124', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {/* Header bar */}
+      <div style={{ height: fs(44), background: '#202124', borderBottom: '1px solid #3c4043', display: 'flex', alignItems: 'center', padding: `0 ${fs(16)}px`, gap: fs(12), flexShrink: 0 }}>
+        <div style={{ width: fs(22), height: fs(22) }}><GlobeMark size={fs(22)} /></div>
+        <span style={{ color: '#e8eaed', fontSize: fs(14), fontWeight: 500, fontFamily: "'Inter',sans-serif" }}>Global Developer Academy — Sesi 03</span>
+        <div style={{ marginLeft: 'auto', color: '#9aa0a6', fontSize: fs(12), fontFamily: "'Inter',sans-serif" }}>19.30 WIB</div>
+      </div>
+
+      {/* Video grid — 3×2 */}
+      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(2, 1fr)', gap: fs(4), padding: fs(8) }}>
+        {PARTICIPANTS.map(({ init, color, name }, i) => (
+          <div key={init} style={{ background: '#3c4043', borderRadius: fs(8), position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', border: i === 5 ? `2px solid ${SPARK}` : 'none' }}>
+            {i === 2
+              ? /* screen share tile */
+                <div style={{ width: '100%', height: '100%', background: '#011627', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: fs(10) }}>
+                  <div style={{ color: '#82aaff', fontSize: fs(9), fontFamily: "monospace", lineHeight: 1.6, opacity: 0.85 }}>
+                    {['.select(\'*\')', '.eq(\'status\',', '  \'confirmed\')', '.order(\'created_at\')', '  { ascending: false })'].map((l, j) => <div key={j}>{l}</div>)}
+                  </div>
+                </div>
+              : <div style={{ width: fs(48), height: fs(48), borderRadius: '50%', background: `${color}25`, border: `2px solid ${color}60`, display: 'flex', alignItems: 'center', justifyContent: 'center', color, fontSize: fs(16), fontWeight: 800, fontFamily: "'Inter',sans-serif" }}>{init}</div>
+            }
+            <div style={{ position: 'absolute', bottom: fs(6), left: fs(8), color: '#e8eaed', fontSize: fs(10), fontWeight: 500, fontFamily: "'Inter',sans-serif", background: 'rgba(0,0,0,0.5)', padding: `${fs(2)}px ${fs(6)}px`, borderRadius: fs(4) }}>{name}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Control bar */}
+      <div style={{ height: fs(52), background: '#202124', borderTop: '1px solid #3c4043', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: fs(16), flexShrink: 0 }}>
+        {['🎤', '📹', '💬', '👥', '⋯'].map(icon => (
+          <div key={icon} style={{ width: fs(36), height: fs(36), borderRadius: '50%', background: '#3c4043', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: fs(14) }}>{icon}</div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
-// LANDSCAPE 1 — 1200 × 628 — Awareness · "Tutorial Hell" (text-heavy)
+// LANDSCAPE 1 — 1200 × 628 — Admin Dashboard
 // ══════════════════════════════════════════════════════════════════════════════
 function L1() {
   return (
-    <div style={{ width: 1200, height: 628, background: 'linear-gradient(135deg,#0d0d0d 40%,#1c0800 100%)', position: 'relative', display: 'flex', overflow: 'hidden', fontFamily: "'Inter', system-ui, sans-serif" }}>
-      {/* Background globe */}
-      <div style={{ position: 'absolute', right: -60, top: '50%', transform: 'translateY(-50%)' }}>
-        <GlobeMarkLarge size={480} opacity={0.07}/>
+    <div style={{ width: 1200, height: 628, background: BG, overflow: 'hidden', position: 'relative' }}>
+      <DashboardUI scale={1.1}/>
+      {/* Brand mark overlay — bottom-right corner, small */}
+      <div style={{ position: 'absolute', bottom: 20, right: 24, opacity: 0.6 }}>
+        <GlobeMark size={28}/>
       </div>
-
-      {/* Left content */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 72px', position: 'relative', zIndex: 1 }}>
-        {/* Eyebrow */}
-        <div style={{ ...inter(18, 700, SIGNAL), letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 28 }}>
-          Global Developer Academy
-        </div>
-
-        {/* Headline */}
-        <div style={{ ...sg(72, 800), marginBottom: 24, maxWidth: 620 }}>
-          Stuck di<br/>
-          <span style={{ color: SPARK }}>Tutorial Hell?</span>
-        </div>
-
-        {/* Sub */}
-        <div style={{ ...inter(26, 400, MUTED), maxWidth: 540, marginBottom: 48, lineHeight: 1.55 }}>
-          4 minggu. Dari nol sampai aplikasi full stack yang beneran online.
-        </div>
-
-        {/* CTA */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-          <div style={{ background: SPARK, borderRadius: 14, padding: '18px 40px', ...inter(22, 800, '#fff'), letterSpacing: '-0.01em' }}>
-            Daftar Sekarang →
-          </div>
-          <div style={{ ...inter(20, 600, SUBTLE) }}>
-            Rp 899.000 · 11 Juni 2026
-          </div>
-        </div>
-      </div>
-
-      {/* Right: quote card */}
-      <div style={{ width: 340, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 48px 60px 0', position: 'relative', zIndex: 1, gap: 20 }}>
-        {['Nonton tutorial', 'Coba ngoding sendiri', 'Blank.', ''].map((t, i) =>
-          i < 3 ? (
-            <div key={i} style={{
-              background: i === 2 ? `${SPARK}18` : SURF2,
-              border: `1px solid ${i === 2 ? `${SPARK}40` : BORDER}`,
-              borderRadius: 14, padding: '18px 22px',
-              ...inter(18, i === 2 ? 800 : 500, i === 2 ? SPARK : TEXT),
-            }}>
-              {i < 2 && <span style={{ color: '#4ade80', marginRight: 10 }}>✓</span>}
-              {i === 2 && <span style={{ marginRight: 10 }}>💭</span>}
-              {t}
-            </div>
-          ) : null
-        )}
-        <div style={{ ...inter(15, 500, SUBTLE), paddingTop: 8 }}>
-          Cara keluar? Bangun aplikasi nyata.
-        </div>
-        <div style={{ marginTop: 'auto', paddingTop: 20 }}>
-          <Wordmark scale={1.3} />
-        </div>
-      </div>
-
-      {/* Bottom bar */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})` }}/>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// LANDSCAPE 2 — 1200 × 628 — Education · "Stack" (mixed)
+// LANDSCAPE 2 — 1200 × 628 — Code Editor
 // ══════════════════════════════════════════════════════════════════════════════
 function L2() {
-  const stack = [
-    { name: 'React', color: '#60a5fa', desc: 'UI interaktif yang cepat. Dipakai Gojek, Tokopedia.' },
-    { name: 'TypeScript', color: '#a78bfa', desc: 'Bug ketahuan sejak di editor, sebelum ke user.' },
-    { name: 'Supabase', color: '#34d399', desc: 'Database, auth, dan storage — siap pakai hari ini.' },
-  ]
   return (
-    <div style={{ width: 1200, height: 628, background: 'linear-gradient(160deg,#070b14,#0a1222)', position: 'relative', display: 'flex', overflow: 'hidden' }}>
-      {/* Dot grid background */}
-      <svg style={{ position: 'absolute', inset: 0, opacity: 0.04 }} width="1200" height="628">
-        {Array.from({ length: 25 }).map((_, r) =>
-          Array.from({ length: 50 }).map((__, c) => (
-            <circle key={`${r}-${c}`} cx={c * 26 + 13} cy={r * 26 + 13} r="1.5" fill="white"/>
-          ))
-        )}
-      </svg>
-
-      {/* Left: headline */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 64px', position: 'relative', zIndex: 1 }}>
-        <div style={{ ...inter(16, 700, SIGNAL), letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 22 }}>
-          Stack Bootcamp
-        </div>
-        <div style={{ ...sg(60, 800, '#fff'), marginBottom: 18 }}>
-          Tiga tools.<br/>
-          Satu alur kerja<br/>
-          yang rapi.
-        </div>
-        <div style={{ ...inter(20, 400, MUTED), maxWidth: 380 }}>
-          Stack yang dipakai developer profesional Indonesia — mulai dari startup hingga enterprise.
-        </div>
-        <div style={{ marginTop: 40 }}>
-          <Wordmark scale={1.4}/>
-        </div>
+    <div style={{ width: 1200, height: 628, overflow: 'hidden', position: 'relative' }}>
+      <CodeEditorUI scale={1.15}/>
+      <div style={{ position: 'absolute', bottom: 20, right: 24, opacity: 0.5 }}>
+        <GlobeMark size={28}/>
       </div>
-
-      {/* Right: stack cards */}
-      <div style={{ width: 420, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px 56px 60px 0', gap: 16, position: 'relative', zIndex: 1 }}>
-        {stack.map(({ name, color, desc }) => (
-          <div key={name} style={{ background: `${color}0d`, border: `1px solid ${color}30`, borderRadius: 16, padding: '22px 26px' }}>
-            <div style={{ ...inter(26, 800, color), marginBottom: 8 }}>{name}</div>
-            <div style={{ ...inter(15, 400, '#9ca3af') }}>{desc}</div>
-          </div>
-        ))}
-        <div style={{ marginTop: 8, ...inter(15, 600, SUBTLE) }}>
-          globaldev.sbs
-        </div>
-      </div>
-
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, #60a5fa, #a78bfa, #34d399)` }}/>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// LANDSCAPE 3 — 1200 × 628 — Hard Sell · "Price" (minimal text)
+// LANDSCAPE 3 — 1200 × 628 — Google Meet Live Session
 // ══════════════════════════════════════════════════════════════════════════════
 function L3() {
   return (
-    <div style={{ width: 1200, height: 628, background: BG, position: 'relative', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-      {/* Orange blob */}
-      <div style={{ position: 'absolute', right: -40, top: -40, width: 420, height: 420, background: `radial-gradient(circle at 60% 40%, ${SPARK}30 0%, transparent 70%)`, borderRadius: '50%' }}/>
-      <div style={{ position: 'absolute', left: -60, bottom: -60, width: 300, height: 300, background: `radial-gradient(circle, ${SIGNAL}15 0%, transparent 70%)`, borderRadius: '50%' }}/>
-
-      {/* Left: mark + brand */}
-      <div style={{ width: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 48px', position: 'relative', zIndex: 1, gap: 24 }}>
-        <GlobeMark size={160}/>
-        <Wordmark scale={1.2}/>
-        <div style={{ ...inter(15, 500, SUBTLE) }}>globaldev.sbs</div>
-      </div>
-
-      {/* Divider */}
-      <div style={{ width: 1, height: 300, background: BORDER, flexShrink: 0 }}/>
-
-      {/* Center: price */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 1, gap: 16 }}>
-        <div style={{ ...inter(16, 700, SUBTLE), letterSpacing: '0.1em', textTransform: 'uppercase' }}>Full Stack Bootcamp</div>
-        <div style={{ ...sg(96, 800, '#fff'), letterSpacing: '-0.04em', lineHeight: 1 }}>
-          Rp 899<span style={{ color: SPARK }}>.000</span>
-        </div>
-        <div style={{ ...inter(17, 400, SUBTLE), textDecoration: 'line-through' }}>Rp 1.500.000</div>
-        <div style={{ ...inter(18, 600, MUTED), textAlign: 'center', lineHeight: 1.7 }}>
-          10 sesi live · 4 minggu<br/>React + TypeScript + Supabase
-        </div>
-      </div>
-
-      {/* Right: CTA */}
-      <div style={{ width: 260, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 48px', position: 'relative', zIndex: 1, gap: 16 }}>
-        <div style={{ background: SPARK, borderRadius: 16, padding: '20px 32px', textAlign: 'center', ...inter(20, 800, '#fff') }}>
-          Daftar<br/>Sekarang →
-        </div>
-        <div style={{ ...inter(15, 500, SUBTLE), textAlign: 'center' }}>Mulai 11 Juni 2026<br/>Hanya 30 kursi</div>
-      </div>
+    <div style={{ width: 1200, height: 628, overflow: 'hidden' }}>
+      <MeetUI scale={1.1}/>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SQUARE 1 — 1200 × 1200 — Brand · "Statement" (text-heavy)
+// SQUARE 1 — 1200 × 1200 — Dashboard in Browser Frame (centered)
+// Google crops squares to circles — keep focal point well inside safe zone
 // ══════════════════════════════════════════════════════════════════════════════
-function S1() {
-  const features = ['10 sesi live', '4 minggu', '30 kursi', 'React + TS + Supabase']
+function Sq1() {
   return (
-    <div style={{ width: 1200, height: 1200, background: BG, position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 120px', overflow: 'hidden', textAlign: 'center' }}>
-      {/* Background radial */}
-      <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translateX(-50%)', width: 800, height: 800, background: `radial-gradient(ellipse, ${SPARK}0a 0%, transparent 70%)`, pointerEvents: 'none' }}/>
-      <div style={{ position: 'absolute', bottom: -100, right: -100 }}>
-        <GlobeMarkLarge size={500} opacity={0.06}/>
-      </div>
-
-      {/* Top: Globe */}
-      <div style={{ marginBottom: 40 }}>
-        <GlobeMark size={180}/>
-      </div>
-
-      {/* Brand */}
-      <div style={{ ...inter(20, 700, SIGNAL), letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 32 }}>
-        Global Developer Academy
-      </div>
-
-      {/* Headline */}
-      <div style={{ ...sg(76, 800, '#fff'), marginBottom: 28, maxWidth: 800 }}>
-        Mulai dari nol.
-      </div>
-      <div style={{ ...sg(66, 700, SPARK), marginBottom: 48, maxWidth: 800 }}>
-        Selesai dengan aplikasi yang beneran jalan.
-      </div>
-
-      {/* Feature chips */}
-      <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 56 }}>
-        {features.map(f => (
-          <span key={f} style={{ background: SURF2, border: `1px solid ${BORDER}`, borderRadius: 99, padding: '10px 24px', ...inter(17, 600, MUTED) }}>
-            {f}
-          </span>
-        ))}
-      </div>
-
-      {/* Price + CTA */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
-        <div style={{ background: SPARK, borderRadius: 18, padding: '22px 60px', ...inter(24, 800, '#fff') }}>
-          Daftar · Rp 899.000 →
-        </div>
-        <div style={{ ...inter(18, 500, SUBTLE) }}>
-          Mulai 11 Juni 2026 · globaldev.sbs
-        </div>
-      </div>
-
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 5, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})` }}/>
+    <div style={{ width: 1200, height: 1200, background: BG, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+      {/* Subtle radial glow */}
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${SPARK}08 0%, transparent 70%)` }}/>
+      <BrowserFrame width={960} height={860} url="globaldev.sbs/admin">
+        <DashboardUI scale={0.96}/>
+      </BrowserFrame>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SQUARE 2 — 1200 × 1200 — Education · "Curriculum" (mixed)
+// SQUARE 2 — 1200 × 1200 — Code Editor centered
 // ══════════════════════════════════════════════════════════════════════════════
-function S2Component() {
-  const items = [
-    { icon: '🔐', title: 'Autentikasi', desc: 'Login, register, dan session management dengan Supabase Auth' },
-    { icon: '📋', title: 'Booking System', desc: 'Form booking, manajemen jadwal, dan konfirmasi real-time' },
-    { icon: '💳', title: 'Pembayaran', desc: 'Alur transfer manual + admin dashboard verifikasi' },
-    { icon: '📊', title: 'Admin Dashboard', desc: 'Kelola pesanan, user, dan data langsung dari web' },
-  ]
+function Sq2() {
   return (
-    <div style={{ width: 1200, height: 1200, background: '#0d0d12', position: 'relative', display: 'flex', flexDirection: 'column', padding: '80px 100px', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, right: 0, width: 400, height: 400, background: `radial-gradient(circle at top right, ${SIGNAL}12 0%, transparent 70%)` }}/>
-
-      {/* Header */}
-      <div style={{ marginBottom: 56 }}>
-        <div style={{ ...inter(17, 700, SIGNAL), letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 20 }}>
-          Yang Akan Kamu Bangun
-        </div>
-        <div style={{ ...sg(64, 800, '#fff') }}>
-          Satu aplikasi<br/>
-          <span style={{ color: SPARK }}>booking bisnis</span><br/>
-          yang nyata.
-        </div>
-      </div>
-
-      {/* 2×2 grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, flex: 1 }}>
-        {items.map(({ icon, title, desc }) => (
-          <div key={title} style={{ background: SURF2, border: `1px solid ${BORDER}`, borderRadius: 20, padding: '32px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div style={{ fontSize: 40 }}>{icon}</div>
-            <div style={{ ...inter(22, 700, TEXT) }}>{title}</div>
-            <div style={{ ...inter(16, 400, SUBTLE), lineHeight: 1.6 }}>{desc}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Footer */}
-      <div style={{ marginTop: 36, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Wordmark scale={1.4}/>
-        <div style={{ display: 'flex', gap: 12 }}>
-          {['React', 'TypeScript', 'Supabase'].map((t, i) => (
-            <span key={t} style={{ background: [SPARK, '#a78bfa', '#34d399'][i] + '18', border: `1px solid ${['#60a5fa', '#a78bfa', '#34d399'][i]}40`, color: ['#60a5fa', '#a78bfa', '#34d399'][i], borderRadius: 8, padding: '6px 16px', ...inter(14, 700) }}>
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
+    <div style={{ width: 1200, height: 1200, background: '#01111d', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${SIGNAL}0a 0%, transparent 70%)` }}/>
+      <BrowserFrame width={960} height={860} url="code — bookings.ts">
+        <CodeEditorUI scale={0.96}/>
+      </BrowserFrame>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SQUARE 3 — 1200 × 1200 — Nurturing · "Instructor" (visual-dominant)
+// SQUARE 3 — 1200 × 1200 — Live Session centered
 // ══════════════════════════════════════════════════════════════════════════════
-function S3() {
+function Sq3() {
   return (
-    <div style={{ width: 1200, height: 1200, background: 'linear-gradient(160deg,#0a0a0a,#0e0b18)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '80px 100px' }}>
-      {/* Large background globe */}
-      <div style={{ position: 'absolute', top: -60, left: '50%', transform: 'translateX(-50%)' }}>
-        <GlobeMarkLarge size={900} opacity={0.06}/>
-      </div>
-
-      {/* Centre avatar */}
-      <div style={{ position: 'absolute', top: '18%', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, zIndex: 1 }}>
-        <div style={{ width: 180, height: 180, borderRadius: '50%', background: `linear-gradient(135deg, ${SPARK}30, ${SIGNAL}30)`, border: `2px solid ${SPARK}50`, display: 'flex', alignItems: 'center', justifyContent: 'center', ...sg(72, 800, '#fff') }}>
-          MH
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ ...inter(22, 700, TEXT) }}>M. Khairul Hamid</div>
-          <div style={{ ...inter(17, 500, SUBTLE) }}>Full Stack Developer · Australia-based</div>
-        </div>
-
-        {/* Connection arc illustration */}
-        <svg width="400" height="100" viewBox="0 0 400 100" fill="none" style={{ marginTop: 16 }}>
-          <path d="M 60 80 Q 200 20 340 80" stroke={SIGNAL} strokeOpacity="0.4" strokeWidth="2" strokeDasharray="6 4" fill="none"/>
-          <circle cx="60" cy="80" r="10" fill={SPARK}/>
-          <text x="40" y="100" textAnchor="middle" fill={SPARK} fontSize="13" fontFamily="Inter" fontWeight="600">Indonesia</text>
-          <circle cx="340" cy="80" r="10" fill={SIGNAL}/>
-          <text x="355" y="100" textAnchor="middle" fill={SIGNAL} fontSize="13" fontFamily="Inter" fontWeight="600">Australia</text>
-        </svg>
-      </div>
-
-      {/* Bottom quote */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ borderLeft: `3px solid ${SPARK}`, paddingLeft: 28, marginBottom: 40 }}>
-          <div style={{ ...sg(40, 700, '#fff'), marginBottom: 12 }}>
-            "Nggak ada yang nanya<br/>saya lulusan mana."
-          </div>
-          <div style={{ ...inter(18, 400, MUTED) }}>
-            Mereka cuma lihat aplikasi yang saya bangun.<br/>
-            Sekarang giliran saya bantu kamu sampai ke sana.
-          </div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Wordmark scale={1.4}/>
-          <div style={{ ...inter(17, 600, SUBTLE) }}>globaldev.sbs</div>
-        </div>
+    <div style={{ width: 1200, height: 1200, background: '#202124', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <div style={{ width: 980, height: 900 }}>
+        <MeetUI scale={1.05}/>
       </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PORTRAIT 1 — 960 × 1200 — Urgency · "Date & Seats" (text-heavy)
+// PORTRAIT 1 — 960 × 1200 — Phone mockup: app dashboard
 // ══════════════════════════════════════════════════════════════════════════════
 function P1() {
   return (
-    <div style={{ width: 960, height: 1200, background: 'linear-gradient(170deg,#0d0500,#1a0a00)', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 80px', overflow: 'hidden', textAlign: 'center' }}>
-      <div style={{ position: 'absolute', top: -80, left: '50%', transform: 'translateX(-50%)' }}>
-        <GlobeMarkLarge size={700} opacity={0.07}/>
-      </div>
-
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
-        {/* Badge */}
-        <div style={{ background: `${SPARK}18`, border: `1px solid ${SPARK}44`, borderRadius: 99, padding: '10px 28px', ...inter(15, 700, SPARK), letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 40 }}>
-          Pendaftaran dibuka
-        </div>
-
-        {/* Date */}
-        <div style={{ ...inter(20, 600, MUTED), marginBottom: 12 }}>Kelas dimulai</div>
-        <div style={{ ...sg(80, 800, '#fff'), marginBottom: 32, letterSpacing: '-0.04em' }}>
-          11 Juni<br/>2026
-        </div>
-
-        {/* Divider */}
-        <div style={{ width: 60, height: 3, background: SPARK, borderRadius: 2, marginBottom: 32 }}/>
-
-        {/* Seats */}
-        <div style={{ ...sg(52, 800, SPARK), marginBottom: 16 }}>Hanya 30 kursi.</div>
-        <div style={{ ...inter(20, 400, MUTED), marginBottom: 56, maxWidth: 560 }}>
-          Tiap cohort kami jaga kecil biar mentoring tetap intensif. Yang duluan daftar, yang dapat tempat.
-        </div>
-
-        {/* Features */}
-        {['10 sesi live via Google Meet', 'Proyek booking app nyata', 'Mentor aktif di Discord'].map(f => (
-          <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16, width: '100%', maxWidth: 480 }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', background: `${SPARK}20`, border: `1px solid ${SPARK}50`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <span style={{ color: SPARK, fontSize: 14 }}>✓</span>
-            </div>
-            <div style={{ ...inter(18, 500, TEXT) }}>{f}</div>
-          </div>
-        ))}
-
-        {/* CTA */}
-        <div style={{ marginTop: 40, background: SPARK, borderRadius: 16, padding: '22px 56px', ...inter(22, 800, '#fff') }}>
-          Amankan Tempatmu →
-        </div>
-
-        <div style={{ marginTop: 40 }}>
-          <Wordmark scale={1.3}/>
-        </div>
-      </div>
-
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})` }}/>
+    <div style={{ width: 960, height: 1200, background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${SPARK}0a 0%, transparent 70%)` }}/>
+      <PhoneFrame width={340}>
+        <DashboardUI scale={0.58}/>
+      </PhoneFrame>
+      <div style={{ opacity: 0.5 }}><BrandMark size={18}/></div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PORTRAIT 2 — 960 × 1200 — Pricing · "What you get" (mixed)
+// PORTRAIT 2 — 960 × 1200 — Phone mockup: code editor
 // ══════════════════════════════════════════════════════════════════════════════
 function P2() {
-  const includes = [
-    '10 sesi live via Google Meet (~20 jam)',
-    'Proyek aplikasi booking bisnis nyata',
-    'Komunitas Discord khusus peserta',
-    'Code review langsung dari instruktur',
-    'Rekaman semua sesi (akses seumur hidup)',
-    'Sertifikat digital + LinkedIn credential',
-  ]
   return (
-    <div style={{ width: 960, height: 1200, background: BG, position: 'relative', display: 'flex', flexDirection: 'column', padding: '80px', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', bottom: -80, right: -80 }}>
-        <GlobeMarkLarge size={500} opacity={0.05}/>
-      </div>
-
-      {/* Header */}
-      <div style={{ marginBottom: 48, position: 'relative', zIndex: 1 }}>
-        <Wordmark scale={1.3}/>
-        <div style={{ marginTop: 40, ...inter(17, 700, SIGNAL), letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 14 }}>
-          Biaya Ikut Bootcamp
-        </div>
-        <div style={{ ...inter(20, 500, MUTED), textDecoration: 'line-through', marginBottom: 6 }}>Rp 1.500.000</div>
-        <div style={{ ...sg(80, 800, '#fff'), letterSpacing: '-0.04em', lineHeight: 1 }}>
-          Rp<span style={{ color: SPARK }}> 899</span>.000
-        </div>
-        <div style={{ ...inter(17, 500, SUBTLE), marginTop: 10 }}>Mulai 11 Juni 2026 · Hanya 30 kursi</div>
-      </div>
-
-      {/* Includes */}
-      <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
-        <div style={{ ...inter(18, 700, TEXT), marginBottom: 24 }}>Apa yang kamu dapat:</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {includes.map(item => (
-            <div key={item} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-              <div style={{ width: 26, height: 26, borderRadius: '50%', background: '#4ade8020', border: '1px solid #4ade8040', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
-                <span style={{ color: '#4ade80', fontSize: 13 }}>✓</span>
-              </div>
-              <div style={{ ...inter(17, 500, MUTED), lineHeight: 1.5 }}>{item}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div style={{ marginTop: 48, position: 'relative', zIndex: 1 }}>
-        <div style={{ background: SPARK, borderRadius: 16, padding: '22px 0', textAlign: 'center', ...inter(22, 800, '#fff'), marginBottom: 16 }}>
-          Daftar Sekarang →
-        </div>
-        <div style={{ ...inter(16, 500, SUBTLE), textAlign: 'center' }}>globaldev.sbs</div>
-      </div>
-
-      <div style={{ position: 'absolute', top: 0, right: 0, width: 5, height: '100%', background: `linear-gradient(180deg, ${SPARK}, ${SIGNAL})` }}/>
+    <div style={{ width: 960, height: 1200, background: '#01111d', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${SIGNAL}0a 0%, transparent 70%)` }}/>
+      <PhoneFrame width={340}>
+        <CodeEditorUI scale={0.56}/>
+      </PhoneFrame>
+      <div style={{ opacity: 0.5 }}><BrandMark size={18}/></div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// TALL 1 — 1080 × 1920 — Story · "Full Journey" (text-heavy)
+// TALL 1 — 1080 × 1920 — Three-device showcase
 // ══════════════════════════════════════════════════════════════════════════════
 function T1() {
-  const sessions = [
-    { n: '01–02', label: 'Fondasi React + TypeScript' },
-    { n: '03–04', label: 'Komponen, State & Supabase' },
-    { n: '05–06', label: 'Auth, Booking & Database' },
-    { n: '07–08', label: 'Pembayaran & Admin Panel' },
-    { n: '09–10', label: 'Deploy & Polish' },
-  ]
   return (
-    <div style={{ width: 1080, height: 1920, background: BG, position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      {/* Top bar */}
-      <div style={{ height: 5, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})`, flexShrink: 0 }}/>
+    <div style={{ width: 1080, height: 1920, background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, overflow: 'hidden', position: 'relative', padding: '60px 40px' }}>
+      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 100% 70% at 50% 50%, ${SPARK}08 0%, transparent 65%)` }}/>
 
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '72px 80px', gap: 0 }}>
+      {/* Desktop browser */}
+      <BrowserFrame width={940} height={480} url="globaldev.sbs/admin">
+        <DashboardUI scale={0.88}/>
+      </BrowserFrame>
 
-        {/* Logo */}
-        <div style={{ marginBottom: 60 }}>
-          <Wordmark scale={1.6}/>
+      {/* Tablet + phone side by side */}
+      <div style={{ display: 'flex', gap: 40, alignItems: 'center' }}>
+        {/* Tablet */}
+        <div style={{ width: 420, height: 560, background: '#1a1a1a', borderRadius: 24, border: `${8}px solid #2a2a2a`, overflow: 'hidden', flexShrink: 0 }}>
+          <MeetUI scale={0.7}/>
         </div>
-
-        {/* Section 1: Problem */}
-        <div style={{ background: SURF1, border: `1px solid ${BORDER}`, borderRadius: 20, padding: '44px 48px', marginBottom: 28, position: 'relative', overflow: 'hidden' }}>
-          <div style={{ ...inter(15, 700, SUBTLE), letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 18 }}>Masalah yang familiar?</div>
-          <div style={{ ...sg(46, 800, '#fff'), marginBottom: 16 }}>
-            Ratusan jam tutorial.<br/>
-            <span style={{ color: SPARK }}>Nggak ada yang jadi.</span>
-          </div>
-          <div style={{ ...inter(18, 400, MUTED) }}>
-            Tutorial mengajari syntax. Tapi bikin aplikasi dari nol butuh sesuatu yang lain — pengalaman nyata, proyek nyata.
-          </div>
-          <div style={{ position: 'absolute', right: 32, bottom: 24, fontSize: 48, opacity: 0.1 }}>💭</div>
-        </div>
-
-        {/* Section 2: Solution */}
-        <div style={{ background: `${SPARK}0e`, border: `1px solid ${SPARK}30`, borderRadius: 20, padding: '44px 48px', marginBottom: 28 }}>
-          <div style={{ ...inter(15, 700, SPARK), letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 18 }}>Solusi</div>
-          <div style={{ ...sg(46, 800, '#fff'), marginBottom: 16 }}>
-            4 minggu bersama kami.<br/>
-            <span style={{ color: SPARK }}>1 aplikasi nyata.</span>
-          </div>
-          <div style={{ ...inter(18, 400, MUTED) }}>
-            Bukan ngikutin kode dari video. Kamu ikut sesi live, tanya langsung, dan bangun project yang kamu kontrol sendiri.
-          </div>
-        </div>
-
-        {/* Section 3: Curriculum */}
-        <div style={{ background: SURF1, border: `1px solid ${BORDER}`, borderRadius: 20, padding: '44px 48px', marginBottom: 28 }}>
-          <div style={{ ...inter(15, 700, SIGNAL), letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 28 }}>Kurikulum · 10 Sesi</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {sessions.map(({ n, label }) => (
-              <div key={n} style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-                <div style={{ background: `${SIGNAL}18`, border: `1px solid ${SIGNAL}40`, borderRadius: 8, padding: '4px 14px', ...inter(14, 700, SIGNAL), fontFamily: 'monospace', flexShrink: 0 }}>
-                  {n}
-                </div>
-                <div style={{ ...inter(18, 600, TEXT) }}>{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Section 4: CTA */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginTop: 'auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-            <div>
-              <div style={{ ...inter(16, 500, MUTED), textDecoration: 'line-through', marginBottom: 4 }}>Rp 1.500.000</div>
-              <div style={{ ...sg(68, 800, '#fff'), letterSpacing: '-0.04em' }}>Rp <span style={{ color: SPARK }}>899</span>.000</div>
-              <div style={{ ...inter(16, 500, SUBTLE), marginTop: 6 }}>Mulai 11 Juni 2026 · 30 kursi</div>
-            </div>
-            <GlobeMark size={90}/>
-          </div>
-          <div style={{ background: SPARK, borderRadius: 16, padding: '24px 0', textAlign: 'center', ...inter(24, 800, '#fff') }}>
-            Daftar Sekarang →
-          </div>
-          <div style={{ ...inter(16, 500, SUBTLE), textAlign: 'center' }}>globaldev.sbs</div>
-        </div>
+        {/* Phone */}
+        <PhoneFrame width={220}>
+          <DashboardUI scale={0.38}/>
+        </PhoneFrame>
       </div>
+
+      <div style={{ opacity: 0.4 }}><BrandMark size={18}/></div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// TALL 2 — 1080 × 1920 — Brand · "Visual Abstract" (visual-dominant)
+// TALL 2 — 1080 × 1920 — Large globe mark (brand / abstract)
 // ══════════════════════════════════════════════════════════════════════════════
 function T2() {
   return (
-    <div style={{ width: 1080, height: 1920, background: 'linear-gradient(180deg,#0a0814 0%,#0d0d0d 50%,#0a0800 100%)', position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      {/* Large visual: globe + connection */}
-      <div style={{ flex: '0 0 960px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {/* Concentric rings */}
-        <svg width="1080" height="960" viewBox="0 0 1080 960" fill="none" style={{ position: 'absolute' }}>
-          {[300, 220, 140, 60].map((r, i) => (
-            <circle key={r} cx="540" cy="480" r={r} stroke="white" strokeOpacity={0.04 + i * 0.02} strokeWidth="1.5"/>
-          ))}
-          {/* Arc: Indonesia → Australia */}
-          <path d="M 300 720 Q 540 240 780 720" stroke={`url(#arcGrad)`} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-          <defs>
-            <linearGradient id="arcGrad" x1="300" y1="720" x2="780" y2="720" gradientUnits="userSpaceOnUse">
-              <stop stopColor={SPARK}/>
-              <stop offset="1" stopColor={SIGNAL}/>
-            </linearGradient>
-          </defs>
-          {/* Dot nodes */}
-          <circle cx="300" cy="720" r="18" fill={SPARK} fillOpacity="0.9"/>
-          <circle cx="780" cy="720" r="18" fill={SIGNAL} fillOpacity="0.9"/>
-          {/* Node labels */}
-          <text x="300" y="760" textAnchor="middle" fill={SPARK} fontSize="20" fontFamily="Inter" fontWeight="600" fillOpacity="0.8">Indonesia</text>
-          <text x="780" y="760" textAnchor="middle" fill={SIGNAL} fontSize="20" fontFamily="Inter" fontWeight="600" fillOpacity="0.8">Australia</text>
+    <div style={{ width: 1080, height: 1920, background: 'linear-gradient(180deg,#080810 0%,#0a0a0a 60%,#0a0500 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+      {/* Concentric rings */}
+      <svg width="900" height="900" viewBox="0 0 900 900" fill="none" style={{ position: 'absolute', opacity: 0.08 }}>
+        {[420, 320, 220, 130].map(r => <circle key={r} cx="450" cy="450" r={r} stroke="white" strokeWidth="1.5"/>)}
+        <line x1="30" y1="450" x2="870" y2="450" stroke="white" strokeWidth="1"/>
+        <line x1="450" y1="30" x2="450" y2="870" stroke="white" strokeWidth="1"/>
+      </svg>
+
+      {/* Radial glow */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 700, height: 700, background: `radial-gradient(circle, ${SPARK}18 0%, ${SIGNAL}0a 40%, transparent 70%)`, borderRadius: '50%' }}/>
+
+      {/* Central mark */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <svg width="480" height="480" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="10.5" stroke="white" strokeOpacity="0.2" strokeWidth="0.7"/>
+          <ellipse cx="16" cy="16" rx="4.5" ry="10.5" stroke="white" strokeOpacity="0.1" strokeWidth="0.6"/>
+          <line x1="5.5" y1="16" x2="26.5" y2="16" stroke="white" strokeOpacity="0.1" strokeWidth="0.6"/>
+          <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="white" strokeOpacity="0.6" strokeWidth="0.9" strokeLinecap="round"/>
+          <circle cx="9.2" cy="22.8" r="3.4" fill={SPARK}/>
+          <circle cx="22.8" cy="9.2" r="3.4" fill={SIGNAL}/>
         </svg>
-
-        {/* Center logo mark */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <GlobeMark size={320}/>
-        </div>
-
-        {/* Radial glow */}
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 500, height: 500, background: `radial-gradient(circle, ${SPARK}12 0%, transparent 70%)`, borderRadius: '50%' }}/>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 400, height: 400, background: `radial-gradient(circle, ${SIGNAL}0d 0%, transparent 70%)`, borderRadius: '50%' }}/>
       </div>
 
-      {/* Bottom content */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0 80px 80px', gap: 24 }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ ...inter(16, 700, SIGNAL), letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 16 }}>
-            Global Developer Academy
-          </div>
-          <div style={{ ...sg(66, 800, '#fff'), marginBottom: 14 }}>
-            Mulai dari nol.
-          </div>
-          <div style={{ ...sg(56, 700, SPARK) }}>
-            Selesai dengan aplikasi nyata.
-          </div>
-        </div>
+      {/* Connection arc */}
+      <svg width="600" height="120" viewBox="0 0 600 120" fill="none" style={{ position: 'relative', zIndex: 1, marginTop: -20 }}>
+        <path d="M 80 90 Q 300 20 520 90" stroke={`url(#arcG)`} strokeWidth="2" fill="none" strokeLinecap="round" strokeOpacity="0.6"/>
+        <defs>
+          <linearGradient id="arcG" x1="80" y1="90" x2="520" y2="90">
+            <stop stopColor={SPARK}/><stop offset="1" stopColor={SIGNAL}/>
+          </linearGradient>
+        </defs>
+        <circle cx="80" cy="90" r="8" fill={SPARK} fillOpacity="0.9"/>
+        <circle cx="520" cy="90" r="8" fill={SIGNAL} fillOpacity="0.9"/>
+        <text x="80" y="112" textAnchor="middle" fill={SPARK} fontSize="14" fontFamily="Inter" fillOpacity="0.7">Indonesia</text>
+        <text x="520" y="112" textAnchor="middle" fill={SIGNAL} fontSize="14" fontFamily="Inter" fillOpacity="0.7">Australia</text>
+      </svg>
 
-        {/* Stack tags */}
-        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-          {[['React', '#60a5fa'], ['TypeScript', '#a78bfa'], ['Supabase', '#34d399']].map(([t, c]) => (
-            <span key={t} style={{ background: `${c}18`, border: `1px solid ${c}40`, color: c, borderRadius: 10, padding: '10px 24px', ...inter(16, 700) }}>
-              {t}
-            </span>
-          ))}
-        </div>
-
-        {/* Price + CTA */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div style={{ textAlign: 'center', ...sg(60, 800, '#fff'), letterSpacing: '-0.03em' }}>
-            Rp <span style={{ color: SPARK }}>899</span>.000
-          </div>
-          <div style={{ background: SPARK, borderRadius: 16, padding: '26px 0', textAlign: 'center', ...inter(24, 800, '#fff') }}>
-            Daftar Sekarang →
-          </div>
-          <div style={{ ...inter(17, 500, SUBTLE), textAlign: 'center' }}>
-            Mulai 11 Juni 2026 · 30 kursi · globaldev.sbs
-          </div>
-        </div>
+      {/* Tiny brand name only */}
+      <div style={{ position: 'absolute', bottom: 60, opacity: 0.4 }}>
+        <BrandMark size={16}/>
       </div>
-
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 5, background: `linear-gradient(90deg, ${SIGNAL}, ${SPARK})` }}/>
     </div>
   )
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// Catalog
-// ══════════════════════════════════════════════════════════════════════════════
-export type AdDef = {
-  id: string
-  label: string
-  format: string
-  w: number
-  h: number
-  El: React.FC
-}
+// ── Catalog ───────────────────────────────────────────────────────────────────
+export type AdDef = { id: string; label: string; format: string; w: number; h: number; El: React.FC }
 
 export const GOOGLE_ADS: AdDef[] = [
-  { id: 'l1', label: 'L1 — Tutorial Hell',   format: 'Landscape 1200×628',   w: 1200, h: 628,  El: L1 },
-  { id: 'l2', label: 'L2 — Stack',           format: 'Landscape 1200×628',   w: 1200, h: 628,  El: L2 },
-  { id: 'l3', label: 'L3 — Price',           format: 'Landscape 1200×628',   w: 1200, h: 628,  El: L3 },
-  { id: 's1', label: 'S1 — Brand Statement', format: 'Square 1200×1200',     w: 1200, h: 1200, El: S1 },
-  { id: 's2', label: 'S2 — Curriculum',      format: 'Square 1200×1200',     w: 1200, h: 1200, El: S2Component },
-  { id: 's3', label: 'S3 — Instructor',      format: 'Square 1200×1200',     w: 1200, h: 1200, El: S3 },
-  { id: 'p1', label: 'P1 — Urgency',         format: 'Portrait 960×1200',    w: 960,  h: 1200, El: P1 },
-  { id: 'p2', label: 'P2 — Pricing',         format: 'Portrait 960×1200',    w: 960,  h: 1200, El: P2 },
-  { id: 't1', label: 'T1 — Full Journey',    format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T1 },
-  { id: 't2', label: 'T2 — Abstract Brand',  format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T2 },
+  { id: 'l1', label: 'L1 — Admin Dashboard',    format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L1 },
+  { id: 'l2', label: 'L2 — Code Editor',         format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L2 },
+  { id: 'l3', label: 'L3 — Live Session',         format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L3 },
+  { id: 's1', label: 'S1 — Dashboard in Browser', format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq1 },
+  { id: 's2', label: 'S2 — Code in Browser',      format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq2 },
+  { id: 's3', label: 'S3 — Meet Session',          format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq3 },
+  { id: 'p1', label: 'P1 — Phone: Dashboard',     format: 'Portrait 960×1200',       w: 960,  h: 1200, El: P1 },
+  { id: 'p2', label: 'P2 — Phone: Code',           format: 'Portrait 960×1200',       w: 960,  h: 1200, El: P2 },
+  { id: 't1', label: 'T1 — Three Devices',         format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T1 },
+  { id: 't2', label: 'T2 — Globe Mark',            format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T2 },
 ]
 
-// Preview scale: target preview width ~280px
+// ── Standalone section (used when rendering as a full page section) ──────────
 const PREVIEW_W = 280
-
-function AdPreview({ ad }: { ad: AdDef }) {
-  const [fullscreen, setFullscreen] = useState(false)
-  const scale = PREVIEW_W / ad.w
-  const previewH = ad.h * scale
-
-  const scaleFS = Math.min(
-    (window.innerHeight * 0.9) / ad.h,
-    (window.innerWidth * 0.9) / ad.w,
-  )
-
-  return (
-    <div>
-      {/* Fullscreen modal */}
-      {fullscreen && (
-        <div
-          onClick={() => setFullscreen(false)}
-          style={{ position: 'fixed', inset: 0, zIndex: 9998, background: 'rgba(0,0,0,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-        >
-          <div onClick={e => e.stopPropagation()} style={{ transform: `scale(${scaleFS})`, transformOrigin: 'center center', pointerEvents: 'none' }}>
-            <ad.El />
-          </div>
-          <button
-            onClick={() => setFullscreen(false)}
-            style={{ position: 'fixed', top: 20, right: 20, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 44, height: 44, color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}
-          >
-            ✕
-          </button>
-          <div style={{ position: 'fixed', bottom: 24, color: '#444', fontSize: 12 }}>Klik di mana saja untuk tutup · {ad.format}</div>
-        </div>
-      )}
-
-      {/* Header */}
-      <div style={{ marginBottom: 10, display: 'flex', alignItems: 'baseline', gap: 8 }}>
-        <span style={{ color: SPARK, fontSize: 12, fontWeight: 800 }}>{ad.id.toUpperCase()}</span>
-        <span style={{ color: '#888', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{ad.label.split(' — ')[1]}</span>
-        <span style={{ color: '#444', fontSize: 10, marginLeft: 'auto' }}>{ad.format.split(' ')[1]}</span>
-      </div>
-
-      {/* Scaled preview */}
-      <div style={{ width: PREVIEW_W, height: previewH, overflow: 'hidden', position: 'relative', borderRadius: 8 }}>
-        <div style={{ width: ad.w, height: ad.h, transform: `scale(${scale})`, transformOrigin: 'top left', position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}>
-          <ad.El />
-        </div>
-      </div>
-
-      {/* Button */}
-      <button
-        onClick={() => setFullscreen(true)}
-        style={{ marginTop: 8, width: PREVIEW_W, background: SURF2, border: `1px solid ${BORDER}`, borderRadius: 8, color: '#aaa', fontSize: 12, fontWeight: 600, padding: '8px 0', cursor: 'pointer' }}
-      >
-        Layar Penuh
-      </button>
-    </div>
-  )
+const GOOGLE_FORMAT_LABEL: Record<string, string> = {
+  l1: 'Landscape', l2: 'Landscape', l3: 'Landscape',
+  s1: 'Square', s2: 'Square', s3: 'Square',
+  p1: 'Portrait', p2: 'Portrait',
+  t1: 'Tall', t2: 'Tall',
 }
+const FORMAT_GROUPS = ['Landscape', 'Square', 'Portrait', 'Tall']
 
-// ── Main export ──────────────────────────────────────────────────────────────
 export default function GoogleAdsSection() {
-  const groups = [
-    { label: 'Landscape · 1200 × 628 (1.91:1)', ids: ['l1', 'l2', 'l3'] },
-    { label: 'Square · 1200 × 1200 (1:1)',       ids: ['s1', 's2', 's3'] },
-    { label: 'Portrait · 960 × 1200 (4:5)',       ids: ['p1', 'p2'] },
-    { label: 'Tall · 1080 × 1920 (9:16)',         ids: ['t1', 't2'] },
-  ]
+  const [open, setOpen] = useState<AdDef | null>(null)
+
+  const byFormat = GOOGLE_ADS.reduce<Record<string, AdDef[]>>((acc, ad) => {
+    const k = GOOGLE_FORMAT_LABEL[ad.id] ?? 'Other'
+    if (!acc[k]) acc[k] = []
+    acc[k].push(ad)
+    return acc
+  }, {})
+
+  const scaleFor = (ad: AdDef) =>
+    Math.min((window.innerHeight * 0.9) / ad.h, (window.innerWidth * 0.9) / ad.w)
 
   return (
     <section style={{ marginTop: 56 }}>
-      {/* Header */}
+      {open && (
+        <div onClick={() => setOpen(null)} style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div onClick={e => e.stopPropagation()} style={{ transform: `scale(${scaleFor(open)})`, transformOrigin: 'center', pointerEvents: 'none' }}>
+            <open.El />
+          </div>
+          <button onClick={() => setOpen(null)} style={{ position: 'fixed', top: 20, right: 20, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '50%', width: 40, height: 40, color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+          <div style={{ position: 'fixed', bottom: 20, color: '#444', fontSize: 12 }}>Klik di mana saja untuk tutup · {open.format}</div>
+        </div>
+      )}
+
       <div style={{ marginBottom: 28 }}>
-        <h2 style={{ color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 4 }}>
-          Google Ads — Static Images
-        </h2>
-        <p style={{ color: '#555', fontSize: 13 }}>
-          10 image creatives · 4 formats · Klik "Layar Penuh" untuk screenshot / screen record
-        </p>
+        <h2 style={{ color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 4 }}>Google Ads — Static Images</h2>
+        <p style={{ color: '#555', fontSize: 13 }}>10 image creatives · 4 formats</p>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-        {groups.map(({ label, ids }) => {
-          const ads = ids.map(id => GOOGLE_ADS.find(a => a.id === id)!)
+        {FORMAT_GROUPS.map(fmt => {
+          const ads = byFormat[fmt] ?? []
+          if (!ads.length) return null
           return (
-            <div key={label}>
-              <div style={{ color: SIGNAL, fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16, paddingBottom: 10, borderBottom: `1px solid #1f1f1f` }}>
-                {label}
+            <div key={fmt}>
+              <div style={{ color: 'var(--signal)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16, paddingBottom: 10, borderBottom: '1px solid #1f1f1f' }}>
+                {fmt} · {ads[0].format.split(' ')[1]}
               </div>
-              <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
-                {ads.map(ad => <AdPreview key={ad.id} ad={ad} />)}
+              <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+                {ads.map(ad => {
+                  const scale = PREVIEW_W / ad.w
+                  const ph = ad.h * scale
+                  return (
+                    <div key={ad.id}>
+                      <div style={{ width: PREVIEW_W, height: ph, overflow: 'hidden', borderRadius: 8, position: 'relative', cursor: 'pointer' }} onClick={() => setOpen(ad)}>
+                        <div style={{ width: ad.w, height: ad.h, transform: `scale(${scale})`, transformOrigin: 'top left', position: 'absolute' }}>
+                          <ad.El />
+                        </div>
+                      </div>
+                      <div style={{ marginTop: 8, color: '#555', fontSize: 11, textAlign: 'center' }}>{ad.label.split(' — ')[1]}</div>
+                      <button onClick={() => setOpen(ad)} style={{ marginTop: 6, width: PREVIEW_W, background: SURF2, border: `1px solid ${BORDER}`, borderRadius: 8, color: '#aaa', fontSize: 12, fontWeight: 600, padding: '7px 0', cursor: 'pointer' }}>
+                        Layar Penuh
+                      </button>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )
