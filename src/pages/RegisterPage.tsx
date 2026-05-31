@@ -140,13 +140,13 @@ export default function RegisterPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex' }}>
+    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', flexDirection: 'column' }}>
       <style>{`
         .reg-left { width: 400px; flex-shrink: 0; background: #0d0d0d; border-right: 1px solid #1a1a1a; padding: 48px 40px; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
-        .reg-mobile-logo { display: none; }
+        .reg-mobile-header { display: none; }
         @media (max-width: 800px) {
           .reg-left { display: none !important; }
-          .reg-mobile-logo { display: block; }
+          .reg-mobile-header { display: block; }
         }
         .reg-inp:focus { border-color: rgba(255,90,31,0.45) !important; box-shadow: 0 0 0 3px rgba(255,90,31,0.07); }
         .reg-bg-btn:hover { border-color: rgba(255,90,31,0.3) !important; color: #ccc !important; }
@@ -156,82 +156,113 @@ export default function RegisterPage() {
         .reg-link:hover { color: #888 !important; }
       `}</style>
 
-      {/* ── Left: value prop panel ─────────────────────────── */}
-      <div className="reg-left">
-        <a href="/" style={{ marginBottom: '52px', display: 'block' }}>
-          <Logo height={24} />
-        </a>
-
-        <div style={{ marginBottom: '18px' }}>
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', gap: '7px',
-            background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.18)',
-            borderRadius: '999px', padding: '5px 14px', fontSize: '12px',
-            color: 'var(--spark)', fontWeight: 600, letterSpacing: '0.02em',
-          }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--spark)', flexShrink: 0 }} />
-            30 kursi tersisa · Batch 1
-          </span>
-        </div>
-
-        <h2 style={{
-          fontFamily: "'Space Grotesk', sans-serif", fontSize: '26px', fontWeight: 800,
-          color: '#fff', lineHeight: 1.2, letterSpacing: '-0.025em', marginBottom: '12px',
-        }}>
-          Mulai dari nol.<br />Selesai dengan<br />aplikasi nyata.
-        </h2>
-
-        <p style={{ color: '#666', fontSize: '14px', lineHeight: 1.65, marginBottom: '32px' }}>
-          10 sesi live bersama Software Engineer dari Australia. Kita bangun satu aplikasi full stack dari nol sampai online, pakai React, TypeScript, dan Supabase.
-        </p>
-
-        <div style={{
-          background: '#161616', border: '1px solid #232323',
-          borderRadius: '14px', padding: '20px 22px', marginBottom: '28px',
-        }}>
-          <div style={{ fontSize: '12px', color: '#555', marginBottom: '4px', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Biaya pendaftaran</div>
-          <div style={{
-            fontFamily: "'Space Grotesk', sans-serif", fontSize: '30px',
-            fontWeight: 800, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1,
-          }}>Rp 899.000</div>
-          <div style={{ fontSize: '13px', color: '#555', marginTop: '6px' }}>Mulai 11 Juni 2026 · 10 pertemuan</div>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
-          {BENEFITS.map(b => (
-            <div key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-              <span style={{
-                width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
-                background: 'rgba(255,90,31,0.12)', display: 'flex',
-                alignItems: 'center', justifyContent: 'center', marginTop: '1px',
-              }}>
-                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                  <path d="M1.5 4L3.8 6.5L8.5 1.5" stroke="#FF5A1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <span style={{ fontSize: '13.5px', color: '#999', lineHeight: 1.4 }}>{b}</span>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ marginTop: 'auto', paddingTop: '28px' }}>
-          <p style={{ fontSize: '12px', color: '#3a3a3a', lineHeight: 1.6 }}>
-            Dengan mendaftar, kamu menyetujui syarat dan ketentuan yang berlaku.
+      {/* ── Mobile header: logo + compact value summary ─────── */}
+      <div className="reg-mobile-header" style={{ borderBottom: '1px solid #1a1a1a', padding: '20px 24px 0' }}>
+        <a href="/" style={{ display: 'block', marginBottom: '20px' }}><Logo height={22} /></a>
+        <div style={{ paddingBottom: '20px' }}>
+          <div style={{ marginBottom: '12px' }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px',
+              background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.18)',
+              borderRadius: '999px', padding: '4px 12px', fontSize: '11px',
+              color: 'var(--spark)', fontWeight: 600,
+            }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--spark)', flexShrink: 0 }} />
+              30 kursi tersisa · Batch 1 · Mulai 11 Juni 2026
+            </span>
+          </div>
+          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '18px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: '12px', lineHeight: 1.25 }}>
+            Mulai dari nol. Selesai dengan aplikasi nyata.
           </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {BENEFITS.slice(0, 3).map(b => (
+              <span key={b} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', background: '#161616', border: '1px solid #252525', borderRadius: '999px', padding: '4px 10px', fontSize: '11px', color: '#888' }}>
+                <svg width="8" height="7" viewBox="0 0 10 8" fill="none"><path d="M1.5 4L3.8 6.5L8.5 1.5" stroke="#FF5A1F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                {b}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* ── Right: form area ───────────────────────────────── */}
-      <div style={{
-        flex: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-        padding: '48px 24px', minHeight: '100vh', overflowY: 'auto',
-      }}>
-        <div style={{ width: '100%', maxWidth: '420px', paddingTop: '8px' }}>
+      {/* ── Desktop two-column layout ─────────────────────── */}
+      <div style={{ flex: 1, display: 'flex' }}>
 
-          {/* Mobile logo */}
-          <div className="reg-mobile-logo" style={{ marginBottom: '36px' }}>
-            <a href="/"><Logo height={24} /></a>
+        {/* ── Left: value prop panel ─────────────────────────── */}
+        <div className="reg-left">
+          <a href="/" style={{ marginBottom: '52px', display: 'block' }}>
+            <Logo height={24} />
+          </a>
+
+          <div style={{ marginBottom: '18px' }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '7px',
+              background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.18)',
+              borderRadius: '999px', padding: '5px 14px', fontSize: '12px',
+              color: 'var(--spark)', fontWeight: 600, letterSpacing: '0.02em',
+            }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--spark)', flexShrink: 0 }} />
+              30 kursi tersisa · Batch 1
+            </span>
           </div>
+
+          <h2 style={{
+            fontFamily: "'Space Grotesk', sans-serif", fontSize: '26px', fontWeight: 800,
+            color: '#fff', lineHeight: 1.2, letterSpacing: '-0.025em', marginBottom: '12px',
+          }}>
+            Mulai dari nol.<br />Selesai dengan<br />aplikasi nyata.
+          </h2>
+
+          <p style={{ color: '#666', fontSize: '14px', lineHeight: 1.65, marginBottom: '32px' }}>
+            10 sesi live bersama Software Engineer dari Australia. Kita bangun satu aplikasi full stack dari nol sampai online, pakai React, TypeScript, dan Supabase.
+          </p>
+
+          <div style={{
+            background: '#161616', border: '1px solid #232323',
+            borderRadius: '14px', padding: '20px 22px', marginBottom: '28px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <span style={{ fontSize: '14px' }}>🔒</span>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--signal)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>Harga early bird</span>
+            </div>
+            <p style={{ fontSize: '13px', color: '#666', lineHeight: 1.55 }}>
+              Harga khusus untuk 30 peserta pertama.<br />
+              Diungkap setelah kamu masuk ke dashboard.
+            </p>
+            <div style={{ marginTop: '12px', height: '1px', background: '#232323' }} />
+            <p style={{ fontSize: '12px', color: '#3a3a3a', marginTop: '12px' }}>Mulai 11 Juni 2026 · 10 pertemuan</p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+            {BENEFITS.map(b => (
+              <div key={b} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <span style={{
+                  width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0,
+                  background: 'rgba(255,90,31,0.12)', display: 'flex',
+                  alignItems: 'center', justifyContent: 'center', marginTop: '1px',
+                }}>
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                    <path d="M1.5 4L3.8 6.5L8.5 1.5" stroke="#FF5A1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span style={{ fontSize: '13.5px', color: '#999', lineHeight: 1.4 }}>{b}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 'auto', paddingTop: '28px' }}>
+            <p style={{ fontSize: '12px', color: '#3a3a3a', lineHeight: 1.6 }}>
+              Dengan mendaftar, kamu menyetujui syarat dan ketentuan yang berlaku.
+            </p>
+          </div>
+        </div>
+
+        {/* ── Right: form area ───────────────────────────────── */}
+        <div style={{
+          flex: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          padding: '48px 24px', overflowY: 'auto',
+        }}>
+          <div style={{ width: '100%', maxWidth: '420px', paddingTop: '8px' }}>
 
           {/* Step indicator */}
           {step !== 'done' && (
@@ -466,6 +497,7 @@ export default function RegisterPage() {
               </a>
             )}
           </div>
+        </div>
         </div>
       </div>
     </div>

@@ -44,7 +44,7 @@ export default function Hero() {
           href={REGISTER_URL}
           style={{ background: 'var(--spark)', color: '#fff', fontWeight: 700, fontSize: '16px', padding: '14px 32px', borderRadius: '12px', textDecoration: 'none' }}
         >
-          Daftar · Rp 899.000
+          Daftar Sekarang
         </a>
         <button
           onClick={() => document.getElementById('kurikulum')?.scrollIntoView({ behavior: 'smooth' })}
