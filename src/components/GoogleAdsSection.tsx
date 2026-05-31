@@ -1,7 +1,7 @@
-// Google Ads static image creatives — redesigned per Google guidelines
-// ✓ Visual-first (authentic app mockups)   ✓ No fake buttons
-// ✓ Focal point centered                   ✓ No text overload
-// ✓ Brand colours                          ✓ No CTAs in image
+// Google Ads — brand awareness image creatives
+// ✓ Logo + wordmark prominent   ✓ Program info visible
+// ✓ No fake buttons              ✓ Focal point centered
+// ✓ No "Cohort" — uses "Batch"
 
 import React, { useState } from 'react'
 
@@ -10,35 +10,32 @@ const SPARK  = '#FF5A1F'
 const SIGNAL = '#7B6CFF'
 const BG     = '#0a0a0a'
 const SURF1  = '#111111'
-const SURF2  = '#161616'
-const SURF3  = '#1c1c1c'
 const BORDER = '#2a2a2a'
 const TEXT   = '#e5e5e5'
 const SUBTLE = '#666666'
 
-// ── Shared micro-components ──────────────────────────────────────────────────
+// ── Brand SVG components ─────────────────────────────────────────────────────
 
-function GlobeMark({ size = 40 }: { size?: number }) {
+function GlobeMark({ size = 80 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-      <circle cx="16" cy="16" r="10.5" stroke="white" strokeOpacity="0.15" strokeWidth="1.4"/>
-      <ellipse cx="16" cy="16" rx="4.5" ry="10.5" stroke="white" strokeOpacity="0.08" strokeWidth="1.2"/>
-      <line x1="5.5" y1="16" x2="26.5" y2="16" stroke="white" strokeOpacity="0.08" strokeWidth="1.2"/>
-      <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="white" strokeOpacity="0.55" strokeWidth="1.8" strokeLinecap="round"/>
+      <circle cx="16" cy="16" r="10.5" stroke="white" strokeOpacity="0.18" strokeWidth="1.4"/>
+      <ellipse cx="16" cy="16" rx="4.5" ry="10.5" stroke="white" strokeOpacity="0.1" strokeWidth="1.2"/>
+      <line x1="5.5" y1="16" x2="26.5" y2="16" stroke="white" strokeOpacity="0.1" strokeWidth="1.2"/>
+      <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="white" strokeOpacity="0.6" strokeWidth="1.8" strokeLinecap="round"/>
       <circle cx="9.2" cy="22.8" r="3.4" fill={SPARK}/>
       <circle cx="22.8" cy="9.2" r="3.4" fill={SIGNAL}/>
     </svg>
   )
 }
 
-function BrandMark({ size = 40 }: { size?: number }) {
-  const h = size
-  const w = (206 / 20) * h
+function Wordmark({ width = 260 }: { width?: number }) {
+  const h = Math.round((20 / 206) * width)
   return (
-    <svg width={w} height={h} viewBox="0 0 206 20" fill="none">
+    <svg width={width} height={h} viewBox="0 0 206 20" fill="none">
       <circle cx="10" cy="10" r="6.5" stroke="white" strokeWidth="1"/>
-      <ellipse cx="10" cy="10" rx="3.2" ry="6.5" stroke="rgba(255,255,255,0.25)" strokeWidth="0.9"/>
-      <line x1="3.5" y1="10" x2="16.5" y2="10" stroke="rgba(255,255,255,0.25)" strokeWidth="0.9"/>
+      <ellipse cx="10" cy="10" rx="3.2" ry="6.5" stroke="rgba(255,255,255,0.28)" strokeWidth="0.9"/>
+      <line x1="3.5" y1="10" x2="16.5" y2="10" stroke="rgba(255,255,255,0.28)" strokeWidth="0.9"/>
       <circle cx="15.5" cy="4.5" r="2" fill={SIGNAL}/>
       <text x="23" y="14" fontFamily="'Inter',system-ui,sans-serif" fontSize="11.5" fontWeight="400" fill="white">Global</text>
       <text x="61" y="14" fontFamily="'Inter',system-ui,sans-serif" fontSize="11.5" fontWeight="700" fill="white">Developer</text>
@@ -47,440 +44,452 @@ function BrandMark({ size = 40 }: { size?: number }) {
   )
 }
 
-type BookingStatus = 'confirmed' | 'waiting' | 'pending'
-function StatusBadge({ status }: { status: BookingStatus }) {
-  const m = {
-    confirmed: { color: '#4ade80', bg: 'rgba(74,222,128,0.1)',  border: 'rgba(74,222,128,0.3)', label: 'Terkonfirmasi' },
-    waiting:   { color: '#fbbf24', bg: 'rgba(251,191,36,0.1)',  border: 'rgba(251,191,36,0.3)', label: 'Menunggu' },
-    pending:   { color: SUBTLE,    bg: 'rgba(255,255,255,0.05)', border: BORDER,                 label: 'Belum bayar' },
-  }[status]
+// Subtle concentric globe rings — decorative background
+function Rings({ size = 600, opacity = 0.05 }: { size?: number; opacity?: number }) {
+  const c = size / 2
   return (
-    <span style={{ background: m.bg, color: m.color, border: `1px solid ${m.border}`, borderRadius: 999, padding: '3px 12px', fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', fontFamily: "'Inter',sans-serif" }}>
-      {m.label}
-    </span>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} fill="none"
+      style={{ position: 'absolute', pointerEvents: 'none' }}>
+      {[0.85, 0.65, 0.45, 0.25].map((r, i) => (
+        <circle key={i} cx={c} cy={c} r={c * r} stroke="white" strokeOpacity={opacity} strokeWidth="1.5"/>
+      ))}
+      <line x1={c * 0.1} y1={c} x2={c * 1.9} y2={c} stroke="white" strokeOpacity={opacity * 0.8} strokeWidth="1"/>
+      <line x1={c} y1={c * 0.1} x2={c} y2={c * 1.9} stroke="white" strokeOpacity={opacity * 0.5} strokeWidth="1"/>
+    </svg>
   )
 }
 
-// Browser chrome frame
-function BrowserFrame({ width, height, url = 'globaldev.sbs/dashboard', children }: {
-  width: number; height: number; url?: string; children: React.ReactNode
-}) {
-  return (
-    <div style={{ width, height, background: SURF2, borderRadius: 12, overflow: 'hidden', border: `1px solid ${BORDER}`, display: 'flex', flexDirection: 'column' }}>
-      <div style={{ height: 38, background: SURF3, borderBottom: `1px solid ${BORDER}`, display: 'flex', alignItems: 'center', padding: '0 14px', gap: 10, flexShrink: 0 }}>
-        <div style={{ display: 'flex', gap: 6 }}>
-          {['#ff5f57','#ffbd2e','#28c840'].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c, opacity: 0.8 }}/>)}
-        </div>
-        <div style={{ flex: 1, background: '#252525', borderRadius: 5, height: 22, display: 'flex', alignItems: 'center', padding: '0 12px' }}>
-          <span style={{ color: SUBTLE, fontSize: 11, fontFamily: "'Inter',sans-serif" }}>🔒 {url}</span>
-        </div>
-      </div>
-      <div style={{ flex: 1, overflow: 'hidden' }}>{children}</div>
-    </div>
-  )
-}
-
-// Phone frame
-function PhoneFrame({ width, children }: { width: number; children: React.ReactNode }) {
-  const height = width * 2.1
-  return (
-    <div style={{ width, height, background: '#1a1a1a', borderRadius: width * 0.12, border: `${width * 0.025}px solid #333`, overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
-      <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: width * 0.28, height: width * 0.06, background: '#0a0a0a', borderRadius: '0 0 10px 10px', zIndex: 10 }}/>
-      <div style={{ width: '100%', height: '100%', overflow: 'hidden', background: BG }}>
-        {children}
-      </div>
-    </div>
-  )
-}
-
-// Booking rows data
-const BOOKINGS: { name: string; init: string; color: string; status: BookingStatus; date: string }[] = [
-  { name: 'Andi Pratama',   init: 'AP', color: '#60a5fa', status: 'confirmed', date: '11 Jun 2026' },
-  { name: 'Siti Rahayu',    init: 'SR', color: '#f472b6', status: 'waiting',   date: '11 Jun 2026' },
-  { name: 'Budi Santoso',   init: 'BS', color: '#34d399', status: 'confirmed', date: '11 Jun 2026' },
-  { name: 'Diana Kusuma',   init: 'DK', color: '#a78bfa', status: 'pending',   date: '12 Jun 2026' },
-  { name: 'Rizki Putra',    init: 'RP', color: '#fb923c', status: 'waiting',   date: '12 Jun 2026' },
-  { name: 'Lena Wulandari', init: 'LW', color: '#22d3ee', status: 'confirmed', date: '12 Jun 2026' },
+const STACK_TAGS = [
+  { name: 'React',      color: '#60a5fa' },
+  { name: 'TypeScript', color: '#a78bfa' },
+  { name: 'Supabase',   color: '#34d399' },
 ]
 
-// Meet participants
-const PARTICIPANTS = [
-  { init: 'AP', color: '#60a5fa', name: 'Andi P.' },
-  { init: 'SR', color: '#f472b6', name: 'Siti R.' },
-  { init: 'BS', color: '#34d399', name: 'Budi S.' },
-  { init: 'DK', color: '#a78bfa', name: 'Diana K.' },
-  { init: 'RP', color: '#fb923c', name: 'Rizki P.' },
-  { init: 'MH', color: SPARK,     name: 'MH (host)' },
-]
-
-// ── Syntax-coloured code lines ────────────────────────────────────────────────
-const kw  = (t: string) => <span style={{ color: '#c792ea' }}>{t}</span>
-const str = (t: string) => <span style={{ color: '#c3e88d' }}>{t}</span>
-const typ = (t: string) => <span style={{ color: '#82aaff' }}>{t}</span>
-const fn  = (t: string) => <span style={{ color: '#82aaff' }}>{t}</span>
-const cm  = (t: string) => <span style={{ color: '#546e7a' }}>{t}</span>
-const op  = (t: string) => <span style={{ color: '#89ddff' }}>{t}</span>
-const df  = (t: string) => <span style={{ color: '#d6deeb' }}>{t}</span>
-
-// Full booking dashboard UI (reused across multiple ads)
-function DashboardUI({ scale = 1 }: { scale?: number }) {
-  const fs = (n: number) => n * scale
+function StackPills({ size = 16, gap = 10 }: { size?: number; gap?: number }) {
   return (
-    <div style={{ background: BG, width: '100%', height: '100%', fontFamily: "'Inter',sans-serif", display: 'flex' }}>
-      {/* Sidebar */}
-      <div style={{ width: fs(200), background: SURF1, borderRight: `1px solid ${BORDER}`, flexShrink: 0, padding: fs(20) }}>
-        <div style={{ marginBottom: fs(24) }}>
-          <GlobeMark size={fs(28)} />
-        </div>
-        {[
-          { label: 'Dashboard', active: false },
-          { label: 'Pendaftaran', active: true },
-          { label: 'Pembayaran', active: false },
-          { label: 'Peserta', active: false },
-          { label: 'Pengaturan', active: false },
-        ].map(({ label, active }) => (
-          <div key={label} style={{ padding: `${fs(8)}px ${fs(12)}px`, borderRadius: fs(8), marginBottom: fs(4), background: active ? `${SPARK}18` : 'none', color: active ? SPARK : SUBTLE, fontSize: fs(13), fontWeight: active ? 700 : 400 }}>
-            {label}
-          </div>
-        ))}
-      </div>
-
-      {/* Main */}
-      <div style={{ flex: 1, padding: fs(24), overflow: 'hidden' }}>
-        {/* Header */}
-        <div style={{ marginBottom: fs(20) }}>
-          <div style={{ color: TEXT, fontSize: fs(18), fontWeight: 800, letterSpacing: '-0.02em', marginBottom: fs(4) }}>Pendaftaran</div>
-          <div style={{ color: SUBTLE, fontSize: fs(12) }}>Batch Juni 2026</div>
-        </div>
-
-        {/* Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: fs(12), marginBottom: fs(20) }}>
-          {[
-            { label: 'Terdaftar', value: '23', color: TEXT },
-            { label: 'Terkonfirmasi', value: '15', color: '#4ade80' },
-            { label: 'Menunggu', value: '5', color: '#fbbf24' },
-            { label: 'Kursi sisa', value: '7', color: SPARK },
-          ].map(({ label, value, color }) => (
-            <div key={label} style={{ background: SURF2, border: `1px solid ${BORDER}`, borderRadius: fs(10), padding: fs(14) }}>
-              <div style={{ color, fontSize: fs(22), fontWeight: 800 }}>{value}</div>
-              <div style={{ color: SUBTLE, fontSize: fs(11), marginTop: fs(2) }}>{label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Table */}
-        <div style={{ background: SURF1, border: `1px solid ${BORDER}`, borderRadius: fs(12), overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: `${fs(10)}px ${fs(16)}px`, borderBottom: `1px solid ${BORDER}`, color: SUBTLE, fontSize: fs(11), fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            <span>Peserta</span><span>Tanggal</span><span>Status</span>
-          </div>
-          {BOOKINGS.map(({ name, init, color, status, date }) => (
-            <div key={name} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: `${fs(11)}px ${fs(16)}px`, borderBottom: `1px solid ${BORDER}`, alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: fs(10) }}>
-                <div style={{ width: fs(28), height: fs(28), borderRadius: '50%', background: `${color}25`, border: `1px solid ${color}55`, display: 'flex', alignItems: 'center', justifyContent: 'center', color, fontSize: fs(10), fontWeight: 800, flexShrink: 0 }}>{init}</div>
-                <span style={{ color: TEXT, fontSize: fs(13), fontWeight: 500 }}>{name}</span>
-              </div>
-              <span style={{ color: SUBTLE, fontSize: fs(12) }}>{date}</span>
-              <StatusBadge status={status} />
-            </div>
-          ))}
-        </div>
-      </div>
+    <div style={{ display: 'flex', gap, flexWrap: 'wrap' }}>
+      {STACK_TAGS.map(({ name, color }) => (
+        <span key={name} style={{
+          background: `${color}18`, border: `1px solid ${color}40`, color,
+          borderRadius: 8, padding: `${size * 0.4}px ${size}px`,
+          fontSize: size, fontWeight: 700, fontFamily: "'Inter',sans-serif",
+          whiteSpace: 'nowrap',
+        }}>
+          {name}
+        </span>
+      ))}
     </div>
   )
 }
 
-// Code editor UI (reused)
-function CodeEditorUI({ scale = 1 }: { scale?: number }) {
-  const fs = (n: number) => n * scale
-  const LINE_H = fs(22)
-  const lines: React.ReactNode[] = [
-    <>{cm('// src/lib/bookings.ts')}</>,
-    <>{kw('import')} {op('{')} {df('supabase')} {op('}')} {kw('from')} {str("'./supabase'")}</>,
-    <></>,
-    <>{kw('interface')} {typ('Booking')} {op('{')}</>,
-    <>&nbsp;&nbsp;{df('id')}{op(':')} {typ('string')}</>,
-    <>&nbsp;&nbsp;{df('user_id')}{op(':')} {typ('string')}</>,
-    <>&nbsp;&nbsp;{df('service')}{op(':')} {typ('string')}</>,
-    <>&nbsp;&nbsp;{df('status')}{op(':')} {str("'pending'")} {op('|')} {str("'confirmed'")}</>,
-    <>&nbsp;&nbsp;{df('amount')}{op(':')} {typ('number')}</>,
-    <>{op('}')}</>,
-    <></>,
-    <>{kw('export async function')} {fn('getBookings')}{op('()')} {op('{')} </>,
-    <>&nbsp;&nbsp;{kw('const')} {op('{')} {df('data')} {op('}')} {op('=')} {kw('await')} {df('supabase')}</>,
-    <>&nbsp;&nbsp;&nbsp;&nbsp;{op('.')} {fn('from')}{op('(')}{str("'bookings'")}{op(')')}</>,
-    <>&nbsp;&nbsp;&nbsp;&nbsp;{op('.')} {fn('select')}{op('(')}{str("'*, profiles(full_name)'")} {op(')')}</>,
-    <>&nbsp;&nbsp;&nbsp;&nbsp;{op('.')} {fn('order')}{op('(')}{str("'created_at'")} {op(',,')} {op('{')}{df(' ascending')}{op(':')} {kw('false')}{op('})')}</>,
-    <></>,
-    <>&nbsp;&nbsp;{kw('return')} {df('data')} {kw('as')} {typ('Booking[]')}</>,
-    <>{op('}')}</>,
-    <></>,
-    <>{kw('export async function')} {fn('confirmPayment')}{op('(')}{df('id')}{op(': ')}{typ('string')}{op(')')} {op('{')}</>,
-    <>&nbsp;&nbsp;{kw('await')} {df('supabase')}{op('.')}{fn('rpc')}{op('(')}{str("'confirm_payment'")}{op(', {')} {df('registration_id')}{op(': ')}{df('id')}{op(' })')}</>,
-    <>{op('}')}</>,
-  ]
-  return (
-    <div style={{ background: '#011627', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', fontFamily: "'Fira Code','SF Mono','Consolas',monospace" }}>
-      {/* Tab bar */}
-      <div style={{ height: fs(36), background: '#01111d', borderBottom: '1px solid #0d2137', display: 'flex', alignItems: 'flex-end', flexShrink: 0 }}>
-        {['bookings.ts', 'supabase.ts', 'BookingForm.tsx'].map((tab, i) => (
-          <div key={tab} style={{ padding: `${fs(6)}px ${fs(16)}px`, fontSize: fs(12), color: i === 0 ? '#d6deeb' : '#546e7a', borderTop: i === 0 ? `1px solid ${SPARK}` : 'none', background: i === 0 ? '#011627' : 'transparent', borderRight: '1px solid #0d2137' }}>
-            {tab}
-          </div>
-        ))}
-      </div>
-      {/* Body */}
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        {/* Line numbers */}
-        <div style={{ width: fs(44), background: '#01111d', borderRight: '1px solid #0d2137', paddingTop: fs(12), flexShrink: 0, textAlign: 'right', paddingRight: fs(8) }}>
-          {lines.map((_, i) => (
-            <div key={i} style={{ height: LINE_H, lineHeight: `${LINE_H}px`, color: '#1d3b53', fontSize: fs(12) }}>{i + 1}</div>
-          ))}
-        </div>
-        {/* Code */}
-        <div style={{ flex: 1, paddingTop: fs(12), paddingLeft: fs(16), overflow: 'hidden' }}>
-          {lines.map((line, i) => (
-            <div key={i} style={{ height: LINE_H, lineHeight: `${LINE_H}px`, fontSize: fs(13), whiteSpace: 'nowrap' }}>{line}</div>
-          ))}
-        </div>
-        {/* Minimap */}
-        <div style={{ width: fs(48), background: '#011627', borderLeft: '1px solid #0d2137', opacity: 0.4, flexShrink: 0, paddingTop: fs(12) }}>
-          {lines.map((_, i) => (
-            <div key={i} style={{ height: LINE_H * 0.35, margin: `${LINE_H * 0.1}px ${fs(4)}px`, background: '#1d3b53', borderRadius: 1 }}/>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Google Meet-style grid UI
-function MeetUI({ scale = 1 }: { scale?: number }) {
-  const fs = (n: number) => n * scale
-  return (
-    <div style={{ background: '#202124', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Header bar */}
-      <div style={{ height: fs(44), background: '#202124', borderBottom: '1px solid #3c4043', display: 'flex', alignItems: 'center', padding: `0 ${fs(16)}px`, gap: fs(12), flexShrink: 0 }}>
-        <div style={{ width: fs(22), height: fs(22) }}><GlobeMark size={fs(22)} /></div>
-        <span style={{ color: '#e8eaed', fontSize: fs(14), fontWeight: 500, fontFamily: "'Inter',sans-serif" }}>Global Developer Academy — Sesi 03</span>
-        <div style={{ marginLeft: 'auto', color: '#9aa0a6', fontSize: fs(12), fontFamily: "'Inter',sans-serif" }}>19.30 WIB</div>
-      </div>
-
-      {/* Video grid — 3×2 */}
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridTemplateRows: 'repeat(2, 1fr)', gap: fs(4), padding: fs(8) }}>
-        {PARTICIPANTS.map(({ init, color, name }, i) => (
-          <div key={init} style={{ background: '#3c4043', borderRadius: fs(8), position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', border: i === 5 ? `2px solid ${SPARK}` : 'none' }}>
-            {i === 2
-              ? /* screen share tile */
-                <div style={{ width: '100%', height: '100%', background: '#011627', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: fs(10) }}>
-                  <div style={{ color: '#82aaff', fontSize: fs(9), fontFamily: "monospace", lineHeight: 1.6, opacity: 0.85 }}>
-                    {['.select(\'*\')', '.eq(\'status\',', '  \'confirmed\')', '.order(\'created_at\')', '  { ascending: false })'].map((l, j) => <div key={j}>{l}</div>)}
-                  </div>
-                </div>
-              : <div style={{ width: fs(48), height: fs(48), borderRadius: '50%', background: `${color}25`, border: `2px solid ${color}60`, display: 'flex', alignItems: 'center', justifyContent: 'center', color, fontSize: fs(16), fontWeight: 800, fontFamily: "'Inter',sans-serif" }}>{init}</div>
-            }
-            <div style={{ position: 'absolute', bottom: fs(6), left: fs(8), color: '#e8eaed', fontSize: fs(10), fontWeight: 500, fontFamily: "'Inter',sans-serif", background: 'rgba(0,0,0,0.5)', padding: `${fs(2)}px ${fs(6)}px`, borderRadius: fs(4) }}>{name}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Control bar */}
-      <div style={{ height: fs(52), background: '#202124', borderTop: '1px solid #3c4043', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: fs(16), flexShrink: 0 }}>
-        {['🎤', '📹', '💬', '👥', '⋯'].map(icon => (
-          <div key={icon} style={{ width: fs(36), height: fs(36), borderRadius: '50%', background: '#3c4043', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: fs(14) }}>{icon}</div>
-        ))}
-      </div>
-    </div>
-  )
-}
+const sg = (sz: number, w: number | string = 800, color = '#fff'): React.CSSProperties => ({
+  fontFamily: "'Space Grotesk','Inter',sans-serif",
+  fontSize: sz, fontWeight: w as number,
+  color, letterSpacing: '-0.03em', lineHeight: 1.1,
+})
 
 // ══════════════════════════════════════════════════════════════════════════════
-// LANDSCAPE 1 — 1200 × 628 — Admin Dashboard
+// L1 — 1200 × 628 — Logo Split
+// Left: brand mark + wordmark · Right: program info
 // ══════════════════════════════════════════════════════════════════════════════
 function L1() {
   return (
-    <div style={{ width: 1200, height: 628, background: BG, overflow: 'hidden', position: 'relative' }}>
-      <DashboardUI scale={1.1}/>
-      {/* Brand mark overlay — bottom-right corner, small */}
-      <div style={{ position: 'absolute', bottom: 20, right: 24, opacity: 0.6 }}>
-        <GlobeMark size={28}/>
+    <div style={{ width: 1200, height: 628, background: BG, display: 'flex', overflow: 'hidden', fontFamily: "'Inter',sans-serif" }}>
+      {/* Background rings on left */}
+      <div style={{ position: 'absolute', left: -80, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
+        <Rings size={560} opacity={0.06}/>
+      </div>
+
+      {/* Left: brand */}
+      <div style={{ width: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 28, position: 'relative', zIndex: 1 }}>
+        <GlobeMark size={180}/>
+        <Wordmark width={280}/>
+      </div>
+
+      {/* Divider */}
+      <div style={{ width: 2, background: `linear-gradient(180deg, transparent 5%, ${SPARK} 40%, ${SPARK} 60%, transparent 95%)`, flexShrink: 0 }}/>
+
+      {/* Right: program info */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 64px', gap: 22, position: 'relative', zIndex: 1 }}>
+        <div style={{ color: SIGNAL, fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          Full Stack Bootcamp
+        </div>
+        <div style={{ ...sg(58, 800), maxWidth: 520 }}>
+          Mulai dari nol.<br/>
+          <span style={{ color: SPARK }}>Sampai online.</span>
+        </div>
+        <StackPills size={15} gap={10}/>
+        <div style={{ color: SUBTLE, fontSize: 15, marginTop: 4 }}>
+          11 Juni 2026 · 30 kursi · Batch Juni 2026
+        </div>
       </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// LANDSCAPE 2 — 1200 × 628 — Code Editor
+// L2 — 1200 × 628 — Stack Banner
+// Wordmark top · Three tech names large · Brand info bottom
 // ══════════════════════════════════════════════════════════════════════════════
 function L2() {
   return (
-    <div style={{ width: 1200, height: 628, overflow: 'hidden', position: 'relative' }}>
-      <CodeEditorUI scale={1.15}/>
-      <div style={{ position: 'absolute', bottom: 20, right: 24, opacity: 0.5 }}>
+    <div style={{ width: 1200, height: 628, background: 'linear-gradient(160deg,#080810,#0a0a0a)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif" }}>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
+        <Rings size={700} opacity={0.04}/>
+      </div>
+
+      {/* Top: wordmark */}
+      <div style={{ position: 'absolute', top: 36, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16 }}>
         <GlobeMark size={28}/>
+        <Wordmark width={220}/>
+      </div>
+
+      {/* Center: tech names */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, position: 'relative', zIndex: 1 }}>
+        {STACK_TAGS.map(({ name, color }) => (
+          <div key={name} style={{ ...sg(96, 800, color), opacity: 0.95 }}>{name}</div>
+        ))}
+      </div>
+
+      {/* Bottom: program info */}
+      <div style={{ position: 'absolute', bottom: 32, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 24 }}>
+        <span style={{ color: SUBTLE, fontSize: 15 }}>10 sesi live</span>
+        <span style={{ color: BORDER }}>·</span>
+        <span style={{ color: SUBTLE, fontSize: 15 }}>4 minggu</span>
+        <span style={{ color: BORDER }}>·</span>
+        <span style={{ color: SUBTLE, fontSize: 15 }}>Batch Juni 2026</span>
+        <span style={{ color: BORDER }}>·</span>
+        <span style={{ color: SUBTLE, fontSize: 15 }}>11 Juni 2026</span>
       </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// LANDSCAPE 3 — 1200 × 628 — Google Meet Live Session
+// L3 — 1200 × 628 — Tagline Hero
+// Globe mark large left · Tagline right · Wordmark pinned bottom
 // ══════════════════════════════════════════════════════════════════════════════
 function L3() {
   return (
-    <div style={{ width: 1200, height: 628, overflow: 'hidden' }}>
-      <MeetUI scale={1.1}/>
+    <div style={{ width: 1200, height: 628, background: 'linear-gradient(135deg,#0a0a0a 50%,#0e0a00 100%)', display: 'flex', alignItems: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif" }}>
+      {/* Orange glow behind mark */}
+      <div style={{ position: 'absolute', left: -40, top: '50%', transform: 'translateY(-50%)', width: 480, height: 480, background: `radial-gradient(circle, ${SPARK}15 0%, transparent 70%)`, pointerEvents: 'none' }}/>
+
+      {/* Left: globe mark */}
+      <div style={{ width: 420, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative', zIndex: 1 }}>
+        <GlobeMark size={260}/>
+      </div>
+
+      {/* Right: tagline */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 72px 0 0', gap: 18, position: 'relative', zIndex: 1 }}>
+        <div style={{ color: SIGNAL, fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          Global Developer Academy
+        </div>
+        <div style={{ ...sg(62, 800), maxWidth: 520 }}>
+          Mulai dari nol.
+        </div>
+        <div style={{ ...sg(52, 700, SPARK), maxWidth: 520 }}>
+          Selesai dengan aplikasi yang beneran jalan.
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <Wordmark width={240}/>
+        </div>
+      </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SQUARE 1 — 1200 × 1200 — Dashboard in Browser Frame (centered)
-// Google crops squares to circles — keep focal point well inside safe zone
+// S1 — 1200 × 1200 — Centered Mark (safe for circle crop)
+// Globe mark 380px perfectly centered · Wordmark below · Program tagline
 // ══════════════════════════════════════════════════════════════════════════════
 function Sq1() {
   return (
-    <div style={{ width: 1200, height: 1200, background: BG, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
-      {/* Subtle radial glow */}
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${SPARK}08 0%, transparent 70%)` }}/>
-      <BrowserFrame width={960} height={860} url="globaldev.sbs/admin">
-        <DashboardUI scale={0.96}/>
-      </BrowserFrame>
+    <div style={{ width: 1200, height: 1200, background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif" }}>
+      {/* Rings centered */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
+        <Rings size={800} opacity={0.06}/>
+      </div>
+      {/* Glow */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-65%)', width: 500, height: 500, background: `radial-gradient(circle, ${SPARK}12 0%, ${SIGNAL}08 40%, transparent 70%)`, pointerEvents: 'none', borderRadius: '50%' }}/>
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 36, position: 'relative', zIndex: 1 }}>
+        <GlobeMark size={380}/>
+        <Wordmark width={340}/>
+        <div style={{ color: TEXT, fontSize: 26, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', fontFamily: "'Inter',sans-serif" }}>
+          Full Stack Bootcamp
+        </div>
+        <StackPills size={18} gap={14}/>
+        <div style={{ color: SUBTLE, fontSize: 17 }}>
+          Batch Juni 2026 · 11 Juni 2026 · 30 kursi
+        </div>
+      </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SQUARE 2 — 1200 × 1200 — Code Editor centered
+// S2 — 1200 × 1200 — Program Card (centered axis)
 // ══════════════════════════════════════════════════════════════════════════════
 function Sq2() {
   return (
-    <div style={{ width: 1200, height: 1200, background: '#01111d', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${SIGNAL}0a 0%, transparent 70%)` }}/>
-      <BrowserFrame width={960} height={860} url="code — bookings.ts">
-        <CodeEditorUI scale={0.96}/>
-      </BrowserFrame>
+    <div style={{ width: 1200, height: 1200, background: 'linear-gradient(160deg,#080810,#0a0a0a)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif" }}>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
+        <Rings size={1000} opacity={0.04}/>
+      </div>
+      {/* Glow signal */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 700, height: 700, background: `radial-gradient(circle, ${SIGNAL}0c 0%, transparent 70%)`, pointerEvents: 'none', borderRadius: '50%' }}/>
+
+      {/* Center card */}
+      <div style={{ background: SURF1, border: `1px solid ${BORDER}`, borderRadius: 32, padding: '72px 80px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 36, maxWidth: 820, position: 'relative', zIndex: 1 }}>
+        {/* Top border accent */}
+        <div style={{ position: 'absolute', top: 0, left: 80, right: 80, height: 3, background: `linear-gradient(90deg, transparent, ${SPARK}, ${SIGNAL}, transparent)`, borderRadius: 2 }}/>
+
+        <GlobeMark size={140}/>
+        <Wordmark width={320}/>
+
+        <div style={{ width: '100%', height: 1, background: `linear-gradient(90deg, transparent, ${BORDER}, transparent)` }}/>
+
+        <div style={{ ...sg(38, 700), textAlign: 'center' }}>
+          Full Stack Bootcamp
+        </div>
+
+        <StackPills size={18} gap={14}/>
+
+        <div style={{ display: 'flex', gap: 32, color: SUBTLE, fontSize: 17, fontFamily: "'Inter',sans-serif" }}>
+          <span>10 sesi live</span>
+          <span style={{ color: BORDER }}>·</span>
+          <span>4 minggu</span>
+          <span style={{ color: BORDER }}>·</span>
+          <span>30 kursi</span>
+        </div>
+
+        <div style={{ color: SPARK, fontSize: 17, fontWeight: 700, letterSpacing: '0.04em' }}>
+          11 Juni 2026 · Batch Juni 2026
+        </div>
+      </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SQUARE 3 — 1200 × 1200 — Live Session centered
+// S3 — 1200 × 1200 — Tagline Square
 // ══════════════════════════════════════════════════════════════════════════════
 function Sq3() {
   return (
-    <div style={{ width: 1200, height: 1200, background: '#202124', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-      <div style={{ width: 980, height: 900 }}>
-        <MeetUI scale={1.05}/>
+    <div style={{ width: 1200, height: 1200, background: 'linear-gradient(160deg,#0a0a0a,#0e0a00)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif", textAlign: 'center', padding: '80px 120px' }}>
+      <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: 800, height: 800, background: `radial-gradient(circle, ${SPARK}0e 0%, transparent 70%)`, pointerEvents: 'none', borderRadius: '50%' }}/>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
+        <Rings size={900} opacity={0.05}/>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32, position: 'relative', zIndex: 1 }}>
+        <GlobeMark size={120}/>
+        <Wordmark width={300}/>
+
+        <div style={{ height: 2, width: 60, background: SPARK, borderRadius: 2 }}/>
+
+        <div style={{ ...sg(80, 800) }}>Mulai dari nol.</div>
+
+        <div style={{ ...sg(62, 700, SPARK), maxWidth: 800 }}>
+          Selesai dengan aplikasi yang beneran jalan.
+        </div>
+
+        <StackPills size={18} gap={14}/>
+
+        <div style={{ color: SUBTLE, fontSize: 17 }}>
+          Batch Juni 2026 · 11 Juni 2026 · 30 kursi
+        </div>
       </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PORTRAIT 1 — 960 × 1200 — Phone mockup: app dashboard
+// P1 — 960 × 1200 — Brand Portrait
+// Globe mark large upper half · Program details lower half
 // ══════════════════════════════════════════════════════════════════════════════
 function P1() {
   return (
-    <div style={{ width: 960, height: 1200, background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, overflow: 'hidden', position: 'relative' }}>
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${SPARK}0a 0%, transparent 70%)` }}/>
-      <PhoneFrame width={340}>
-        <DashboardUI scale={0.58}/>
-      </PhoneFrame>
-      <div style={{ opacity: 0.5 }}><BrandMark size={18}/></div>
+    <div style={{ width: 960, height: 1200, background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif" }}>
+      <div style={{ position: 'absolute', top: 100, left: '50%', transform: 'translateX(-50%)' }}>
+        <Rings size={700} opacity={0.06}/>
+      </div>
+      <div style={{ position: 'absolute', top: 80, left: '50%', transform: 'translateX(-50%)', width: 500, height: 500, background: `radial-gradient(circle, ${SPARK}10 0%, ${SIGNAL}08 45%, transparent 70%)`, borderRadius: '50%', pointerEvents: 'none' }}/>
+
+      {/* Upper: brand */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 28, position: 'relative', zIndex: 1, paddingTop: 40 }}>
+        <GlobeMark size={220}/>
+        <Wordmark width={300}/>
+      </div>
+
+      {/* Divider */}
+      <div style={{ width: '80%', height: 1, background: `linear-gradient(90deg, transparent, ${BORDER}, transparent)` }}/>
+
+      {/* Lower: program info */}
+      <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 64px 56px', gap: 20, textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ color: SIGNAL, fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          Full Stack Bootcamp
+        </div>
+        <div style={{ ...sg(52, 800) }}>
+          React · TypeScript · Supabase
+        </div>
+        <StackPills size={16} gap={12}/>
+        <div style={{ display: 'flex', gap: 20, color: SUBTLE, fontSize: 16, marginTop: 4 }}>
+          <span>10 sesi live</span>
+          <span>·</span>
+          <span>4 minggu</span>
+          <span>·</span>
+          <span>30 kursi</span>
+        </div>
+        <div style={{ color: SPARK, fontSize: 16, fontWeight: 700 }}>
+          Batch Juni 2026 · Mulai 11 Juni 2026
+        </div>
+      </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PORTRAIT 2 — 960 × 1200 — Phone mockup: code editor
+// P2 — 960 × 1200 — Announcement
+// Globe watermark large behind · Wordmark · Program announcement center
 // ══════════════════════════════════════════════════════════════════════════════
 function P2() {
   return (
-    <div style={{ width: 960, height: 1200, background: '#01111d', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, overflow: 'hidden', position: 'relative' }}>
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${SIGNAL}0a 0%, transparent 70%)` }}/>
-      <PhoneFrame width={340}>
-        <CodeEditorUI scale={0.56}/>
-      </PhoneFrame>
-      <div style={{ opacity: 0.5 }}><BrandMark size={18}/></div>
+    <div style={{ width: 960, height: 1200, background: 'linear-gradient(160deg,#08080e,#0a0a0a)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif", textAlign: 'center', padding: '64px' }}>
+      {/* Large globe watermark */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', opacity: 0.04 }}>
+        <GlobeMark size={800}/>
+      </div>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 600, background: `radial-gradient(circle, ${SIGNAL}10 0%, transparent 70%)`, borderRadius: '50%', pointerEvents: 'none' }}/>
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28, position: 'relative', zIndex: 1 }}>
+        {/* Wordmark top */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <GlobeMark size={36}/>
+          <Wordmark width={230}/>
+        </div>
+
+        <div style={{ height: 1, width: 60, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})`, borderRadius: 1 }}/>
+
+        {/* Batch announcement */}
+        <div style={{ ...sg(32, 600, SUBTLE), textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+          Membuka Pendaftaran
+        </div>
+        <div style={{ ...sg(80, 800, '#fff') }}>Batch</div>
+        <div style={{ ...sg(80, 800, SPARK) }}>Juni 2026</div>
+
+        <div style={{ height: 1, width: 60, background: BORDER, borderRadius: 1 }}/>
+
+        <div style={{ ...sg(36, 700) }}>Full Stack Bootcamp</div>
+
+        <StackPills size={17} gap={12}/>
+
+        <div style={{ color: SUBTLE, fontSize: 16, lineHeight: 1.8 }}>
+          10 sesi live via Google Meet<br/>
+          Mulai 11 Juni 2026 · 30 kursi tersedia
+        </div>
+      </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// TALL 1 — 1080 × 1920 — Three-device showcase
+// T1 — 1080 × 1920 — Brand Story Flow (3 sections)
 // ══════════════════════════════════════════════════════════════════════════════
 function T1() {
   return (
-    <div style={{ width: 1080, height: 1920, background: BG, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32, overflow: 'hidden', position: 'relative', padding: '60px 40px' }}>
-      <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 100% 70% at 50% 50%, ${SPARK}08 0%, transparent 65%)` }}/>
+    <div style={{ width: 1080, height: 1920, background: BG, display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: "'Inter',sans-serif" }}>
+      {/* Top accent bar */}
+      <div style={{ height: 4, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})`, flexShrink: 0 }}/>
 
-      {/* Desktop browser */}
-      <BrowserFrame width={940} height={480} url="globaldev.sbs/admin">
-        <DashboardUI scale={0.88}/>
-      </BrowserFrame>
-
-      {/* Tablet + phone side by side */}
-      <div style={{ display: 'flex', gap: 40, alignItems: 'center' }}>
-        {/* Tablet */}
-        <div style={{ width: 420, height: 560, background: '#1a1a1a', borderRadius: 24, border: `${8}px solid #2a2a2a`, overflow: 'hidden', flexShrink: 0 }}>
-          <MeetUI scale={0.7}/>
+      {/* Section 1: Brand mark */}
+      <div style={{ flex: '0 0 640px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', gap: 36 }}>
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>
+          <Rings size={560} opacity={0.07}/>
         </div>
-        {/* Phone */}
-        <PhoneFrame width={220}>
-          <DashboardUI scale={0.38}/>
-        </PhoneFrame>
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 440, height: 440, background: `radial-gradient(circle, ${SPARK}12 0%, transparent 70%)`, borderRadius: '50%', pointerEvents: 'none' }}/>
+        <GlobeMark size={260}/>
+        <Wordmark width={320}/>
       </div>
 
-      <div style={{ opacity: 0.4 }}><BrandMark size={18}/></div>
+      {/* Divider */}
+      <div style={{ margin: '0 80px', height: 1, background: `linear-gradient(90deg, transparent, ${BORDER}, transparent)`, flexShrink: 0 }}/>
+
+      {/* Section 2: Tagline */}
+      <div style={{ flex: '0 0 560px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 80px', gap: 20, textAlign: 'center', position: 'relative' }}>
+        <div style={{ ...sg(22, 700, SIGNAL), textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+          Full Stack Bootcamp
+        </div>
+        <div style={{ ...sg(72, 800) }}>Mulai dari nol.</div>
+        <div style={{ ...sg(58, 700, SPARK) }}>
+          Selesai dengan aplikasi yang beneran jalan.
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div style={{ margin: '0 80px', height: 1, background: `linear-gradient(90deg, transparent, ${BORDER}, transparent)`, flexShrink: 0 }}/>
+
+      {/* Section 3: Program details */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 80px', gap: 24, textAlign: 'center' }}>
+        <StackPills size={20} gap={14}/>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px', color: SUBTLE, fontSize: 18 }}>
+          <span>10 sesi live</span>
+          <span>4 minggu</span>
+          <span>30 kursi tersedia</span>
+          <span>via Google Meet</span>
+        </div>
+
+        <div style={{ height: 1, width: 60, background: `linear-gradient(90deg, ${SPARK}, ${SIGNAL})`, borderRadius: 1 }}/>
+
+        <div style={{ color: SPARK, fontSize: 22, fontWeight: 800 }}>
+          Batch Juni 2026
+        </div>
+        <div style={{ color: TEXT, fontSize: 20, fontWeight: 600 }}>
+          Mulai 11 Juni 2026
+        </div>
+      </div>
     </div>
   )
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// TALL 2 — 1080 × 1920 — Large globe mark (brand / abstract)
+// T2 — 1080 × 1920 — Atmospheric (globe mark dominant)
 // ══════════════════════════════════════════════════════════════════════════════
 function T2() {
   return (
-    <div style={{ width: 1080, height: 1920, background: 'linear-gradient(180deg,#080810 0%,#0a0a0a 60%,#0a0500 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
-      {/* Concentric rings */}
-      <svg width="900" height="900" viewBox="0 0 900 900" fill="none" style={{ position: 'absolute', opacity: 0.08 }}>
-        {[420, 320, 220, 130].map(r => <circle key={r} cx="450" cy="450" r={r} stroke="white" strokeWidth="1.5"/>)}
-        <line x1="30" y1="450" x2="870" y2="450" stroke="white" strokeWidth="1"/>
-        <line x1="450" y1="30" x2="450" y2="870" stroke="white" strokeWidth="1"/>
-      </svg>
+    <div style={{ width: 1080, height: 1920, background: 'linear-gradient(180deg,#060610 0%,#0a0a0a 55%,#0c0800 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', fontFamily: "'Inter',sans-serif" }}>
+      {/* Concentric rings background */}
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-55%)' }}>
+        <Rings size={1100} opacity={0.07}/>
+      </div>
 
-      {/* Radial glow */}
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 700, height: 700, background: `radial-gradient(circle, ${SPARK}18 0%, ${SIGNAL}0a 40%, transparent 70%)`, borderRadius: '50%' }}/>
+      {/* Radial glows */}
+      <div style={{ position: 'absolute', top: '38%', left: '50%', transform: 'translate(-50%,-50%)', width: 700, height: 700, background: `radial-gradient(circle, ${SPARK}15 0%, ${SIGNAL}08 45%, transparent 70%)`, borderRadius: '50%', pointerEvents: 'none' }}/>
 
-      {/* Central mark */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <svg width="480" height="480" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="10.5" stroke="white" strokeOpacity="0.2" strokeWidth="0.7"/>
-          <ellipse cx="16" cy="16" rx="4.5" ry="10.5" stroke="white" strokeOpacity="0.1" strokeWidth="0.6"/>
-          <line x1="5.5" y1="16" x2="26.5" y2="16" stroke="white" strokeOpacity="0.1" strokeWidth="0.6"/>
-          <path d="M9.2 22.8 A 13.2 13.2 0 0 1 22.8 9.2" stroke="white" strokeOpacity="0.6" strokeWidth="0.9" strokeLinecap="round"/>
-          <circle cx="9.2" cy="22.8" r="3.4" fill={SPARK}/>
-          <circle cx="22.8" cy="9.2" r="3.4" fill={SIGNAL}/>
-        </svg>
+      {/* Main globe — very large */}
+      <div style={{ position: 'relative', zIndex: 1, marginBottom: 40 }}>
+        <GlobeMark size={680}/>
       </div>
 
       {/* Connection arc */}
-      <svg width="600" height="120" viewBox="0 0 600 120" fill="none" style={{ position: 'relative', zIndex: 1, marginTop: -20 }}>
-        <path d="M 80 90 Q 300 20 520 90" stroke={`url(#arcG)`} strokeWidth="2" fill="none" strokeLinecap="round" strokeOpacity="0.6"/>
+      <svg width="640" height="100" viewBox="0 0 640 100" fill="none" style={{ position: 'relative', zIndex: 1, marginBottom: 32 }}>
+        <path d="M 80 70 Q 320 10 560 70" stroke="url(#arcGrad)" strokeWidth="2" fill="none" strokeLinecap="round" strokeOpacity="0.7"/>
         <defs>
-          <linearGradient id="arcG" x1="80" y1="90" x2="520" y2="90">
+          <linearGradient id="arcGrad" x1="80" y1="70" x2="560" y2="70">
             <stop stopColor={SPARK}/><stop offset="1" stopColor={SIGNAL}/>
           </linearGradient>
         </defs>
-        <circle cx="80" cy="90" r="8" fill={SPARK} fillOpacity="0.9"/>
-        <circle cx="520" cy="90" r="8" fill={SIGNAL} fillOpacity="0.9"/>
-        <text x="80" y="112" textAnchor="middle" fill={SPARK} fontSize="14" fontFamily="Inter" fillOpacity="0.7">Indonesia</text>
-        <text x="520" y="112" textAnchor="middle" fill={SIGNAL} fontSize="14" fontFamily="Inter" fillOpacity="0.7">Australia</text>
+        <circle cx="80" cy="70" r="10" fill={SPARK} fillOpacity="0.9"/>
+        <circle cx="560" cy="70" r="10" fill={SIGNAL} fillOpacity="0.9"/>
+        <text x="80" y="92" textAnchor="middle" fill={SPARK} fontSize="16" fontFamily="Inter" fillOpacity="0.75">Indonesia</text>
+        <text x="560" y="92" textAnchor="middle" fill={SIGNAL} fontSize="16" fontFamily="Inter" fillOpacity="0.75">Australia</text>
       </svg>
 
-      {/* Tiny brand name only */}
-      <div style={{ position: 'absolute', bottom: 60, opacity: 0.4 }}>
-        <BrandMark size={16}/>
+      {/* Wordmark bottom */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Wordmark width={300}/>
       </div>
     </div>
   )
@@ -490,85 +499,59 @@ function T2() {
 export type AdDef = { id: string; label: string; format: string; w: number; h: number; El: React.FC }
 
 export const GOOGLE_ADS: AdDef[] = [
-  { id: 'l1', label: 'L1 — Admin Dashboard',    format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L1 },
-  { id: 'l2', label: 'L2 — Code Editor',         format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L2 },
-  { id: 'l3', label: 'L3 — Live Session',         format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L3 },
-  { id: 's1', label: 'S1 — Dashboard in Browser', format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq1 },
-  { id: 's2', label: 'S2 — Code in Browser',      format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq2 },
-  { id: 's3', label: 'S3 — Meet Session',          format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq3 },
-  { id: 'p1', label: 'P1 — Phone: Dashboard',     format: 'Portrait 960×1200',       w: 960,  h: 1200, El: P1 },
-  { id: 'p2', label: 'P2 — Phone: Code',           format: 'Portrait 960×1200',       w: 960,  h: 1200, El: P2 },
-  { id: 't1', label: 'T1 — Three Devices',         format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T1 },
-  { id: 't2', label: 'T2 — Globe Mark',            format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T2 },
+  { id: 'l1', label: 'L1 — Logo Split',        format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L1 },
+  { id: 'l2', label: 'L2 — Stack Banner',       format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L2 },
+  { id: 'l3', label: 'L3 — Tagline Hero',        format: 'Landscape 1200×628',      w: 1200, h: 628,  El: L3 },
+  { id: 's1', label: 'S1 — Centered Mark',       format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq1 },
+  { id: 's2', label: 'S2 — Program Card',        format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq2 },
+  { id: 's3', label: 'S3 — Tagline Square',      format: 'Square 1200×1200',        w: 1200, h: 1200, El: Sq3 },
+  { id: 'p1', label: 'P1 — Brand Portrait',      format: 'Portrait 960×1200',       w: 960,  h: 1200, El: P1 },
+  { id: 'p2', label: 'P2 — Announcement',        format: 'Portrait 960×1200',       w: 960,  h: 1200, El: P2 },
+  { id: 't1', label: 'T1 — Brand Story Flow',    format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T1 },
+  { id: 't2', label: 'T2 — Atmospheric',         format: 'Tall Portrait 1080×1920', w: 1080, h: 1920, El: T2 },
 ]
 
-// ── Standalone section (used when rendering as a full page section) ──────────
+// ── Standalone section (for standalone page usage) ───────────────────────────
 const PREVIEW_W = 280
-const GOOGLE_FORMAT_LABEL: Record<string, string> = {
-  l1: 'Landscape', l2: 'Landscape', l3: 'Landscape',
-  s1: 'Square', s2: 'Square', s3: 'Square',
-  p1: 'Portrait', p2: 'Portrait',
-  t1: 'Tall', t2: 'Tall',
-}
-const FORMAT_GROUPS = ['Landscape', 'Square', 'Portrait', 'Tall']
+const FORMAT_LABEL: Record<string, string> = { l1:'Landscape',l2:'Landscape',l3:'Landscape', s1:'Square',s2:'Square',s3:'Square', p1:'Portrait',p2:'Portrait', t1:'Tall',t2:'Tall' }
+const FORMAT_ORDER = ['Landscape','Square','Portrait','Tall']
 
 export default function GoogleAdsSection() {
   const [open, setOpen] = useState<AdDef | null>(null)
-
-  const byFormat = GOOGLE_ADS.reduce<Record<string, AdDef[]>>((acc, ad) => {
-    const k = GOOGLE_FORMAT_LABEL[ad.id] ?? 'Other'
-    if (!acc[k]) acc[k] = []
-    acc[k].push(ad)
-    return acc
-  }, {})
-
-  const scaleFor = (ad: AdDef) =>
-    Math.min((window.innerHeight * 0.9) / ad.h, (window.innerWidth * 0.9) / ad.w)
+  const byFmt = GOOGLE_ADS.reduce<Record<string,AdDef[]>>((a,ad) => { const k=FORMAT_LABEL[ad.id]??'Other'; (a[k]??=(a[k]=[])).push(ad); return a }, {})
+  const scaleFor = (ad: AdDef) => Math.min((window.innerHeight*0.9)/ad.h, (window.innerWidth*0.9)/ad.w)
 
   return (
     <section style={{ marginTop: 56 }}>
       {open && (
-        <div onClick={() => setOpen(null)} style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div onClick={e => e.stopPropagation()} style={{ transform: `scale(${scaleFor(open)})`, transformOrigin: 'center', pointerEvents: 'none' }}>
-            <open.El />
-          </div>
-          <button onClick={() => setOpen(null)} style={{ position: 'fixed', top: 20, right: 20, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '50%', width: 40, height: 40, color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
-          <div style={{ position: 'fixed', bottom: 20, color: '#444', fontSize: 12 }}>Klik di mana saja untuk tutup · {open.format}</div>
+        <div onClick={() => setOpen(null)} style={{ position:'fixed',inset:0,zIndex:9999,background:'rgba(0,0,0,0.95)',display:'flex',alignItems:'center',justifyContent:'center' }}>
+          <div onClick={e=>e.stopPropagation()} style={{ transform:`scale(${scaleFor(open)})`,transformOrigin:'center',pointerEvents:'none' }}><open.El /></div>
+          <button onClick={() => setOpen(null)} style={{ position:'fixed',top:20,right:20,background:'rgba(255,255,255,0.08)',border:'1px solid rgba(255,255,255,0.15)',borderRadius:'50%',width:40,height:40,color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center' }}>✕</button>
+          <div style={{ position:'fixed',bottom:20,color:'#444',fontSize:12 }}>Klik di mana saja untuk tutup · {open.format}</div>
         </div>
       )}
-
-      <div style={{ marginBottom: 28 }}>
-        <h2 style={{ color: '#fff', fontSize: 20, fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 4 }}>Google Ads — Static Images</h2>
-        <p style={{ color: '#555', fontSize: 13 }}>10 image creatives · 4 formats</p>
+      <div style={{ marginBottom:28 }}>
+        <h2 style={{ color:'#fff',fontSize:20,fontWeight:800,letterSpacing:'-0.02em',marginBottom:4 }}>Google Ads — Static Images</h2>
+        <p style={{ color:'#555',fontSize:13 }}>10 image creatives · 4 formats · Brand awareness</p>
       </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-        {FORMAT_GROUPS.map(fmt => {
-          const ads = byFormat[fmt] ?? []
-          if (!ads.length) return null
+      <div style={{ display:'flex',flexDirection:'column',gap:40 }}>
+        {FORMAT_ORDER.map(fmt => {
+          const ads = byFmt[fmt]??[]; if (!ads.length) return null
           return (
             <div key={fmt}>
-              <div style={{ color: 'var(--signal)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16, paddingBottom: 10, borderBottom: '1px solid #1f1f1f' }}>
+              <div style={{ color:'var(--signal)',fontSize:11,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:16,paddingBottom:10,borderBottom:'1px solid #1f1f1f' }}>
                 {fmt} · {ads[0].format.split(' ')[1]}
               </div>
-              <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
-                {ads.map(ad => {
-                  const scale = PREVIEW_W / ad.w
-                  const ph = ad.h * scale
-                  return (
-                    <div key={ad.id}>
-                      <div style={{ width: PREVIEW_W, height: ph, overflow: 'hidden', borderRadius: 8, position: 'relative', cursor: 'pointer' }} onClick={() => setOpen(ad)}>
-                        <div style={{ width: ad.w, height: ad.h, transform: `scale(${scale})`, transformOrigin: 'top left', position: 'absolute' }}>
-                          <ad.El />
-                        </div>
-                      </div>
-                      <div style={{ marginTop: 8, color: '#555', fontSize: 11, textAlign: 'center' }}>{ad.label.split(' — ')[1]}</div>
-                      <button onClick={() => setOpen(ad)} style={{ marginTop: 6, width: PREVIEW_W, background: SURF2, border: `1px solid ${BORDER}`, borderRadius: 8, color: '#aaa', fontSize: 12, fontWeight: 600, padding: '7px 0', cursor: 'pointer' }}>
-                        Layar Penuh
-                      </button>
+              <div style={{ display:'flex',gap:20,flexWrap:'wrap' }}>
+                {ads.map(ad => { const s=PREVIEW_W/ad.w; return (
+                  <div key={ad.id}>
+                    <div onClick={() => setOpen(ad)} style={{ width:PREVIEW_W,height:ad.h*s,overflow:'hidden',borderRadius:8,cursor:'pointer',position:'relative' }}>
+                      <div style={{ width:ad.w,height:ad.h,transform:`scale(${s})`,transformOrigin:'top left',position:'absolute' }}><ad.El /></div>
                     </div>
-                  )
-                })}
+                    <div style={{ marginTop:8,color:'#555',fontSize:11,textAlign:'center' }}>{ad.label.split(' — ')[1]}</div>
+                    <button onClick={() => setOpen(ad)} style={{ marginTop:6,width:PREVIEW_W,background:'#161616',border:'1px solid #2a2a2a',borderRadius:8,color:'#aaa',fontSize:12,fontWeight:600,padding:'7px 0',cursor:'pointer' }}>Layar Penuh</button>
+                  </div>
+                )})}
               </div>
             </div>
           )
