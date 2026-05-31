@@ -391,7 +391,8 @@ function Ad10() {
 }
 
 // ── Catalog ──────────────────────────────────────────────────────────────────
-const ADS = [
+export type VideoDef = { id: string; n: number; cat: string; dur: number; El: React.FC }
+export const ADS: VideoDef[] = [
   { id: 'awareness',  n: 1,  cat: 'Awareness',          dur: A1.dur,  El: Ad1 },
   { id: 'education',  n: 2,  cat: 'Education',           dur: A2.dur,  El: Ad2 },
   { id: 'engagement', n: 3,  cat: 'Engagement',          dur: A3.dur,  El: Ad3 },
