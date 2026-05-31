@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { Profile, Registration } from '../types'
-import Logo from '../components/Logo'
 import Loader from '../components/Loader'
+import AdminLayout from '../components/AdminLayout'
 import ContentSection from '../components/ContentSection'
 import PosterSection from '../components/PosterSection'
 
@@ -94,16 +94,7 @@ export default function AdminPage() {
   if (loading) return <Loader />
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#e5e5e5' }}>
-      <div style={{ borderBottom: '1px solid #1f1f1f', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <span style={{ color: 'var(--spark)', fontSize: '13px', fontWeight: 600 }}>Admin</span>
-          <a href="/dashboard" style={{ color: '#666', fontSize: '13px', textDecoration: 'none' }}>Dashboard</a>
-          <button onClick={async () => { await supabase.auth.signOut(); navigate('/') }} style={{ background: 'none', border: '1px solid #2a2a2a', borderRadius: '8px', color: '#666', fontSize: '13px', padding: '6px 14px', cursor: 'pointer' }}>Keluar</button>
-        </div>
-      </div>
-
+    <AdminLayout>
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px' }}>
         <div style={{ marginBottom: '32px' }}>
           <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '10px' }}>Admin Panel</p>
@@ -214,6 +205,6 @@ export default function AdminPage() {
 
         <PosterSection />
       </div>
-    </div>
+    </AdminLayout>
   )
 }
