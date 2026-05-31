@@ -1,34 +1,34 @@
 const sessions = [
   {
-    week: 'Minggu 1 — Fondasi',
+    week: 'Minggu 1: Fondasi',
     items: [
       { n: '01', date: 'Kamis, 11 Juni 2026', title: 'React dan TypeScript dari awal', desc: 'Setup Vite, cara berpikir komponen, props, dan TypeScript yang dipakai sehari-hari di dunia kerja.' },
       { n: '02', date: 'Selasa, 16 Juni 2026', title: 'State, hooks, dan tampilan interaktif', desc: 'useState, useEffect, dan cara React merespons perubahan data. Fokus ke nalar, bukan hafalan sintaks.' },
     ],
   },
   {
-    week: 'Minggu 2 — Backend dengan Supabase',
+    week: 'Minggu 2: Backend dengan Supabase',
     items: [
       { n: '03', date: 'Kamis, 18 Juni 2026', title: 'Setup Supabase dan rancang database', desc: 'Buat project Supabase, rancang schema tabel sesuai kebutuhan proyek yang kamu pilih.' },
       { n: '04', date: 'Selasa, 23 Juni 2026', title: 'Sambungkan React ke database', desc: 'Fetch, insert, update, delete. Kamu kontrol semua data dari React langsung ke Supabase.' },
     ],
   },
   {
-    week: 'Minggu 3 — Auth dan AI masuk',
+    week: 'Minggu 3: Auth dan AI masuk',
     items: [
       { n: '05', date: 'Kamis, 25 Juni 2026', title: 'Login dan register pakai Supabase Auth', desc: 'Sistem autentikasi yang aman, protected routes, dan manajemen sesi pengguna.' },
       { n: '06', date: 'Selasa, 30 Juni 2026', title: 'Kenalan dengan Claude Code', desc: 'Setelah paham fondasi, kita mulai pakai AI sebagai pair programmer. Cara kerja, cara prompt yang efektif, dan cara review kode yang digenerate AI.' },
     ],
   },
   {
-    week: 'Minggu 4 — Fitur lengkap',
+    week: 'Minggu 4: Fitur lengkap',
     items: [
       { n: '07', date: 'Kamis, 2 Juli 2026', title: 'Form, booking, dan alur pembayaran', desc: 'Tangani form booking, validasi TypeScript, dan alur pembayaran transfer dengan halaman konfirmasi untuk owner.' },
       { n: '08', date: 'Selasa, 7 Juli 2026', title: 'Keamanan di level database', desc: 'Row Level Security di Supabase. Kita tulis dulu secara manual, lalu lihat bagaimana AI bisa bantu debug dan iterasi lebih cepat.' },
     ],
   },
   {
-    week: 'Minggu 5 — Deploy dan polish',
+    week: 'Minggu 5: Deploy dan polish',
     items: [
       { n: '09', date: 'Jumat, 10 Juli 2026', title: 'Polish UI dan problem solving dengan AI', desc: 'Perbaiki tampilan, tangani edge case, dan pelajari cara pakai AI untuk problem solving bukan cuma generate kode.' },
       { n: '10', date: 'Selasa, 14 Juli 2026', title: 'Deploy, custom domain, dan review', desc: 'Aplikasi live. Setting custom domain sendiri. Review proyek bersama dan roadmap belajar selanjutnya sebagai developer di era AI.' },

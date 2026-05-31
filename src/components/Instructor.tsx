@@ -42,7 +42,7 @@ export default function Instructor() {
 
           <p style={{ color: '#a3a3a3', fontSize: '16px', lineHeight: 1.75, marginBottom: '16px' }}>
             Saya Hamid, engineer yang kerja remote dari Indonesia buat perusahaan teknologi di Australia.
-            Delapan tahun nulis kode, dari startup lokal sampai sistem enterprise yang dipakai jutaan pengguna di puluhan negara.
+            Dalam delapan tahun pengalaman kerja, dari startup lokal sampai sistem enterprise yang dipakai jutaan pengguna di puluhan negara.
           </p>
           <p style={{ color: '#a3a3a3', fontSize: '16px', lineHeight: 1.75, marginBottom: '32px' }}>
             Stack yang kita pakai di bootcamp ini persis sama dengan yang saya pakai setiap hari di kerjaan.
@@ -68,9 +68,9 @@ export default function Instructor() {
           <p style={{ color: '#666', fontSize: '13px', marginBottom: '12px' }}>Pengalaman industri</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
             {[
-              { label: 'Hospitality tech global', note: 'Australia · 3 benua' },
-              { label: 'Enterprise HR SaaS', note: '150+ negara' },
-              { label: 'Telekomunikasi Fortune 500', note: 'Indonesia' },
+              { label: 'Global Hospitality SaaS Company', note: 'Australia · 3 benua' },
+              { label: 'Enterprise HR SaaS Company', note: 'Singapore · 150+ negara' },
+              { label: 'Startup Initiative BUMN', note: 'Indonesia' },
             ].map((c) => (
               <div key={c.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '14px 18px', gap: '12px' }}>
                 <span style={{ color: '#e5e5e5', fontWeight: 600, fontSize: '14px' }}>{c.label}</span>
@@ -80,7 +80,7 @@ export default function Instructor() {
           </div>
 
           <div style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '12px', padding: '20px' }}>
-            <p style={{ color: '#666', fontSize: '12px', marginBottom: '12px' }}>Project live, dibangun pakai stack yang sama</p>
+            <p style={{ color: '#666', fontSize: '12px', marginBottom: '12px' }}>Project live, di-develop pakai stack yang sama dengan yang akan kita pelajari</p>
             <a href="https://cloudexamlab.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', textDecoration: 'none', marginBottom: '12px' }}>
               <div>
                 <p style={{ color: '#fff', fontWeight: 600 }}>Cloud Exam Lab</p>

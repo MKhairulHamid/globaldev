@@ -24,6 +24,7 @@ export default function Pricing() {
         <div>
           <div style={{ marginBottom: '32px' }}>
             <p style={{ color: '#666', fontSize: '13px', marginBottom: '8px' }}>Biaya ikut bootcamp</p>
+            <p style={{ color: '#555', fontSize: '18px', textDecoration: 'line-through', marginBottom: '4px' }}>Rp 1.500.000</p>
             <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '52px', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>Rp 899.000</p>
             <p style={{ color: '#666', fontSize: '13px', marginTop: '8px' }}>Mulai 11 Juni 2026 · Hanya 30 kursi</p>
           </div>

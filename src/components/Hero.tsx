@@ -34,9 +34,9 @@ export default function Hero() {
       </h1>
 
       <p style={{ color: '#a3a3a3', fontSize: '18px', maxWidth: '560px', lineHeight: 1.75, marginBottom: '40px' }}>
-        10 sesi live bareng engineer yang sehari-hari kerja remote buat
-        perusahaan teknologi di Australia. Kita bangun satu aplikasi full stack
-        dari nol sampai online, pakai React, TypeScript, Supabase, dan dibantu Claude Code.
+        10 sesi live bersama Software Engineer dari perusahaan Australia.
+        Kita bangun satu aplikasi full stack dari nol sampai online, pakai
+        React, TypeScript, Supabase, dan dibantu Claude Code.
       </p>
 
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>

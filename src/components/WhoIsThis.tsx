@@ -20,7 +20,7 @@ const profiles: { Icon: LucideIcon; label: string; desc: string }[] = [
   { Icon: GraduationCap, label: 'Fresh grad IT', desc: 'Portofolio siap kerja' },
   { Icon: Camera, label: 'Fotografer', desc: 'Booking sesi foto online' },
   { Icon: BookOpen, label: 'Tutor privat', desc: 'Platform jadwal & bayar' },
-  { Icon: ShoppingBag, label: 'UMKM / Home baker', desc: 'Katalog & form order' },
+  { Icon: ShoppingBag, label: 'Pengusaha Online', desc: 'Katalog & form order' },
   { Icon: Stethoscope, label: 'Tenaga medis / klinik', desc: 'Sistem reservasi pasien' },
   { Icon: Ticket, label: 'Event organizer', desc: 'Pendaftaran & tiket' },
 ]
@@ -34,7 +34,7 @@ export default function WhoIsThis() {
           Pas buat kamu yang...
         </h2>
         <p style={{ color: '#a3a3a3', fontSize: '16px', maxWidth: '540px', lineHeight: 1.7 }}>
-          Tidak harus dari IT. Kalau kamu punya kebutuhan nyata untuk dibuatkan web, justru lebih baik — kamu tahu persis apa yang mau dibangun.
+          Tidak harus punya background IT. Kalau kamu punya kebutuhan nyata untuk dibuatkan web, justru lebih baik karena kamu tahu persis apa yang mau dibangun.
         </p>
       </div>
 

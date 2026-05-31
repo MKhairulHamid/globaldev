@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     q: 'Cara bayarnya gimana?',
-    a: 'Transfer bank ke BCA, Mandiri, GoPay, atau OVO. Detail rekening dan langkah lengkapnya kita kirim begitu kamu isi form pendaftaran.',
+    a: 'Transfer bank ke BCA Syariah. Detail rekening dan langkah lengkapnya kita kirim begitu kamu isi form pendaftaran.',
   },
   {
     q: 'Kalau ada sesi yang tidak bisa saya ikuti?',
@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'Perlu nyiapin software apa saja?',
-    a: 'Node.js, VS Code, dan browser. Semuanya gratis. Panduan install lengkapnya kita kirim seminggu sebelum sesi pertama mulai.',
+    a: 'Node.js, VS Code, dan browser. Semuanya gratis. Panduan install lengkapnya kita kirim sebelum sesi pertama mulai.',
   },
   {
     q: 'Ada garansi kerja tidak?',

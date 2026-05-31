@@ -22,16 +22,76 @@ const SCHEDULE = [
   { n: '10', date: 'Selasa, 14 Juli 2026' },
 ]
 
+const SESSION_DATES: Record<string, string> = {
+  '2026-06-11': '01', '2026-06-16': '02', '2026-06-18': '03',
+  '2026-06-23': '04', '2026-06-25': '05', '2026-06-30': '06',
+  '2026-07-02': '07', '2026-07-07': '08', '2026-07-10': '09', '2026-07-14': '10',
+}
+
+const DAY_LABELS = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
+
+function MiniCalendar({ year, month, label }: { year: number; month: number; label: string }) {
+  const daysInMonth = new Date(year, month, 0).getDate()
+  // getDay() returns 0=Sun..6=Sat; convert to Mon-first (Mon=0..Sun=6)
+  const rawFirst = new Date(year, month - 1, 1).getDay()
+  const startOffset = (rawFirst + 6) % 7
+
+  const cells: (number | null)[] = [
+    ...Array(startOffset).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ]
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  return (
+    <div>
+      <p style={{ color: '#888', fontSize: '11px', fontWeight: 700, marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</p>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '3px' }}>
+        {DAY_LABELS.map(d => (
+          <div key={d} style={{ textAlign: 'center', color: '#444', fontSize: '10px', fontWeight: 600, padding: '2px 0 6px', letterSpacing: '0.04em' }}>{d}</div>
+        ))}
+        {cells.map((day, i) => {
+          if (!day) return <div key={`e-${i}`} />
+          const key = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+          const sesi = SESSION_DATES[key]
+          return (
+            <div
+              key={key}
+              style={{
+                textAlign: 'center',
+                borderRadius: '7px',
+                padding: '5px 2px 4px',
+                background: sesi ? 'rgba(255,90,31,0.14)' : 'transparent',
+                border: sesi ? '1px solid rgba(255,90,31,0.35)' : '1px solid transparent',
+              }}
+            >
+              <span style={{ color: sesi ? 'var(--spark)' : '#4a4a4a', fontSize: '12px', fontWeight: sesi ? 700 : 400, display: 'block', lineHeight: 1 }}>{day}</span>
+              {sesi && (
+                <span style={{ color: 'rgba(255,90,31,0.7)', fontSize: '9px', fontWeight: 700, display: 'block', marginTop: '2px', lineHeight: 1 }}>{sesi}</span>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function ScheduleList() {
   return (
     <div style={{ background: '#161616', border: '1px solid #2a2a2a', borderRadius: '14px', padding: '20px 24px', textAlign: 'left', marginBottom: '24px' }}>
-      <p style={{ color: '#fff', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>Jadwal 10 sesi</p>
-      <p style={{ color: '#666', fontSize: '12px', marginBottom: '16px' }}>Setiap Selasa & Kamis, 19.30 WIB via Google Meet</p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <p style={{ color: '#fff', fontWeight: 700, fontSize: '14px', marginBottom: '2px' }}>Jadwal 10 sesi</p>
+      <p style={{ color: '#666', fontSize: '12px', marginBottom: '20px' }}>Setiap Selasa &amp; Kamis, 19.30 WIB via Google Meet</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+        <MiniCalendar year={2026} month={6} label="Juni 2026" />
+        <MiniCalendar year={2026} month={7} label="Juli 2026" />
+      </div>
+
+      <div style={{ borderTop: '1px solid #1f1f1f', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {SCHEDULE.map(s => (
-          <div key={s.n} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1f1f1f', paddingBottom: '8px' }}>
-            <span style={{ color: '#666', fontSize: '12px', fontFamily: 'monospace' }}>Sesi {s.n}</span>
-            <span style={{ color: '#d4d4d4', fontSize: '13px' }}>{s.date} · 19.30</span>
+          <div key={s.n} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ color: '#555', fontSize: '12px', fontFamily: 'monospace' }}>Sesi {s.n}</span>
+            <span style={{ color: '#c3c3c3', fontSize: '13px' }}>{s.date} · 19.30 WIB</span>
           </div>
         ))}
       </div>

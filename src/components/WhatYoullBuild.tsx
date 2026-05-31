@@ -9,10 +9,10 @@ const features: Feature[] = [
   { Icon: AppWindow, title: 'Landing page bisnis', desc: 'Halaman publik berisi profil, daftar layanan, harga, dan kontak.' },
   { Icon: ShieldCheck, title: 'Autentikasi', desc: 'Owner login, customer register dan login dengan Supabase Auth.' },
   { Icon: Users, title: 'Roles', desc: 'Owner punya akses penuh ke dashboard. Customer bisa booking dan lihat riwayat.' },
-  { Icon: CalendarCheck, title: 'Booking & order', desc: 'Customer pilih layanan, isi form, pilih jadwal — tersimpan ke database.' },
+  { Icon: CalendarCheck, title: 'Booking & order', desc: 'Customer pilih layanan, isi form, dan pilih jadwal. Semua tersimpan langsung ke database.' },
   { Icon: CreditCard, title: 'Pembayaran transfer', desc: 'Customer dapat instruksi bayar. Owner konfirmasi manual lewat dashboard.' },
   { Icon: LayoutDashboard, title: 'Owner dashboard', desc: 'Lihat semua booking masuk, konfirmasi atau tolak, kelola layanan.' },
-  { Icon: Globe, title: 'Custom domain', desc: 'Belajar setting domain sendiri — kamu yang beli, kita yang ajarin cara pasangnya.' },
+  { Icon: Globe, title: 'Custom domain', desc: 'Belajar setting domain sendiri. Kamu yang beli, kita yang ajarin cara pasangnya.' },
   // The AI feature is the product's signature angle — flagged with the Spark accent.
   { Icon: Sparkles, title: 'Dibantu Claude Code', desc: 'Mulai sesi 6, kita pakai AI untuk mempercepat tanpa kehilangan pemahaman.', accent: true },
 ]
