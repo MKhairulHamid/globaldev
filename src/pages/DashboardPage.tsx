@@ -301,6 +301,10 @@ export default function DashboardPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#e5e5e5' }}>
+      <style>{`
+        .dash-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        @media (max-width: 600px) { .dash-two-col { grid-template-columns: 1fr; } }
+      `}</style>
       {/* Nav */}
       <div style={{ borderBottom: '1px solid #1f1f1f', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
@@ -386,7 +390,7 @@ export default function DashboardPage() {
               <p style={{ color: '#666', fontSize: '14px' }}>Profil sudah lengkap. Lanjutkan ke pembayaran, atau cek dulu kesiapan skill kamu.</p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div className="dash-two-col">
 
               {/* Skill Map Card */}
               <div style={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column' }}>

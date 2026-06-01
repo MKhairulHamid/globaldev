@@ -5,6 +5,20 @@ import Logo from '../components/Logo'
 type Background = 'it_fresh_grad' | 'professional_non_it' | 'other'
 type Step = 1 | 2 | 'done'
 
+function validatePhone(value: string): string | null {
+  const digits = value.replace(/\D/g, '')
+  const normalized = digits.startsWith('62') ? '0' + digits.slice(2) : digits
+  if (!normalized.startsWith('08')) return 'Nomor WhatsApp harus diawali 08 atau +62'
+  if (normalized.length < 10 || normalized.length > 13) return 'Nomor WhatsApp harus 10–13 digit'
+  return null
+}
+
+function validateEmail(value: string): string | null {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())
+    ? null
+    : 'Format email tidak valid'
+}
+
 const BG_OPTIONS: { value: Background; label: string }[] = [
   { value: 'it_fresh_grad', label: 'Fresh grad IT' },
   { value: 'professional_non_it', label: 'Profesional non-IT' },
@@ -26,10 +40,12 @@ export default function RegisterPage() {
 
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
+  const [phoneError, setPhoneError] = useState<string | null>(null)
   const [background, setBackground] = useState<Background | null>(null)
   const [occupation, setOccupation] = useState('')
   const [goals, setGoals] = useState('')
   const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState<string | null>(null)
   const [password, setPassword] = useState('')
   const [leadId, setLeadId] = useState<string | null>(null)
 
@@ -40,7 +56,9 @@ export default function RegisterPage() {
     e.preventDefault()
     setError(null)
     if (!fullName.trim()) { setError('Nama wajib diisi'); return }
-    if (phone.replace(/\D/g, '').length < 8) { setError('Nomor WhatsApp tidak valid'); return }
+    const phoneErr = validatePhone(phone)
+    setPhoneError(phoneErr)
+    if (phoneErr) return
     if (!background) { setError('Pilih latar belakangmu'); return }
     if (goals.trim().length < 3) { setError('Ceritakan tujuanmu (min. 3 karakter)'); return }
 
@@ -79,7 +97,9 @@ export default function RegisterPage() {
   async function handleEmailSignup(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('Format email tidak valid'); return }
+    const emailErr = validateEmail(email)
+    setEmailError(emailErr)
+    if (emailErr) return
     if (password.length < 8) { setError('Password minimal 8 karakter'); return }
 
     setLoading(true)
@@ -318,11 +338,16 @@ export default function RegisterPage() {
 
                 <div>
                   <label style={lbl}>Nomor WhatsApp</label>
-                  <input className="reg-inp" style={inp} type="tel"
+                  <input className="reg-inp"
+                    style={{ ...inp, borderColor: phoneError ? 'rgba(239,68,68,0.5)' : undefined }}
+                    type="tel"
                     placeholder="08xx-xxxx-xxxx" value={phone}
-                    onChange={e => setPhone(e.target.value)}
+                    onChange={e => { setPhone(e.target.value); if (phoneError) setPhoneError(validatePhone(e.target.value)) }}
+                    onBlur={e => setPhoneError(validatePhone(e.target.value))}
                     autoComplete="tel" />
-                  <p style={{ fontSize: '12px', color: '#444', marginTop: '6px' }}>Hanya untuk informasi penting tentang kelas.</p>
+                  {phoneError
+                    ? <p style={{ fontSize: '12px', color: '#f87171', marginTop: '6px' }}>{phoneError}</p>
+                    : <p style={{ fontSize: '12px', color: '#444', marginTop: '6px' }}>Hanya untuk informasi penting tentang kelas.</p>}
                 </div>
 
                 <div>
@@ -427,10 +452,14 @@ export default function RegisterPage() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div>
                     <label style={lbl}>Email</label>
-                    <input className="reg-inp" style={inp} type="email"
+                    <input className="reg-inp"
+                      style={{ ...inp, borderColor: emailError ? 'rgba(239,68,68,0.5)' : undefined }}
+                      type="email"
                       placeholder="kamu@email.com" value={email}
-                      onChange={e => setEmail(e.target.value)}
+                      onChange={e => { setEmail(e.target.value); if (emailError) setEmailError(validateEmail(e.target.value)) }}
+                      onBlur={e => setEmailError(validateEmail(e.target.value))}
                       autoComplete="email" autoFocus />
+                    {emailError && <p style={{ fontSize: '12px', color: '#f87171', marginTop: '6px' }}>{emailError}</p>}
                   </div>
                   <div>
                     <label style={lbl}>Password</label>

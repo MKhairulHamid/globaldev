@@ -6,7 +6,7 @@ import Loader from '../components/Loader'
 import AdminLayout from '../components/AdminLayout'
 
 const WA_MESSAGE = encodeURIComponent(
-  'Halo! Ini materi gratis dari Global Developer Academy yang kamu minta.\n\n' +
+  'Halo! Ini materi gratis dari Global Developer Academy.\n\n' +
   '📚 Panduan Menilai Kesiapan Belajar Full Stack\n' +
   'https://globaldev.sbs/download\n\n' +
   'Daftar gratis di link itu, langsung bisa download. Kalau ada pertanyaan, balas di sini ya! 🙏'

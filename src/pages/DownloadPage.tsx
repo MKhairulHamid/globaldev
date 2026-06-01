@@ -11,6 +11,7 @@ const MATERIAL_TITLE = 'Panduan Menilai Kesiapan Belajar Full Stack'
 export default function DownloadPage() {
   const [status, setStatus] = useState<'checking' | 'unauthenticated' | 'downloading' | 'done' | 'error'>('checking')
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
+  const [signedUrl, setSignedUrl] = useState<string | null>(null)
 
   useEffect(() => {
     async function run() {
@@ -35,7 +36,7 @@ export default function DownloadPage() {
         material_slug: MATERIAL_SLUG,
       })
 
-      window.open(data.signedUrl, '_blank')
+      setSignedUrl(data.signedUrl)
       setStatus('done')
     }
     run()
@@ -88,17 +89,32 @@ export default function DownloadPage() {
           <>
             <div style={{ fontSize: '48px', marginBottom: '24px' }}>✅</div>
             <h1 style={{ color: '#fff', fontSize: '22px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '12px' }}>
-              Download dimulai!
+              File siap diunduh!
             </h1>
-            <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '32px' }}>
-              File sudah terbuka di tab baru. Kalau belum muncul, cek pengaturan pop-up browser kamu.
+            <p style={{ color: '#a3a3a3', fontSize: '15px', lineHeight: 1.7, marginBottom: '28px' }}>
+              Klik tombol di bawah untuk mengunduh materinya.
             </p>
+            {signedUrl && (
+              <a
+                href={signedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block', background: 'var(--spark)', color: '#fff',
+                  fontWeight: 700, fontSize: '15px', padding: '14px 32px',
+                  borderRadius: '12px', textDecoration: 'none', marginBottom: '16px',
+                }}
+              >
+                ⬇ Download PDF
+              </a>
+            )}
+            <br />
             <a
               href={import.meta.env.BASE_URL}
               style={{
-                display: 'inline-block', background: '#161616', color: '#a3a3a3',
-                fontWeight: 600, fontSize: '14px', padding: '12px 24px',
-                borderRadius: '10px', textDecoration: 'none', border: '1px solid #2a2a2a',
+                display: 'inline-block', color: '#555',
+                fontWeight: 500, fontSize: '13px', padding: '10px 0',
+                textDecoration: 'none',
               }}
             >
               ← Kembali ke halaman utama
