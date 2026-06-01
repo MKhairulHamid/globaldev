@@ -7,6 +7,7 @@ export interface Profile {
   occupation: string | null
   goals: string | null
   role: 'student' | 'admin'
+  learning_snapshot: Record<string, unknown> | null
   created_at: string
   updated_at: string
 }

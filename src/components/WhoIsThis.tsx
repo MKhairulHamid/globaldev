@@ -1,5 +1,5 @@
 import {
-  Code2, GraduationCap, Terminal, Zap,
+  Code2, GraduationCap, Terminal, Zap, Briefcase,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -13,6 +13,11 @@ const personas: { Icon: LucideIcon; label: string; desc: string }[] = [
     Icon: GraduationCap,
     label: 'Lulus IT, tapi belum lancar ngoding',
     desc: 'Punya gelar IT tapi materi coding di kuliah belum banyak dipraktikkan. Mau mulai dari awal dengan proyek yang nyata.',
+  },
+  {
+    Icon: Briefcase,
+    label: 'Sudah apply kerja, belum ada yang cocok',
+    desc: 'Sudah kirim lamaran, mungkin sudah beberapa kali interview, tapi belum ada yang jalan. Kamu butuh satu hal konkret yang membedakanmu dari kandidat lain dengan CV yang mirip.',
   },
   {
     Icon: Terminal,
@@ -31,7 +36,7 @@ const forYou = [
   'Lulus IT tapi coding belum banyak dipraktikkan dan mau mulai dari awal dengan serius',
   'Belajar coding sendiri dan sudah paham HTML, CSS, JS dasar, tapi belum pernah menyatukan semuanya jadi satu aplikasi utuh',
   'Terbiasa vibe coding dengan AI, tapi masih sering bingung sendiri kalau ada error atau hasilnya berantakan',
-  'Mau keluar dari bootcamp ini dengan satu aplikasi nyata yang langsung bisa dipakai atau masuk portofolio',
+  'Keluar dengan satu aplikasi live yang bisa kamu tunjukkan di interview, di LinkedIn, atau ke klien — bukan mockup, bukan kode di laptop',
   'Bisa hadir dua kali seminggu selama lima minggu',
 ]
 

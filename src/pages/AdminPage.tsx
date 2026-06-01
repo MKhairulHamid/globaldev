@@ -5,6 +5,19 @@ import type { Profile, Registration } from '../types'
 import Loader from '../components/Loader'
 import AdminLayout from '../components/AdminLayout'
 
+const WA_MESSAGE = encodeURIComponent(
+  'Halo! Ini materi gratis dari Global Developer Academy yang kamu minta.\n\n' +
+  '📚 Panduan Menilai Kesiapan Belajar Full Stack\n' +
+  'https://mkhairulhamid.github.io/globaldev/download\n\n' +
+  'Daftar gratis di link itu, langsung bisa download. Kalau ada pertanyaan, balas di sini ya! 🙏'
+)
+
+interface WaLead {
+  id: string
+  phone: string
+  created_at: string
+}
+
 type StatusFilter = 'all' | Registration['payment_status']
 
 interface Row extends Registration {
@@ -40,6 +53,8 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [rejectNotes, setRejectNotes] = useState<Record<string, string>>({})
   const [processing, setProcessing] = useState<string | null>(null)
+  const [waLeads, setWaLeads] = useState<WaLead[]>([])
+  const [activeTab, setActiveTab] = useState<'registrations' | 'wa_leads'>('registrations')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -51,6 +66,8 @@ export default function AdminPage() {
       if (!profile || profile.role !== 'admin') { navigate('/dashboard'); return }
 
       await fetchRows()
+      const { data: wl } = await supabase.from('wa_leads').select('*').order('created_at', { ascending: false })
+      if (wl) setWaLeads(wl as WaLead[])
       setLoading(false)
     }
     load()
@@ -101,8 +118,61 @@ export default function AdminPage() {
             <span style={{ fontSize: '13px', background: 'rgba(123,108,255,0.1)', color: 'var(--signal)', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(123,108,255,0.25)' }}>{rows.length} terdaftar</span>
             <span style={{ fontSize: '13px', background: 'rgba(251,191,36,0.1)', color: '#fbbf24', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(251,191,36,0.25)' }}>{counts.waiting_confirmation} menunggu konfirmasi</span>
             <span style={{ fontSize: '13px', background: 'rgba(74,222,128,0.08)', color: '#4ade80', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(74,222,128,0.25)' }}>{counts.confirmed} terkonfirmasi</span>
+            <span style={{ fontSize: '13px', background: 'rgba(37,211,102,0.08)', color: '#25d366', padding: '4px 12px', borderRadius: '999px', border: '1px solid rgba(37,211,102,0.25)' }}>{waLeads.length} WA leads</span>
           </div>
         </div>
+
+        {/* Main tabs */}
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '28px' }}>
+          {(['registrations', 'wa_leads'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                background: activeTab === tab ? 'var(--spark)' : '#161616',
+                border: `1px solid ${activeTab === tab ? 'var(--spark)' : '#2a2a2a'}`,
+                borderRadius: '8px', color: activeTab === tab ? '#fff' : '#888',
+                fontSize: '13px', fontWeight: activeTab === tab ? 700 : 400,
+                padding: '6px 16px', cursor: 'pointer',
+              }}
+            >
+              {tab === 'registrations' ? `Pendaftaran (${rows.length})` : `WA Leads (${waLeads.length})`}
+            </button>
+          ))}
+        </div>
+
+        {/* WA Leads Tab */}
+        {activeTab === 'wa_leads' && (
+          <div>
+            <p style={{ color: '#666', fontSize: '13px', marginBottom: '20px' }}>
+              Klik "Kirim WA" untuk membuka WhatsApp dengan pesan yang sudah terisi otomatis.
+            </p>
+            {waLeads.length === 0 && <p style={{ color: '#555', fontSize: '14px' }}>Belum ada WA lead.</p>}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {waLeads.map(lead => (
+                <div key={lead.id} style={{ background: '#111', border: '1px solid #1f1f1f', borderRadius: '12px', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                  <div>
+                    <p style={{ color: '#fff', fontWeight: 600, fontSize: '15px', marginBottom: '4px' }}>📱 {lead.phone}</p>
+                    <p style={{ color: '#555', fontSize: '12px' }}>
+                      {new Date(lead.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                  </div>
+                  <a
+                    href={`https://wa.me/${lead.phone.replace(/^0/, '62').replace(/\D/g, '')}?text=${WA_MESSAGE}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#25d366', color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '13px', padding: '8px 16px', borderRadius: '8px', flexShrink: 0 }}
+                  >
+                    Kirim WA ↗
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Registrations Tab */}
+        {activeTab === 'registrations' && <>
 
         {/* Filter tabs */}
         <div style={{ display: 'flex', gap: '8px', marginBottom: '28px', flexWrap: 'wrap' }}>
@@ -198,6 +268,8 @@ export default function AdminPage() {
             </div>
           ))}
         </div>
+
+        </>}
 
       </div>
     </AdminLayout>

@@ -6,7 +6,7 @@ const includes = [
   'Source code lengkap dari proyek yang kamu bangun',
   'Rekaman semua sesi, buat jaga-jaga kalau ada yang kelewat',
   'Code review dan feedback langsung dari saya',
-  'Sertifikat digital dari Global Developer Academy, lengkap dengan certificate link yang bisa langsung ditambahkan ke profil LinkedIn sebagai kredensial',
+  'Sertifikat digital dengan link verifikasi untuk LinkedIn — pelengkap dari aplikasi yang sudah kamu bangun dan bisa langsung dicek siapapun',
 ]
 
 export default function Pricing() {

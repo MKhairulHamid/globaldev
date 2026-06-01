@@ -18,6 +18,8 @@ import DashboardPage from './pages/DashboardPage'
 import AdminPage from './pages/AdminPage'
 import AdminContentPage from './pages/AdminContentPage'
 import PosterSection from './components/PosterSection'
+import FreeContentSection from './components/FreeContentSection'
+import DownloadPage from './pages/DownloadPage'
 
 function LandingPage() {
   const navigate = useNavigate()
@@ -48,9 +50,10 @@ function LandingPage() {
         <SectionTracker name="what_youll_build" index={3} id="what-youll-build"><WhatYoullBuild /></SectionTracker>
         <SectionTracker name="curriculum" index={4} id="curriculum"><Curriculum /></SectionTracker>
         <SectionTracker name="who_is_this" index={5} id="who-is-this"><WhoIsThis /></SectionTracker>
-        <SectionTracker name="pricing" index={6} id="pricing"><Pricing /></SectionTracker>
-        <SectionTracker name="faq" index={7} id="faq"><FAQ /></SectionTracker>
-        <SectionTracker name="footer" index={8} id="footer"><Footer /></SectionTracker>
+        <SectionTracker name="free_content" index={6} id="free-content"><FreeContentSection /></SectionTracker>
+        <SectionTracker name="pricing" index={7} id="pricing"><Pricing /></SectionTracker>
+        <SectionTracker name="faq" index={8} id="faq"><FAQ /></SectionTracker>
+        <SectionTracker name="footer" index={9} id="footer"><Footer /></SectionTracker>
       </div>
       <WhatsAppButton />
     </div>
@@ -67,6 +70,7 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/content" element={<AdminContentPage />} />
+        <Route path="/download" element={<DownloadPage />} />
         <Route path="/__poster" element={<div style={{ minHeight: '100vh', background: '#0a0a0a', padding: 40 }}><PosterSection /></div>} />
       </Routes>
     </BrowserRouter>

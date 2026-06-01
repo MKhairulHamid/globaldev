@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { Profile, Registration } from '../types'
@@ -29,6 +29,36 @@ const SESSION_DATES: Record<string, string> = {
 }
 
 const DAY_LABELS = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
+
+const SKILLS = [
+  { key: 'react', label: 'React & komponen UI' },
+  { key: 'typescript', label: 'TypeScript' },
+  { key: 'css', label: 'CSS & tampilan responsif' },
+  { key: 'database', label: 'Database & SQL' },
+  { key: 'api', label: 'Ambil data dari API' },
+  { key: 'auth', label: 'Sistem login & register' },
+  { key: 'git', label: 'Git & version control' },
+  { key: 'deploy', label: 'Deploy ke internet' },
+  { key: 'fullapp', label: 'Bangun app dari nol' },
+  { key: 'ai', label: 'Coding dibantu AI' },
+] as const
+
+const LEVEL_LABELS = ['Belum tahu', 'Pernah dengar', 'Sudah coba', 'Bisa pakai']
+
+function generateSnapshot(answers: Record<string, number>): string {
+  const familiarCount = Object.values(answers).filter(v => v >= 2).length
+  const gap = SKILLS.length - familiarCount
+  if (familiarCount <= 2) {
+    return 'Kamu ada di titik awal — dan itu wajar. Bootcamp ini dimulai dari fondasi, jadi kamu tidak akan tertinggal. Semua skill yang dicari employer di daftar ini akan kita cover dalam 10 sesi.'
+  }
+  if (familiarCount <= 5) {
+    return `Kamu sudah punya beberapa fondasi. Ada ${gap} skill di daftar ini yang belum familiar — dan itu tepat yang akan kita bangun bersama. Kamu akan keluar dengan semua skill ini terpraktikkan dalam satu aplikasi nyata.`
+  }
+  if (familiarCount <= 8) {
+    return 'Kamu sudah cukup kenal sebagian besar skill ini. Yang kemungkinan belum pernah kamu lakukan adalah menyatukannya jadi satu aplikasi yang selesai dan live. Itu yang akan kita selesaikan bersama.'
+  }
+  return 'Stack ini sudah familiar buatmu. Bootcamp ini bisa membantu kamu menghasilkan satu portofolio yang terstruktur — bukan cuma "pernah pakai", tapi "ini aplikasinya, bisa langsung dibuka siapapun".'
+}
 
 function MiniCalendar({ year, month, label }: { year: number; month: number; label: string }) {
   const daysInMonth = new Date(year, month, 0).getDate()
@@ -137,6 +167,8 @@ export default function DashboardPage() {
   const [saving, setSaving] = useState(false)
   const [confirming, setConfirming] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [skillAnswers, setSkillAnswers] = useState<Record<string, number>>({})
+  const [savingSkills, setSavingSkills] = useState(false)
   const navigate = useNavigate()
 
   // Form state
@@ -243,6 +275,17 @@ export default function DashboardPage() {
     navigate('/')
   }
 
+  const saveSkillMap = useCallback(async () => {
+    if (SKILLS.some(s => skillAnswers[s.key] === undefined)) return
+    setSavingSkills(true)
+    const snapshot_text = generateSnapshot(skillAnswers)
+    const familiar_count = Object.values(skillAnswers).filter(v => v >= 2).length
+    const payload = { skills: skillAnswers, snapshot_text, familiar_count }
+    const { error: err } = await supabase.from('profiles').update({ learning_snapshot: payload }).eq('id', profile!.id)
+    if (!err) setProfile(prev => prev ? { ...prev, learning_snapshot: payload } : prev)
+    setSavingSkills(false)
+  }, [skillAnswers, profile])
+
   const inp: React.CSSProperties = {
     width: '100%',
     background: '#161616',
@@ -334,18 +377,93 @@ export default function DashboardPage() {
           </>
         )}
 
-        {/* ── Step 2: Payment ── */}
+        {/* ── Step 2: Skill Map + Payment ── */}
         {profileComplete && !registration && (
           <>
-            <div style={{ marginBottom: '32px' }}>
+            <div style={{ marginBottom: '28px' }}>
               <p style={{ color: 'var(--signal)', fontSize: '12px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Langkah 2 dari 2</p>
               <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '8px' }}>Halo, {profile?.full_name?.split(' ')[0]} 👋</h1>
-              <p style={{ color: '#666', fontSize: '14px' }}>Profil sudah lengkap. Lanjutkan ke pembayaran untuk mengamankan tempat kamu.</p>
+              <p style={{ color: '#666', fontSize: '14px' }}>Profil sudah lengkap. Lanjutkan ke pembayaran, atau cek dulu kesiapan skill kamu.</p>
             </div>
-            {error && <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
-            <button onClick={proceedToPayment} disabled={saving} style={{ background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '10px', padding: '14px 32px', fontWeight: 700, fontSize: '15px', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}>
-              {saving ? 'Memproses...' : 'Lihat Detail Pembayaran →'}
-            </button>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+
+              {/* Skill Map Card */}
+              <div style={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+                {profile?.learning_snapshot ? (
+                  <>
+                    <p style={{ color: 'var(--signal)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>Skill readiness kamu</p>
+                    <p style={{ color: '#e5e5e5', fontSize: '13px', lineHeight: 1.7, marginBottom: '16px', flex: 1 }}>
+                      {(profile.learning_snapshot as { snapshot_text: string }).snapshot_text}
+                    </p>
+                    <p style={{ color: '#555', fontSize: '12px' }}>
+                      {(profile.learning_snapshot as { familiar_count: number }).familiar_count} dari {SKILLS.length} skill sudah familiar
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ color: 'var(--signal)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>Cek skill readiness kamu</p>
+                    <p style={{ color: '#888', fontSize: '13px', lineHeight: 1.6, marginBottom: '16px' }}>Pilih level kamu untuk tiap skill di bawah. Kita lihat kamu sudah sejauh mana.</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px', flex: 1 }}>
+                      {SKILLS.map(skill => (
+                        <div key={skill.key}>
+                          <p style={{ color: '#c3c3c3', fontSize: '12px', marginBottom: '6px' }}>{skill.label}</p>
+                          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                            {LEVEL_LABELS.map((label, level) => (
+                              <button
+                                key={level}
+                                onClick={() => setSkillAnswers(prev => ({ ...prev, [skill.key]: level }))}
+                                style={{
+                                  padding: '4px 10px', fontSize: '11px', borderRadius: '6px', cursor: 'pointer', border: '1px solid',
+                                  background: skillAnswers[skill.key] === level ? 'rgba(123,108,255,0.2)' : 'transparent',
+                                  borderColor: skillAnswers[skill.key] === level ? 'rgba(123,108,255,0.6)' : '#2a2a2a',
+                                  color: skillAnswers[skill.key] === level ? '#a89fff' : '#666',
+                                  fontWeight: skillAnswers[skill.key] === level ? 600 : 400,
+                                }}
+                              >
+                                {label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={saveSkillMap}
+                      disabled={savingSkills || SKILLS.some(s => skillAnswers[s.key] === undefined)}
+                      style={{
+                        background: 'rgba(123,108,255,0.15)', color: '#a89fff', border: '1px solid rgba(123,108,255,0.3)',
+                        borderRadius: '8px', padding: '10px', fontWeight: 600, fontSize: '13px', cursor: 'pointer',
+                        opacity: (savingSkills || SKILLS.some(s => skillAnswers[s.key] === undefined)) ? 0.5 : 1,
+                      }}
+                    >
+                      {savingSkills ? 'Menyimpan...' : 'Lihat hasilnya →'}
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Payment Card */}
+              <div style={{ background: '#111', border: '1px solid #2a2a2a', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
+                <p style={{ color: 'var(--spark)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>Amankan tempat kamu</p>
+                <p style={{ color: '#888', fontSize: '13px', lineHeight: 1.6, marginBottom: '8px', flex: 1 }}>
+                  Hanya 30 kursi tersedia. Tempat dikonfirmasi setelah pembayaran diterima.
+                </p>
+                <div style={{ background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.2)', borderRadius: '10px', padding: '12px 14px', marginBottom: '16px' }}>
+                  <p style={{ color: '#666', fontSize: '11px', marginBottom: '4px' }}>Mulai</p>
+                  <p style={{ color: '#fff', fontWeight: 700, fontSize: '14px' }}>Kamis, 11 Juni 2026</p>
+                  <p style={{ color: '#666', fontSize: '12px' }}>10 sesi · 5 minggu · 19.30 WIB</p>
+                </div>
+                {error && <p style={{ color: '#f87171', fontSize: '12px', marginBottom: '10px' }}>{error}</p>}
+                <button
+                  onClick={proceedToPayment}
+                  disabled={saving}
+                  style={{ background: 'var(--spark)', color: '#fff', border: 'none', borderRadius: '10px', padding: '12px', fontWeight: 700, fontSize: '14px', cursor: 'pointer', opacity: saving ? 0.7 : 1 }}
+                >
+                  {saving ? 'Memproses...' : 'Lihat Detail Pembayaran →'}
+                </button>
+              </div>
+            </div>
           </>
         )}
 
