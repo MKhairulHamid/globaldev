@@ -5,7 +5,7 @@ import Loader from '../components/Loader'
 import { authEntryPath } from '../lib/authEntry'
 
 const MATERIAL_SLUG = 'free-material'
-const MATERIAL_FILE = 'free-material.pdf'
+const MATERIAL_FILE = 'GlobalDev free-material.pdf'
 const MATERIAL_TITLE = 'Panduan Menilai Kesiapan Belajar Full Stack'
 
 export default function DownloadPage() {
