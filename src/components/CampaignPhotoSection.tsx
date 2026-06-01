@@ -2,7 +2,7 @@
 // Tersedia: Square 1080×1080, Portrait 1080×1350, Story 1080×1920
 // Download via html2canvas → PNG
 
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 
 // ── Brand tokens ──────────────────────────────────────────────────────────────
@@ -321,7 +321,7 @@ export type CampaignPhotoDef = {
   format: string
   w: number
   h: number
-  El: () => JSX.Element
+  El: () => React.ReactElement
 }
 
 export const CAMPAIGN_PHOTOS: CampaignPhotoDef[] = [
