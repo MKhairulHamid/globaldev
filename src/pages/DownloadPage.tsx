@@ -44,7 +44,7 @@ export default function DownloadPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', color: '#e5e5e5' }}>
       <div style={{ borderBottom: '1px solid #1f1f1f', padding: '16px 24px' }}>
-        <a href="/" style={{ textDecoration: 'none' }}><Logo height={22} /></a>
+        <a href={import.meta.env.BASE_URL} style={{ textDecoration: 'none' }}><Logo height={22} /></a>
       </div>
 
       <div style={{ maxWidth: '480px', margin: '0 auto', padding: '80px 24px', textAlign: 'center' }}>
@@ -94,7 +94,7 @@ export default function DownloadPage() {
               File sudah terbuka di tab baru. Kalau belum muncul, cek pengaturan pop-up browser kamu.
             </p>
             <a
-              href="/"
+              href={import.meta.env.BASE_URL}
               style={{
                 display: 'inline-block', background: '#161616', color: '#a3a3a3',
                 fontWeight: 600, fontSize: '14px', padding: '12px 24px',

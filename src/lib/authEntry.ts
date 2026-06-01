@@ -12,5 +12,6 @@ export function isReturning(): boolean {
 
 // CTA target: returning users → login, new users → signup flow
 export function authEntryPath(): string {
-  return isReturning() ? '/auth' : '/register'
+  const base = import.meta.env.BASE_URL.slice(0, -1)
+  return `${base}${isReturning() ? '/auth' : '/register'}`
 }
