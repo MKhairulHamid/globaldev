@@ -6,6 +6,7 @@ import Loader from '../components/Loader'
 import AdminLayout from '../components/AdminLayout'
 import { GOOGLE_ADS, type AdDef } from '../components/GoogleAdsSection'
 import VideoAdsSection from '../components/VideoAdsSection'
+import CampaignPhotoSection from '../components/CampaignPhotoSection'
 
 const FORMAT_LABEL: Record<string, string> = {
   l1:'Landscape',l2:'Landscape',l3:'Landscape',l4:'Landscape',l5:'Landscape',l6:'Landscape',
@@ -112,6 +113,12 @@ export default function AdminContentPage() {
           <h1 style={{ color: '#fff', fontSize: 28, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 6 }}>Content</h1>
           <p style={{ color: '#555', fontSize: 13 }}>{GOOGLE_ADS.length} Google Ads images · Brand awareness · Download PNG per image</p>
         </div>
+
+        {/* ── Foto Campaign ── */}
+        <CampaignPhotoSection />
+
+        {/* ── Divider ── */}
+        <div style={{ borderTop: '1px solid #1f1f1f', margin: '48px 0' }}/>
 
         {/* ── Video Ads ── */}
         <VideoAdsSection />
